@@ -43,6 +43,11 @@ public class ProductDbContext(DbContextOptions<ProductDbContext> options)
                     v => new ImageUrl(v))
                 .IsRequired(false);
 
+            product.HasOne<Category>()
+                .WithMany()
+                .HasForeignKey(x => x.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             product.OwnsOne(p => p.Price, price =>
             {
                 price.Property(p => p.Amount)
@@ -72,6 +77,7 @@ public class ProductDbContext(DbContextOptions<ProductDbContext> options)
                     v => new CategoryName(v))
                 .HasMaxLength(200)
                 .IsRequired();
+
         });
 
         builder.Ignore<IDomainEvent>();
