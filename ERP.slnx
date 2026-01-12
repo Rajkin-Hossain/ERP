@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/Auth/">
+    <Project Path="E:/Projects/ERP/ERP.Auth.Application/ERP.Auth.Application.csproj" />
+    <Project Path="E:/Projects/ERP/ERP.Auth.Infrastructure/ERP.Auth.Infrastructure.csproj" />
+    <Project Path="E:/Projects/ERP/ERP.Auth.Presentation/ERP.Auth.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/EFCore/" />
+  <Folder Name="/Lib/">
+    <Project Path="E:/Projects/ERP/EFCore/EFCore.csproj" />
+  </Folder>
+  <Folder Name="/Product/">
+    <Project Path="E:/Projects/ERP/ERP.Product.Application/ERP.Product.Application.csproj" />
+    <Project Path="E:/Projects/ERP/ERP.Product.Domain/ERP.Product.Domain.csproj" />
+    <Project Path="E:/Projects/ERP/ERP.Product.Infrastructure/ERP.Product.Infrastructure.csproj" />
+    <Project Path="E:/Projects/ERP/ERP.Product.Presentation/ERP.Product.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/SharedKernal/">
+    <Project Path="E:/Projects/ERP/ERP.SharedKernal/ERP.SharedKernal.csproj" />
+  </Folder>
+</Solution>

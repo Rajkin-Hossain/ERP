@@ -1,0 +1,8 @@
+﻿namespace PTE_Essay.Shared;
+
+public class Constants
+{
+    public const int DefaultPageNumber = 1;
+    public const int DefaultPageSize = 20;
+    public const int MaxPageSize = 100;
+}
