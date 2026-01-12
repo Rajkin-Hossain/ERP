@@ -8,11 +8,11 @@
   <Folder Name="/Lib/">
     <Project Path="E:/Projects/ERP/EFCore/EFCore.csproj" />
   </Folder>
-  <Folder Name="/Product/">
-    <Project Path="E:/Projects/ERP/ERP.Product.Application/ERP.Product.Application.csproj" />
-    <Project Path="E:/Projects/ERP/ERP.Product.Domain/ERP.Product.Domain.csproj" />
-    <Project Path="E:/Projects/ERP/ERP.Product.Infrastructure/ERP.Product.Infrastructure.csproj" />
-    <Project Path="E:/Projects/ERP/ERP.Product.Presentation/ERP.Product.Presentation.csproj" />
+  <Folder Name="/ProductModule/">
+    <Project Path="ERP.ProductModule.Application/ERP.ProductModule.Application.csproj" />
+    <Project Path="ERP.ProductModule.Domain/ERP.ProductModule.Domain.csproj" />
+    <Project Path="ERP.ProductModule.Infrastructure/ERP.ProductModule.Infrastructure.csproj" />
+    <Project Path="ERP.ProductModule.Presentation/ERP.ProductModule.Presentation.csproj" />
   </Folder>
   <Folder Name="/SharedKernal/">
     <Project Path="E:/Projects/ERP/ERP.SharedKernal/ERP.SharedKernal.csproj" />

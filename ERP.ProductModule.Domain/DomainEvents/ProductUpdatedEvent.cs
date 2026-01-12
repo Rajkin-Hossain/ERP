@@ -1,6 +1,6 @@
 ﻿using ERP.SharedKernal.Interfaces;
 
-namespace ERP.Product.Domain.DomainEvents;
+namespace ERP.ProductModule.Domain.DomainEvents;
 
 public record ProductUpdatedEvent : IDomainEvent
 {

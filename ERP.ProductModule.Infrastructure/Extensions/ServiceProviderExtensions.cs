@@ -1,8 +1,8 @@
-using ERP.Product.Infrastructure.Data;
+using ERP.ProductModule.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ERP.Product.Infrastructure.Extensions;
+namespace ERP.ProductModule.Infrastructure.Extensions;
 
 public static class ServiceProviderExtensions
 {

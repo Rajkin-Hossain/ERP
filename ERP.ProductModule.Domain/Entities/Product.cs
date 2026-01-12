@@ -1,8 +1,8 @@
-﻿using ERP.Product.Domain.ValueObjects;
+﻿using ERP.ProductModule.Domain.ValueObjects;
 using ERP.SharedKernal;
 using ERP.SharedKernal.Entities;
 
-namespace ERP.Product.Domain.Entities;
+namespace ERP.ProductModule.Domain.Entities;
 
 public class Product : AggregateRoot
 {

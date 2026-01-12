@@ -1,4 +1,4 @@
-﻿namespace ERP.Product.Domain.ValueObjects;
+﻿namespace ERP.ProductModule.Domain.ValueObjects;
 
 public record ProductName
 {
