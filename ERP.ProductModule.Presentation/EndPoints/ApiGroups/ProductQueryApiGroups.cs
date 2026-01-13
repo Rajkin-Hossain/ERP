@@ -8,9 +8,9 @@ public static class ProductQueryApiGroups
 {
     public static void MapProductQueryApiGroups(this RouteGroupBuilder group)
     {
-        group.MapGet(string.Empty, async (GetProductsQuery query, IMediator mediator, CancellationToken ct) =>
+        group.MapGet(string.Empty, async (IMediator mediator, CancellationToken ct) =>
         {
-            var result = await mediator.Send(query, ct);
+            var result = await mediator.Send(new GetProductsQuery(), ct);
             return result.ToHttpResult();
         })
         .ProducesStandardApiResponses()

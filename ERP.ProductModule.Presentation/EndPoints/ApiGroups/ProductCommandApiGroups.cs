@@ -14,9 +14,9 @@ public static class ProductCommandApiGroups
             return result.ToHttpResult();
         })
         .ProducesStandardApiResponses()
-        .WithSummary("Get Products")
-        .WithDescription("Returns products")
-        .WithName("GetProducts");
+        .WithSummary("Create Product")
+        .WithDescription("Creates a product")
+        .WithName("CreateProduct");
 
         group.MapPut("/{productId}", async (string productId, UpdateProductCommand cmd, IMediator mediator, CancellationToken ct) =>
         {

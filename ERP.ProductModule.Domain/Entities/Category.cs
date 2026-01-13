@@ -16,8 +16,8 @@ public sealed class Category : Entity<CategoryId>
     }
 
     // "Add Category" / Create
-    public static Category Create(CategoryId id, CategoryName categoryName)
+    public static Category Create(CategoryName categoryName)
     {
-        return new Category(id, categoryName);
+        return new Category(CategoryId.New(), categoryName);
     }
 }

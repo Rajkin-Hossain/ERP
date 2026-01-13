@@ -17,7 +17,7 @@ public sealed class ProductOutboxConfiguration
         builder.Property(p => p.Id)
             .HasConversion(
                 v => v.Value,          // OutboxMessageId -> Guid
-                v => new OutboxMessageId(v)) // Guid -> OutboxMessageId
+                v => new ProductOutboxMessageId(v)) // Guid -> OutboxMessageId
             .ValueGeneratedNever();
 
         // Event type

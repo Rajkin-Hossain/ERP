@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace ERP.ProductModule.Infrastructure.Data.ProductContext.Outbox;
 
-public sealed class ProductOutboxMessage : Entity<OutboxMessageId>
+public sealed class ProductOutboxMessage : Entity<ProductOutboxMessageId>
 {
     private ProductOutboxMessage() { } // EF
 
@@ -27,7 +27,7 @@ public sealed class ProductOutboxMessage : Entity<OutboxMessageId>
 
         return new ProductOutboxMessage
         {
-            Id = OutboxMessageId.New(),
+            Id = ProductOutboxMessageId.New(),
             EventType = eventType.FullName ?? eventType.Name,
             AggregateId = aggregateId.ToString()!, // VO ids should override ToString()
             OccurredOnUtc = DateTime.UtcNow,

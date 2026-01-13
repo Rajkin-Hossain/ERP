@@ -12,7 +12,7 @@ public static class ServiceProviderExtensions
 
         var dbContext = scope.ServiceProvider.GetRequiredService<ProductDbContext>();
 
-        await dbContext.Database.EnsureCreatedAsync();
+        //await dbContext.Database.EnsureCreatedAsync();
 
         await dbContext.Database.MigrateAsync();
     }

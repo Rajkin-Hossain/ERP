@@ -12,7 +12,7 @@ namespace ERP.ProductModule.Infrastructure.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    private const string DatabaseConnectionStringName = "erp";
+    private const string DatabaseConnectionStringName = "erp_write";
 
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {

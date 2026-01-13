@@ -5,7 +5,6 @@ namespace ERP.ProductModule.Domain.Entities;
 
 public class Product : AggregateRoot<ProductId>
 {
-    public ProductId ProductId { get; private set; }
     public ProductName ProductName { get; private set; }
     public CategoryId CategoryId { get; private set; }
     public ImageUrl ImageUrl { get; private set; }
@@ -14,13 +13,13 @@ public class Product : AggregateRoot<ProductId>
     private Product() { } // For EF Core
 
     private Product(
-        ProductId productId,
+        ProductId id,
         ProductName productName,
         CategoryId categoryId,
         ImageUrl imageUrl,
         Price price)
     {
-        ProductId = productId;
+        Id = id;
         ProductName = productName;
         CategoryId = categoryId;
         ImageUrl = imageUrl;
