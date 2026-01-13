@@ -1,4 +1,9 @@
-using ERP.ProductModule.Infrastructure.Data;
+using EFCore.Extensions;
+using ERP.ProductModule.Application.RepoInterfaces;
+using ERP.ProductModule.Infrastructure.Data.ProductContext;
+using ERP.ProductModule.Infrastructure.Repositories.ProductContext;
+using ERP.ProductModule.Infrastructure.UnitOfWorks.ProductContext;
+using ERP.SharedKernal.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +16,9 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
+        // Add DI for Library
+        services.AddEfCoreServices();
+
         services.AddDbContextPool<ProductDbContext>((serviceProvider, options) =>
         {
             var configuration = serviceProvider.GetRequiredService<IConfiguration>();
@@ -26,6 +34,9 @@ public static class ServiceCollectionExtensions
 
             options.UseNpgsql(connectionString);
         });
+
+        services.AddScoped<IUnitOfWork, ProductContextUnitOfWork>();
+        services.AddScoped<IProductRepository, ProductRepository>();
 
         return services;
     }

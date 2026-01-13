@@ -4,18 +4,18 @@ namespace ERP.ProductModule.Domain.ValueObjects;
 
 public sealed record Price
 {
-    public decimal Amount { get; }
-    public string Currency { get; }
+    public decimal Value { get; }
 
-    public Price(decimal amount, string currency)
+    public Price(decimal value)
     {
-        if (amount < 0)
+        if (value < 0)
             throw new DomainException("Amount cannot be negative.");
 
-        if (string.IsNullOrWhiteSpace(currency))
-            throw new DomainException("Currency is required.");
+        Value = value;
+    }
 
-        Amount = amount;
-        Currency = currency;
+    public static implicit operator Price(decimal value)
+    {
+        return new Price(value);
     }
 }

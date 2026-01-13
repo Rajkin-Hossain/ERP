@@ -1,4 +1,4 @@
-﻿namespace ERP.ProductModule.Domain.ValueObjects;
+namespace ERP.ProductModule.Domain.ValueObjects;
 
 public sealed record CategoryId
 {
@@ -13,4 +13,6 @@ public sealed record CategoryId
     {
         return new CategoryId(value);
     }
+
+    public static CategoryId New() => new(Guid.CreateVersion7());
 }

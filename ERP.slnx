@@ -4,7 +4,6 @@
     <Project Path="E:/Projects/ERP/ERP.Auth.Infrastructure/ERP.Auth.Infrastructure.csproj" />
     <Project Path="E:/Projects/ERP/ERP.Auth.Presentation/ERP.Auth.Presentation.csproj" />
   </Folder>
-  <Folder Name="/EFCore/" />
   <Folder Name="/Lib/">
     <Project Path="E:/Projects/ERP/EFCore/EFCore.csproj" />
   </Folder>

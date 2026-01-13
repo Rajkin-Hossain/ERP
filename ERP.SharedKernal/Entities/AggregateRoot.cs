@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace ERP.SharedKernal.Entities;
 
-public abstract class AggregateRoot : Entity
+public abstract class AggregateRoot<TId> : Entity<TId> where TId : notnull
 {
     private readonly List<IDomainEvent> _domainEvents = [];
 

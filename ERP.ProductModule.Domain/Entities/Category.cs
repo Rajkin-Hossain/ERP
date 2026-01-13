@@ -1,24 +1,23 @@
 ﻿using ERP.ProductModule.Domain.ValueObjects;
-using ERP.SharedKernal;
 using ERP.SharedKernal.Entities;
 
 namespace ERP.ProductModule.Domain.Entities;
 
-public class Category : Entity
+public sealed class Category : Entity<CategoryId>
 {
     public CategoryName CategoryName { get; private set; }
 
-    private Category(Guid id, CategoryName name)
+    private Category() { } // For EF Core
+
+    private Category(CategoryId id, CategoryName name)
     {
         Id = id;
         CategoryName = name;
     }
 
     // "Add Category" / Create
-    public static Category Create(Guid id, CategoryName categoryName)
+    public static Category Create(CategoryId id, CategoryName categoryName)
     {
-        if (id == Guid.Empty) throw new DomainException("Category id is required.");
-
         return new Category(id, categoryName);
     }
 }

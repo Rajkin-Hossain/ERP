@@ -1,44 +1,44 @@
 ﻿namespace ERP.SharedKernal.Entities;
 
-public abstract class Entity : IEquatable<Entity>
+public abstract class Entity<TId> : IEquatable<Entity<TId>>
+    where TId : notnull
 {
-    public Guid Id { get; protected set; }
+    public TId Id { get; protected set; } = default!;
 
-    public bool IsTransient => Id == Guid.Empty;
+    protected Entity() { }
 
-    public bool Equals(Entity? other)
+    protected Entity(TId id)
+    {
+        Id = id;
+    }
+
+    public bool Equals(Entity<TId>? other)
     {
         if (other is null)
             return false;
 
-        //Reference equality checker very faster
+        // Fast reference check
         if (ReferenceEquals(this, other))
             return true;
 
+        // Same concrete type only
         if (GetType() != other.GetType())
             return false;
 
-        if (IsTransient || other.IsTransient)
-            return false;
-
-        return Id == other.Id;
+        return EqualityComparer<TId>.Default.Equals(Id, other.Id);
     }
 
     public override bool Equals(object? obj)
-        => Equals(obj as Entity);
+        => Equals(obj as Entity<TId>);
 
     public override int GetHashCode()
-    {
-        if (IsTransient)
-            return base.GetHashCode();
+        => HashCode.Combine(GetType(), Id);
 
-        return HashCode.Combine(GetType(), Id);
-    }
-
-    public static bool operator ==(Entity? left, Entity? right)
+    public static bool operator ==(Entity<TId>? left, Entity<TId>? right)
         => Equals(left, right);
 
-    public static bool operator !=(Entity? left, Entity? right)
+    public static bool operator !=(Entity<TId>? left, Entity<TId>? right)
         => !Equals(left, right);
 }
+
 

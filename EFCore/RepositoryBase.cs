@@ -7,10 +7,14 @@ using System.Linq.Expressions;
 
 namespace EFCore;
 
-public class RepositoryBase<T>(DbContext dbContext)
-    : IRepositoryBase<T>
-    where T : Entity
+public class RepositoryBase<T, TId>(DbContext dbContext)
+    : IRepositoryBase<T, TId>
+    where T : Entity<TId>
+    where TId : notnull
 {
+    private static Expression<Func<T, bool>> IdEquals(TId id)
+        => x => EqualityComparer<TId>.Default.Equals(x.Id, id);
+
     // -------------------------
     // Dynamic Query
     // -------------------------
@@ -32,13 +36,13 @@ public class RepositoryBase<T>(DbContext dbContext)
     // -------------------------
     // Read Tracking
     // -------------------------
-    public async Task<T?> FindAsync(Guid id, CancellationToken ct = default)
-        => await GetConditional(x => x.Id == id).FirstOrDefaultAsync(ct);
+    public async Task<T?> FindAsync(TId id, CancellationToken ct = default)
+        => await GetConditional(IdEquals(id)).FirstOrDefaultAsync(ct);
 
     public async Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>>? predicate, CancellationToken ct = default)
         => await GetConditional(predicate).FirstOrDefaultAsync(ct);
 
-    public async Task<List<T>> FetchModelsByIdsAsync(Guid[] ids, CancellationToken ct = default)
+    public async Task<List<T>> FetchModelsByIdsAsync(TId[] ids, CancellationToken ct = default)
     {
         if (ids is null || ids.Length == 0) return [];
         return await GetConditional(x => ids.Contains(x.Id)).ToListAsync(ct);
@@ -47,28 +51,28 @@ public class RepositoryBase<T>(DbContext dbContext)
     // -------------------------
     // Read No Tracking
     // -------------------------
-    public async Task<T?> FindNoTrackingAsync(Guid id, CancellationToken ct = default)
-        => await GetNoTrackingConditional(x => x.Id == id).FirstOrDefaultAsync(ct);
+    public async Task<T?> FindNoTrackingAsync(TId id, CancellationToken ct = default)
+        => await GetNoTrackingConditional(IdEquals(id)).FirstOrDefaultAsync(ct);
 
     public async Task<T?> FirstOrDefaultNoTrackingAsync(Expression<Func<T, bool>>? predicate, CancellationToken ct = default)
         => await GetNoTrackingConditional(predicate).FirstOrDefaultAsync(ct);
 
-    public async Task<List<T>> FetchModelsByIdsNoTrackingAsync(Guid[] ids, CancellationToken ct = default)
+    public async Task<List<T>> FetchModelsByIdsNoTrackingAsync(TId[] ids, CancellationToken ct = default)
     {
         if (ids is null || ids.Length == 0) return [];
         return await GetNoTrackingConditional(x => ids.Contains(x.Id)).ToListAsync(ct);
     }
 
-    public async Task<TResult?> FindAsync<TResult>(Guid id, Expression<Func<T, TResult>> selector, CancellationToken ct = default)
+    public async Task<TResult?> FindAsync<TResult>(TId id, Expression<Func<T, TResult>> selector, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(selector);
-        return await GetConditional(x => x.Id == id).Select(selector).FirstOrDefaultAsync(ct);
+        return await GetConditional(IdEquals(id)).Select(selector).FirstOrDefaultAsync(ct);
     }
 
-    public async Task<TResult?> FindNoTrackingAsync<TResult>(Guid id, Expression<Func<T, TResult>> selector, CancellationToken ct = default)
+    public async Task<TResult?> FindNoTrackingAsync<TResult>(TId id, Expression<Func<T, TResult>> selector, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(selector);
-        return await GetNoTrackingConditional(x => x.Id == id).Select(selector).FirstOrDefaultAsync(ct);
+        return await GetNoTrackingConditional(IdEquals(id)).Select(selector).FirstOrDefaultAsync(ct);
     }
 
     public async Task<TResult?> FirstOrDefaultAsync<TResult>(
@@ -90,7 +94,7 @@ public class RepositoryBase<T>(DbContext dbContext)
     }
 
     public async Task<List<TResult>> FetchModelsByIdsAsync<TResult>(
-        Guid[] ids,
+        TId[] ids,
         Expression<Func<T, TResult>> selector,
         CancellationToken ct = default)
     {
@@ -100,7 +104,7 @@ public class RepositoryBase<T>(DbContext dbContext)
     }
 
     public async Task<List<TResult>> FetchModelsByIdsNoTrackingAsync<TResult>(
-        Guid[] ids,
+        TId[] ids,
         Expression<Func<T, TResult>> selector,
         CancellationToken ct = default)
     {

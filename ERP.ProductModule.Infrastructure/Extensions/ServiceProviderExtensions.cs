@@ -1,4 +1,4 @@
-using ERP.ProductModule.Infrastructure.Data;
+using ERP.ProductModule.Infrastructure.Data.ProductContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 

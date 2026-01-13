@@ -12,4 +12,8 @@
     <ProjectReference Include="..\ERP.ProductModule.Domain\ERP.ProductModule.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\ProductContext\" />
+  </ItemGroup>
+
 </Project>
