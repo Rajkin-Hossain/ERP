@@ -1,6 +1,7 @@
 ﻿namespace ERP.ProductModule.Infrastructure.Data.ProductContext.Configurations.OutBox;
 
-using ERP.ProductModule.Infrastructure.Data.ProductContext.Outbox;
+using ERP.ProductModule.Domain.Entities.Outbox;
+using ERP.ProductModule.Domain.ValueObjects.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -1,10 +1,11 @@
 ﻿using ERP.ProductModule.Domain.ValueObjects;
+using ERP.ProductModule.Domain.ValueObjects.Outbox;
 using ERP.SharedKernal.Entities;
 using ERP.SharedKernal.Enums;
 using ERP.SharedKernal.Interfaces;
 using System.Text.Json;
 
-namespace ERP.ProductModule.Infrastructure.Data.ProductContext.Outbox;
+namespace ERP.ProductModule.Domain.Entities.Outbox;
 
 public sealed class ProductOutboxMessage : Entity<ProductOutboxMessageId>
 {
@@ -43,9 +44,10 @@ public sealed class ProductOutboxMessage : Entity<ProductOutboxMessageId>
         PublishedOnUtc = publishedOnUtc;
     }
 
-    public void MarkDead()
+    public void MarkFailed(DateTime publishedOnUtc)
     {
-        Status = OutboxStatus.Dead;
+        Status = OutboxStatus.Failed;
+        PublishedOnUtc = publishedOnUtc;
     }
 
     public void IncrementRetry()

@@ -1,4 +1,4 @@
-﻿namespace PTE_Essay.Shared;
+﻿namespace ERP.SharedKernal;
 
 public class Constants
 {

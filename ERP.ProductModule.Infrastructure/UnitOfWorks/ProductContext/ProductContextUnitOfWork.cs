@@ -1,6 +1,6 @@
-﻿using ERP.ProductModule.Domain.ValueObjects;
+﻿using ERP.ProductModule.Domain.Entities.Outbox;
+using ERP.ProductModule.Domain.ValueObjects;
 using ERP.ProductModule.Infrastructure.Data.ProductContext;
-using ERP.ProductModule.Infrastructure.Data.ProductContext.Outbox;
 using ERP.SharedKernal.Entities;
 using ERP.SharedKernal.Interfaces;
 using Microsoft.EntityFrameworkCore;

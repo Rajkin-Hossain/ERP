@@ -4,14 +4,21 @@
     <Project Path="E:/Projects/ERP/ERP.Auth.Infrastructure/ERP.Auth.Infrastructure.csproj" />
     <Project Path="E:/Projects/ERP/ERP.Auth.Presentation/ERP.Auth.Presentation.csproj" />
   </Folder>
-  <Folder Name="/Lib/">
-    <Project Path="E:/Projects/ERP/EFCore/EFCore.csproj" />
-  </Folder>
-  <Folder Name="/ProductModule/">
+  <Folder Name="/BC/" />
+  <Folder Name="/BC/ProductModule/">
     <Project Path="ERP.ProductModule.Application/ERP.ProductModule.Application.csproj" />
     <Project Path="ERP.ProductModule.Domain/ERP.ProductModule.Domain.csproj" />
     <Project Path="ERP.ProductModule.Infrastructure/ERP.ProductModule.Infrastructure.csproj" />
     <Project Path="ERP.ProductModule.Presentation/ERP.ProductModule.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/Lib/">
+    <Project Path="E:/Projects/ERP/EFCore/EFCore.csproj" />
+    <Project Path="Quartz/Quartz.csproj" Id="07f9d461-0b5a-4aa7-8488-7cec29c4af18" />
+    <Project Path="RabbitMQ/RabbitMQ.csproj" Id="273869f9-00c5-44af-add0-f1efcf7f4260" />
+  </Folder>
+  <Folder Name="/Orchestrator/">
+    <Project Path="ERP.Orchestrator.Contract/ERP.Orchestrator.Contract.csproj" Id="34da319f-325a-4983-9cdc-4723338c6c1f" />
+    <Project Path="ERP.Orchestrator/ERP.Orchestrator.csproj" Id="686caa5c-2830-4ce6-b39e-472a2c9e5a99" />
   </Folder>
   <Folder Name="/SharedKernal/">
     <Project Path="E:/Projects/ERP/ERP.SharedKernal/ERP.SharedKernal.csproj" />

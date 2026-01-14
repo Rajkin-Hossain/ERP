@@ -1,4 +1,4 @@
-﻿using ERP.SharedKernal;
+﻿using ERP.SharedKernal.Exceptions;
 
 namespace ERP.ProductModule.Domain.ValueObjects;
 

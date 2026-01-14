@@ -1,4 +1,4 @@
-﻿namespace ERP.ProductModule.Infrastructure.Data.ProductContext.Outbox;
+﻿namespace ERP.ProductModule.Domain.ValueObjects.Outbox;
 
 public sealed record ProductOutboxMessageId
 {

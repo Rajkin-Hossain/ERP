@@ -1,7 +1,7 @@
 using ERP.ProductModule.Domain.Entities;
+using ERP.ProductModule.Domain.Entities.Outbox;
 using ERP.ProductModule.Infrastructure.Data.ProductContext.Configurations;
 using ERP.ProductModule.Infrastructure.Data.ProductContext.Configurations.OutBox;
-using ERP.ProductModule.Infrastructure.Data.ProductContext.Outbox;
 using Microsoft.EntityFrameworkCore;
 
 namespace ERP.ProductModule.Infrastructure.Data.ProductContext;
