@@ -1,5 +1,7 @@
 ﻿using ERP.ProductModule.Application.Extensions;
-using ERP.ProductModule.Infrastructure.Extensions;
+using ERP.ProductModule.MongoDb.Extensions;
+using ERP.ProductModule.RabbitMQ.Extensions;
+using HangfireJob.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -9,9 +11,12 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
     {
-        // Add DI for bounded contexts
         services.AddApplicationServices();
-        services.AddInfrastructureServices();
+
+        services.AddMessageBusInfrastructure();
+        services.AddMongoInfrastructure(configuration);
+        services.AddHangfireInfrastructure();
+
         services.AddPresentationServices(configuration);
 
         return services;

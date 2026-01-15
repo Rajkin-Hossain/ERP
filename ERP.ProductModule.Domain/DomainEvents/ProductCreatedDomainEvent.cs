@@ -2,4 +2,4 @@
 
 namespace ERP.ProductModule.Domain.DomainEvents;
 
-public record ProductCreatedDomainEvent(Guid ProductId) : IDomainEvent { }
+public record ProductCreatedDomainEvent : IDomainEvent { }

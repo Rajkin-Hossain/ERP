@@ -1,5 +1,4 @@
-﻿using ERP.ProductModule.Infrastructure.Extensions;
-using ERP.ProductModule.Presentation.EndPoints;
+﻿using ERP.ProductModule.Presentation.EndPoints;
 using ERP.ProductModule.Presentation.Extensions;
 using Scalar.AspNetCore;
 
@@ -11,11 +10,9 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    // Add migrations for bounded contexts
-    await app.Services.MigrateDbContext();
+    //await app.Services.MigrateDbContext();
 
     app.MapOpenApi();
-
     //scalar api reference
     app.MapScalarApiReference();
 }
@@ -25,12 +22,10 @@ app.UseHttpsRedirection();
 
 app.UseExceptionHandler();
 
-app.UseExceptionHandler();
-
 app.UseCors("ApiCors");
 
-app.UseAuthentication();
-app.UseAuthorization();
+//app.UseAuthentication();
+//app.UseAuthorization();
 
 app.MapGet("/", () => Results.Redirect("/scalar", permanent: false));
 

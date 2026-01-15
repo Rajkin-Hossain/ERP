@@ -6,19 +6,26 @@
   </Folder>
   <Folder Name="/BC/" />
   <Folder Name="/BC/ProductModule/">
-    <Project Path="ERP.ProductModule.Application/ERP.ProductModule.Application.csproj" />
-    <Project Path="ERP.ProductModule.Domain/ERP.ProductModule.Domain.csproj" />
-    <Project Path="ERP.ProductModule.Infrastructure/ERP.ProductModule.Infrastructure.csproj" />
-    <Project Path="ERP.ProductModule.Presentation/ERP.ProductModule.Presentation.csproj" />
+    <Project Path="E:/Projects/ERP/ERP.ProductModule.Application/ERP.ProductModule.Application.csproj" />
+    <Project Path="E:/Projects/ERP/ERP.ProductModule.Domain/ERP.ProductModule.Domain.csproj" />
+    <Project Path="E:/Projects/ERP/ERP.ProductModule.Presentation/ERP.ProductModule.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/BC/ProductModule/Infrastructures/">
+    <Project Path="E:/Projects/ERP/ERP.ProductModule.MongoDb/ERP.ProductModule.MongoDb.csproj" Id="1d1d34f8-0c20-445d-9e12-2d4dd9f62c79" />
+    <Project Path="E:/Projects/ERP/ERP.ProductModule.RabbitMQ/ERP.ProductModule.RabbitMQ.csproj" Id="f2aedec5-f3a5-4141-97f4-904c1ba8dc61" />
+  </Folder>
+  <Folder Name="/Host/">
+    <Project Path="E:/Projects/ERP/ERP.AppHost/ERP.AppHost.csproj" Id="560ac3a6-60c4-458a-a65a-9e30e87d0c01" />
   </Folder>
   <Folder Name="/Lib/">
     <Project Path="E:/Projects/ERP/EFCore/EFCore.csproj" />
-    <Project Path="Quartz/Quartz.csproj" Id="07f9d461-0b5a-4aa7-8488-7cec29c4af18" />
-    <Project Path="RabbitMQ/RabbitMQ.csproj" Id="273869f9-00c5-44af-add0-f1efcf7f4260" />
+    <Project Path="E:/Projects/ERP/HangfireJob/HangfireJob.csproj" Id="7ac2b0dd-c6c2-423f-b897-ef72835819be" />
+    <Project Path="E:/Projects/ERP/MongoDb/MongoDb.csproj" Id="4282a81a-15cf-4479-b422-7c23983c4255" />
+    <Project Path="E:/Projects/ERP/RabbitMQ/RabbitMQ.csproj" Id="273869f9-00c5-44af-add0-f1efcf7f4260" />
   </Folder>
   <Folder Name="/Orchestrator/">
-    <Project Path="ERP.Orchestrator.Contract/ERP.Orchestrator.Contract.csproj" Id="34da319f-325a-4983-9cdc-4723338c6c1f" />
-    <Project Path="ERP.Orchestrator/ERP.Orchestrator.csproj" Id="686caa5c-2830-4ce6-b39e-472a2c9e5a99" />
+    <Project Path="E:/Projects/ERP/ERP.Orchestrator.Contract/ERP.Orchestrator.Contract.csproj" Id="34da319f-325a-4983-9cdc-4723338c6c1f" />
+    <Project Path="E:/Projects/ERP/ERP.Orchestrator/ERP.Orchestrator.csproj" Id="686caa5c-2830-4ce6-b39e-472a2c9e5a99" />
   </Folder>
   <Folder Name="/SharedKernal/">
     <Project Path="E:/Projects/ERP/ERP.SharedKernal/ERP.SharedKernal.csproj" />

@@ -2,8 +2,7 @@
 
 public interface IUnitOfWork
 {
-    Task<TResult> ExecuteInTransactionAsync<TResult>(
-        Func<CancellationToken, Task<TResult>> action,
+    Task<TResult> StartTransactionAsync<TResult>(
+        Func<CancellationToken, Task<TResult>> dbAction,
         CancellationToken ct = default);
-    Task<int> SaveChangesAsync(CancellationToken ct = default);
 }

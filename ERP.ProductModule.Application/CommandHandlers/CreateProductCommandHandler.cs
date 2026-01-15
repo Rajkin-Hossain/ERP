@@ -1,5 +1,5 @@
 ﻿using ERP.ProductModule.Application.Commands;
-using ERP.ProductModule.Application.RepoInterfaces;
+using ERP.ProductModule.Application.RepoInterfaces.Write;
 using ERP.ProductModule.Domain.Entities;
 using ERP.ProductModule.Domain.ValueObjects;
 using ERP.SharedKernal.AppResult;
@@ -10,10 +10,11 @@ namespace ERP.ProductModule.Application.CommandHandlers;
 
 public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, AppResult<ProductId>>
 {
-    private readonly IProductRepository _repo;
+    private readonly IProductWriteRepository _repo;
     private readonly IUnitOfWork _unitOfWork;
 
-    public CreateProductCommandHandler(IProductRepository repo, IUnitOfWork unitOfWork)
+    public CreateProductCommandHandler(IProductWriteRepository repo, 
+        IUnitOfWork unitOfWork)
     {
         _repo = repo;
         _unitOfWork = unitOfWork;
@@ -23,11 +24,9 @@ public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductC
     {
         var product = Product.Create(request.Name, request.CategoryId, request.ImageUrl, request.Price);
 
-        var productId = await _unitOfWork.ExecuteInTransactionAsync(async ct =>
+        var productId = await _unitOfWork.StartTransactionAsync(async ct =>
         {
-            _repo.Insert(product);
-
-            await _unitOfWork.SaveChangesAsync(ct);
+            await _repo.InsertAsync(product, ct);
 
             return product.Id;
         }, ct);

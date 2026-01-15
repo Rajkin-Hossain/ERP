@@ -15,14 +15,14 @@ public class ProductManagementOrchestrator
 
     public async Task ProductCreatedEventHandler(ProductCreatedEvent e)
     {
-        await _serviceBus.Send(
+        await _serviceBus.PublishCommand(
             new CreateProductCommand(e.ProductId), CancellationToken.None
         );
     }
 
     public async Task ProductUpdatedEventHandler(ProductUpdatedEvent e)
     {
-        await _serviceBus.Send(
+        await _serviceBus.PublishCommand(
             new UpdateProductCommand(e.ProductId), CancellationToken.None
         );
     }

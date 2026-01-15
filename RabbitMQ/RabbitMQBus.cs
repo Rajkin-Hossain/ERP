@@ -13,12 +13,12 @@ public class RabbitMQBus : IServiceBus
         _bus = bus;
     }
 
-    public async Task Publish(IEvent evt, CancellationToken ct = default)
+    public async Task PublishEvent(IEvent evt, CancellationToken ct = default)
     {
         await _bus.Publish(evt, evt.GetType(), ct);
     }
 
-    public async Task Send(ICommand command, CancellationToken ct = default)
+    public async Task PublishCommand(ICommand command, CancellationToken ct = default)
     {
         await _bus.Publish(command, command.GetType(), ct);
     }

@@ -22,8 +22,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ERP.ProductModule.Application\ERP.ProductModule.Application.csproj" />
-    <ProjectReference Include="..\ERP.ProductModule.Infrastructure\ERP.ProductModule.Infrastructure.csproj" />
+    <ProjectReference Include="..\ERP.ProductModule.MongoDb\ERP.ProductModule.MongoDb.csproj" />
+    <ProjectReference Include="..\ERP.ProductModule.RabbitMQ\ERP.ProductModule.RabbitMQ.csproj" />
     <ProjectReference Include="..\ERP.SharedKernal\ERP.SharedKernal.csproj" />
+    <ProjectReference Include="..\HangfireJob\HangfireJob.csproj" />
   </ItemGroup>
 
 </Project>
