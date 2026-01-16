@@ -1,6 +1,6 @@
 namespace MongoDb.Configurations;
 
-public interface IMongoConfiguration
+public interface IMongoDbConfiguration
 {
     void Configure();
 }
