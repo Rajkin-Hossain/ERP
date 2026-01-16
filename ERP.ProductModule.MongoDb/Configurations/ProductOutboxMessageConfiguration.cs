@@ -16,25 +16,32 @@ public sealed class ProductOutboxMessageConfiguration : IEntityTypeConfiguration
 
         builder.HasKey(message => message.Id);
         builder.Property(message => message.Id)
-            .HasConversion(id => id.Value, value => new ProductOutboxMessageId(value));
+            .HasConversion(id => id.Value, value => new ProductOutboxMessageId(value))
+            .HasElementName("_id");
 
         builder.Property(message => message.EventType)
+            .HasElementName("EventType")
             .IsRequired();
 
         builder.Property(message => message.AggregateId)
+            .HasElementName("AggregateId")
             .IsRequired();
 
         builder.Property(message => message.Payload)
+            .HasElementName("Payload")
             .IsRequired();
 
         builder.Property(message => message.Status)
             .HasConversion<int>()
+            .HasElementName("Status")
             .IsRequired();
 
         builder.Property(message => message.OccurredOnUtc)
+            .HasElementName("OccurredOnUtc")
             .IsRequired();
 
         builder.Property(message => message.RetryCount)
+            .HasElementName("RetryCount")
             .IsRequired();
     }
 }

@@ -21,7 +21,7 @@ public sealed class CategoryConfiguration : IEntityTypeConfiguration<Category>
 
         builder.Property(category => category.CategoryName)
             .HasConversion(name => name.Value, value => new CategoryName(value))
-            .HasElementName("categoryName")
+            .HasElementName("CategoryName")
             .IsRequired();
     }
 }

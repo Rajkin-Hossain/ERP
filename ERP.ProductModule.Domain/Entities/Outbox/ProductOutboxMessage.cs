@@ -30,7 +30,7 @@ public sealed class ProductOutboxMessage : Entity<ProductOutboxMessageId>
         {
             Id = ProductOutboxMessageId.New(),
             EventType = eventType.FullName ?? eventType.Name,
-            AggregateId = aggregateId.ToString()!, // VO ids should override ToString()
+            AggregateId = aggregateId.Value.ToString(),
             OccurredOnUtc = DateTime.UtcNow,
             Payload = JsonSerializer.Serialize(domainEvent, eventType, jsonOptions),
             Status = OutboxStatus.Pending,
