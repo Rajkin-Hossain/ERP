@@ -21,7 +21,7 @@ public sealed class UpdateProductCommandHandler : IRequestHandler<UpdateProductC
 
     public async Task<AppResult<ProductId>> Handle(UpdateProductCommand request, CancellationToken ct)
     {
-        var product = await _repo.FindAsync(request.ProductId, ct);
+        var product = await _repo.FindAsync(Guid.Parse(request.ProductId), ct);
 
         if (product == null)
         {

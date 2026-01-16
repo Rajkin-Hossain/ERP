@@ -22,7 +22,7 @@ public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductC
 
     public async Task<AppResult<ProductId>> Handle(CreateProductCommand request, CancellationToken ct)
     {
-        var product = Product.Create(request.Name, request.CategoryId, request.ImageUrl, request.Price);
+        var product = Product.Create(request.Name, Guid.Parse(request.CategoryId), request.ImageUrl, request.Price);
 
         var productId = await _unitOfWork.StartTransactionAsync(async ct =>
         {

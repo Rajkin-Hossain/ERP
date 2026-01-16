@@ -4,5 +4,5 @@ using MediatR;
 
 namespace ERP.ProductModule.Application.Commands;
 
-public sealed record CreateProductCommand(string Name, decimal Price, string ImageUrl, Guid CategoryId) : IRequest<AppResult<ProductId>>;
-public sealed record UpdateProductCommand(Guid ProductId, string Name, decimal Price, string ImageUrl) : IRequest<AppResult<ProductId>>;
+public sealed record CreateProductCommand(string Name, decimal Price, string ImageUrl, string CategoryId) : IRequest<AppResult<ProductId>>;
+public sealed record UpdateProductCommand(string ProductId, string Name, decimal Price, string ImageUrl) : IRequest<AppResult<ProductId>>;

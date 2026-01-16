@@ -3,6 +3,7 @@ using ERP.ProductModule.MongoDb.Extensions;
 using ERP.ProductModule.RabbitMQ.Extensions;
 using HangfireJob.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 
 namespace ERP.ProductModule.Presentation.Extensions;
@@ -25,13 +26,25 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddPresentationServices(this IServiceCollection services, IConfiguration configuration)
     {
         //For unhandled exceptions
-        services.AddProblemDetails();
+        services.AddProblemDetails(options =>
+        {
+            options.CustomizeProblemDetails = context =>
+            {
+                var exception = context.HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
+                if (exception != null)
+                {
+                    // This adds a 'rawError' field to your JSON output
+                    context.ProblemDetails.Extensions["rawError"] = exception.Message;
+                    context.ProblemDetails.Extensions["stackTrace"] = exception.StackTrace;
+                }
+            };
+        });
 
         //OpenApi Specification
         services.AddOpenApi();
 
         //Authentication & Authorization
-        services.AddAuthServices(configuration);
+        //services.AddAuthServices(configuration);
 
         // CORS
         services.AddCorsServices(configuration);

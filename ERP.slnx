@@ -18,7 +18,6 @@
     <Project Path="E:/Projects/ERP/ERP.AppHost/ERP.AppHost.csproj" Id="560ac3a6-60c4-458a-a65a-9e30e87d0c01" />
   </Folder>
   <Folder Name="/Lib/">
-    <Project Path="E:/Projects/ERP/EFCore/EFCore.csproj" />
     <Project Path="E:/Projects/ERP/HangfireJob/HangfireJob.csproj" Id="7ac2b0dd-c6c2-423f-b897-ef72835819be" />
     <Project Path="E:/Projects/ERP/MongoDb/MongoDb.csproj" Id="4282a81a-15cf-4479-b422-7c23983c4255" />
     <Project Path="E:/Projects/ERP/RabbitMQ/RabbitMQ.csproj" Id="273869f9-00c5-44af-add0-f1efcf7f4260" />
