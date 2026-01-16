@@ -1,0 +1,25 @@
+﻿using ERP.ProductModule.Domain.Entities;
+using ERP.ProductModule.Domain.ValueObjects;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace ERP.ProductModule.MongoDb.Configurations;
+
+public sealed class CategoryConfiguration : IEntityTypeConfiguration<Category>
+{
+    public const string CollectionName = "categories";
+
+    public void Configure(EntityTypeBuilder<Category> builder)
+    {
+        builder.ToCollection(CollectionName);
+
+        builder.HasKey(category => category.Id);
+        builder.Property(category => category.Id)
+            .HasConversion(id => id.Value, value => new CategoryId(value));
+
+        builder.Property(category => category.CategoryName)
+            .HasConversion(name => name.Value, value => new CategoryName(value))
+            .HasMaxLength(200)
+            .IsRequired();
+    }
+}

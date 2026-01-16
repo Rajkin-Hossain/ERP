@@ -1,46 +1,37 @@
-using ERP.ProductModule.Domain.Entities;
+﻿using ERP.ProductModule.Domain.Entities;
 using ERP.ProductModule.Domain.ValueObjects;
-using ERP.SharedKernal.Entities;
-using MongoDb.Configurations;
-using MongoDb.Serializers;
-using MongoDB.Bson.Serialization;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ERP.ProductModule.MongoDb.Configurations;
 
-public class ProductConfiguration : MongoDbConfiguration<Product>
+public sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
 {
-    public override void Configure()
+    public const string CollectionName = "products";
+
+    public void Configure(EntityTypeBuilder<Product> builder)
     {
-        // Explicitly map the base class to handle the inherited Id property
-        if (!BsonClassMap.IsClassMapRegistered(typeof(Entity<ProductId>)))
-        {
-            BsonClassMap.RegisterClassMap<Entity<ProductId>>(map =>
-            {
-                map.SetIgnoreExtraElements(true);
-                map.MapIdMember(c => c.Id)
-                   .SetSerializer(new SingleValueObjectSerializer<ProductId, Guid>(v => new ProductId(v), o => o.Value));
-            });
-        }
+        builder.ToCollection(CollectionName);
 
-        base.Configure();
-    }
+        builder.HasKey(product => product.Id);
+        builder.Property(product => product.Id)
+            .HasConversion(id => id.Value, value => new ProductId(value));
 
-    protected override void Configure(BsonClassMap<Product> map)
-    {
-        map.SetIgnoreExtraElements(true);
+        builder.Property(product => product.ProductName)
+            .HasConversion(name => name.Value, value => new ProductName(value))
+            .HasMaxLength(200)
+            .IsRequired();
 
-        // Id is mapped in the base class Entity<ProductId>
+        builder.Property(product => product.CategoryId)
+            .HasConversion(id => id.Value, value => new CategoryId(value))
+            .IsRequired();
 
-        map.MapMember(p => p.ProductName)
-           .SetSerializer(new SingleValueObjectSerializer<ProductName, string>(v => new ProductName(v), o => o.Value));
+        builder.Property(product => product.ImageUrl)
+            .HasConversion(url => url.Value, value => new ImageUrl(value))
+            .IsRequired();
 
-        map.MapMember(p => p.CategoryId)
-           .SetSerializer(new SingleValueObjectSerializer<CategoryId, Guid>(v => new CategoryId(v), o => o.Value));
-
-        map.MapMember(p => p.ImageUrl)
-           .SetSerializer(new SingleValueObjectSerializer<ImageUrl, string>(v => new ImageUrl(v), o => o.Value));
-
-        map.MapMember(p => p.Price)
-           .SetSerializer(new SingleValueObjectSerializer<Price, decimal>(v => new Price(v), o => o.Value));
+        builder.Property(product => product.Price)
+            .HasConversion(price => price.Value, value => new Price(value))
+            .IsRequired();
     }
 }
