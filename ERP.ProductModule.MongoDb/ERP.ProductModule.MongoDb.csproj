@@ -6,13 +6,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.2" />
-    <PackageReference Include="MongoDB.EntityFrameworkCore" Version="10.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ItemGroup>
     <ProjectReference Include="..\ERP.ProductModule.Application\ERP.ProductModule.Application.csproj" />
     <ProjectReference Include="..\ERP.ProductModule.Domain\ERP.ProductModule.Domain.csproj" />
     <ProjectReference Include="..\ERP.SharedKernal\ERP.SharedKernal.csproj" />

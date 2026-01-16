@@ -5,6 +5,7 @@ using HangfireJob.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
+using MongoDb.Extensions;
 
 namespace ERP.ProductModule.Presentation.Extensions;
 

@@ -1,5 +1,4 @@
 ﻿using ERP.ProductModule.MongoDb.Configurations;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using MongoDb.Options;
 using MongoDB.Bson;
@@ -9,7 +8,7 @@ namespace ERP.ProductModule.MongoDb.Indexes;
 
 public sealed class ProductIndexInitializer(
     IMongoClient client,
-    IOptions<MongoOptions> options) : IHostedService
+    IOptions<MongoOptions> options)
 {
     public async Task StartAsync(CancellationToken cancellationToken)
     {

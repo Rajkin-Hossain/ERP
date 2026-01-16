@@ -1,25 +1,20 @@
-﻿namespace MongoDb;
-
-using ERP.SharedKernal.Entities;
+﻿using ERP.SharedKernal.Entities;
 using ERP.SharedKernal.Interfaces;
-using MongoDb.DbContext;
-using MongoDB.Driver;
-using MongoDB.Driver.Linq;
+using Microsoft.EntityFrameworkCore;
 using PTE_Essay.Shared.Paging;
 using System.Linq.Expressions;
 
-public abstract class MongoRepositoryBase<T, TId>(MongoDbContext dbContext) : IRepositoryBase<T, TId>
+namespace MongoDb;
+
+public abstract class MongoRepositoryBase<T, TId>(DbContext dbContext) : IRepositoryBase<T, TId>
     where T : Entity<TId>
     where TId : notnull
 {
-    private readonly IMongoCollection<T> _collection = dbContext.Set<T>();
+    private readonly DbSet<T> _dbSet = dbContext.Set<T>();
 
-    // -------------------------
-    // Query
-    // -------------------------
     public IQueryable<T> GetConditional(Expression<Func<T, bool>>? predicate = null)
     {
-        var query = _collection.AsQueryable();
+        var query = _dbSet.AsQueryable();
         return predicate is null ? query : query.Where(predicate);
     }
 
@@ -28,105 +23,85 @@ public abstract class MongoRepositoryBase<T, TId>(MongoDbContext dbContext) : IR
         return GetConditional(predicate).Take(1);
     }
 
-    // -------------------------
-    // Read
-    // -------------------------
-    public async Task<T?> FindAsync(TId id, CancellationToken ct = default)
+    public Task<T?> FindAsync(TId id, CancellationToken ct = default)
     {
-        var filter = Builders<T>.Filter.Eq(x => x.Id, id);
-        return await _collection.Find(filter).FirstOrDefaultAsync(ct);
+        return _dbSet.FirstOrDefaultAsync(entity => entity.Id.Equals(id), ct);
     }
 
-    public async Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>>? predicate, CancellationToken ct = default)
+    public Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>>? predicate, CancellationToken ct = default)
     {
-        var query = predicate is null 
-            ? _collection.AsQueryable() 
-            : _collection.AsQueryable().Where(predicate);
-        return await query.FirstOrDefaultAsync(ct);
+        return predicate is null
+            ? _dbSet.FirstOrDefaultAsync(ct)
+            : _dbSet.FirstOrDefaultAsync(predicate, ct);
     }
 
-    public async Task<bool> ExistAsync(Expression<Func<T, bool>>? predicate, CancellationToken ct = default)
+    public Task<bool> ExistAsync(Expression<Func<T, bool>>? predicate, CancellationToken ct = default)
     {
-         var query = predicate is null 
-            ? _collection.AsQueryable() 
-            : _collection.AsQueryable().Where(predicate);
-        return await query.AnyAsync(ct);
+        return predicate is null
+            ? _dbSet.AnyAsync(ct)
+            : _dbSet.AnyAsync(predicate, ct);
     }
 
-    public async Task<List<T>> FetchModelsByIdsAsync(TId[] ids, CancellationToken ct = default)
+    public Task<List<T>> FetchModelsByIdsAsync(TId[] ids, CancellationToken ct = default)
     {
-        if (ids is null || ids.Length == 0) return [];
-        var filter = Builders<T>.Filter.In(x => x.Id, ids);
-        return await _collection.Find(filter).ToListAsync(ct);
+        if (ids is null || ids.Length == 0)
+        {
+            return Task.FromResult<List<T>>([]);
+        }
+
+        return _dbSet.Where(entity => ids.Contains(entity.Id)).ToListAsync(ct);
     }
 
-    public async Task<TResult?> FindAsync<TResult>(TId id, Expression<Func<T, TResult>> selector, CancellationToken ct = default)
+    public Task<TResult?> FindAsync<TResult>(TId id, Expression<Func<T, TResult>> selector, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(selector);
-        var query = _collection.AsQueryable().Where(x => x.Id.Equals(id));
-        return await query.Select(selector).FirstOrDefaultAsync(ct);
+        return _dbSet.Where(entity => entity.Id.Equals(id)).Select(selector).FirstOrDefaultAsync(ct);
     }
 
-    public async Task<TResult?> FirstOrDefaultAsync<TResult>(Expression<Func<T, bool>>? predicate, Expression<Func<T, TResult>> selector, CancellationToken ct = default)
+    public Task<TResult?> FirstOrDefaultAsync<TResult>(Expression<Func<T, bool>>? predicate, Expression<Func<T, TResult>> selector, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(selector);
         var query = GetConditional(predicate);
-        return await query.Select(selector).FirstOrDefaultAsync(ct);
+        return query.Select(selector).FirstOrDefaultAsync(ct);
     }
 
-    public async Task<List<TResult>> FetchModelsByIdsAsync<TResult>(TId[] ids, Expression<Func<T, TResult>> selector, CancellationToken ct = default)
+    public Task<List<TResult>> FetchModelsByIdsAsync<TResult>(TId[] ids, Expression<Func<T, TResult>> selector, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(selector);
-        if (ids is null || ids.Length == 0) return [];
-        return await _collection.AsQueryable()
-            .Where(x => ids.Contains(x.Id))
-            .Select(selector)
-            .ToListAsync(ct);
+        if (ids is null || ids.Length == 0)
+        {
+            return Task.FromResult<List<TResult>>([]);
+        }
+
+        return _dbSet.Where(entity => ids.Contains(entity.Id)).Select(selector).ToListAsync(ct);
     }
 
-    // -------------------------
-    // Insert
-    // -------------------------
-    public async Task InsertAsync(T model, CancellationToken ct = default)
+    public Task InsertAsync(T model, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(model);
-        await _collection.InsertOneAsync(model, cancellationToken: ct);
+        return _dbSet.AddAsync(model, ct).AsTask();
     }
 
-    public async Task InsertRangeAsync(IEnumerable<T> models, CancellationToken ct = default)
+    public Task InsertRangeAsync(IEnumerable<T> models, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(models);
-        var list = models.ToList();
-
-        if (list.Count > 0)
-        {
-            await _collection.InsertManyAsync(list, cancellationToken: ct);
-        }
+        return _dbSet.AddRangeAsync(models, ct);
     }
 
-    // -------------------------
-    // Update
-    // -------------------------
-    public async Task UpdateAsync(T model, CancellationToken ct = default)
+    public Task UpdateAsync(T model, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(model);
-        var filter = Builders<T>.Filter.Eq(x => x.Id, model.Id);
-        await _collection.ReplaceOneAsync(filter, model, cancellationToken: ct);
+        _dbSet.Update(model);
+        return Task.CompletedTask;
     }
 
-    // -------------------------
-    // Delete
-    // -------------------------
-    public async Task DeleteAsync(T model, CancellationToken ct = default)
+    public Task DeleteAsync(T model, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(model);
-        var filter = Builders<T>.Filter.Eq(x => x.Id, model.Id);
-        await _collection.DeleteOneAsync(filter, cancellationToken: ct);
+        _dbSet.Remove(model);
+        return Task.CompletedTask;
     }
 
-    // -------------------------
-    // Pagination
-    // -------------------------
     public async Task<PagedResult<T>> ToPagedResultAsync(
         IQueryable<T> source,
         int pageNumber,
@@ -140,7 +115,9 @@ public abstract class MongoRepositoryBase<T, TId>(MongoDbContext dbContext) : IR
         var totalCount = await source.CountAsync(ct);
 
         if (totalCount == 0)
+        {
             return PagedResult<T>.Create([], pageNumber, pageSize, 0);
+        }
 
         var items = await source
             .Skip((pageNumber - 1) * pageSize)
@@ -165,7 +142,9 @@ public abstract class MongoRepositoryBase<T, TId>(MongoDbContext dbContext) : IR
         var totalCount = await source.CountAsync(ct);
 
         if (totalCount == 0)
+        {
             return PagedResult<TResult>.Create([], pageNumber, pageSize, 0);
+        }
 
         var items = await source
             .Skip((pageNumber - 1) * pageSize)

@@ -2,11 +2,11 @@
 using ERP.ProductModule.Domain.Entities.Outbox;
 using ERP.ProductModule.Domain.ValueObjects.Outbox;
 using ERP.ProductModule.MongoDb.Data;
-using ERP.ProductModule.MongoDb.Repositories;
+using MongoDb;
 
 namespace ERP.ProductModule.MongoDb.Repositories;
 
 public class ProductOutboxRepository(ProductDbContext dbContext)
-    : EfCoreRepositoryBase<ProductOutboxMessage, ProductOutboxMessageId>(dbContext), IProductOutboxRepository
+    : MongoRepositoryBase<ProductOutboxMessage, ProductOutboxMessageId>(dbContext), IProductOutboxRepository
 {
 }

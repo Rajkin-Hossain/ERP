@@ -1,5 +1,5 @@
 using ERP.SharedKernal.Interfaces;
-using MongoDB.Driver.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace MongoDb.QueryExecutor;
 

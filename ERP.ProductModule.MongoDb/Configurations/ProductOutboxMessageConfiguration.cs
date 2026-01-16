@@ -2,6 +2,7 @@
 using ERP.ProductModule.Domain.ValueObjects.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using MongoDB.EntityFrameworkCore.Extensions;
 
 namespace ERP.ProductModule.MongoDb.Configurations;
 
