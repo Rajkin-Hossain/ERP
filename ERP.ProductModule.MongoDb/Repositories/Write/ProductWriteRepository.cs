@@ -2,11 +2,11 @@
 using ERP.ProductModule.Domain.Entities;
 using ERP.ProductModule.Domain.ValueObjects;
 using ERP.ProductModule.MongoDb.Data;
-using MongoDb;
+using ERP.ProductModule.MongoDb.Repositories;
 
 namespace ERP.ProductModule.MongoDb.Repositories.Write;
 
-public class ProductWriteRepository(ProductWriteDbContext dbcontext)
-    : MongoRepositoryBase<Product, ProductId>(dbcontext), IProductWriteRepository
+public class ProductWriteRepository(ProductDbContext dbcontext)
+    : EfCoreRepositoryBase<Product, ProductId>(dbcontext), IProductWriteRepository
 {
 }

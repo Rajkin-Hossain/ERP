@@ -1,56 +1,48 @@
-﻿using ERP.SharedKernal.Exceptions;
+﻿using ERP.ProductModule.MongoDb.Data;
 using ERP.SharedKernal.Interfaces;
-using MongoDB.Driver;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace ERP.ProductModule.MongoDb.UnitOfWorks;
 
-public class ProductContextUnitOfWork : IUnitOfWork, IDisposable
+public sealed class ProductContextUnitOfWork(ProductDbContext dbContext) : IUnitOfWork
 {
-    private readonly IMongoClient _client;
-    public IClientSessionHandle? Session { get; private set; }
-
-    public ProductContextUnitOfWork(IMongoClient client)
-    {
-        _client = client;
-    }
-
-    public async Task<TResult> StartTransactionAsync<TResult>(Func<CancellationToken, 
-        Task<TResult>> dbAction, 
+    public async Task<TResult> StartTransactionAsync<TResult>(
+        Func<CancellationToken, Task<TResult>> dbAction,
         CancellationToken ct = default)
     {
+        ArgumentNullException.ThrowIfNull(dbAction);
+
+        IDbContextTransaction? transaction = null;
+
         try
         {
-            Session = await _client.StartSessionAsync(cancellationToken: ct);
-
-            Session.StartTransaction();
-
+            transaction = await dbContext.Database.BeginTransactionAsync(ct);
             var result = await dbAction(ct);
-
-            await CommitTransactionAsync(ct);
-
+            await dbContext.SaveChangesAsync(ct);
+            await transaction.CommitAsync(ct);
             return result;
         }
-        catch (Exception ex)
+        catch (NotSupportedException)
         {
-            if (Session != null && Session.IsInTransaction)
+            var result = await dbAction(ct);
+            await dbContext.SaveChangesAsync(ct);
+            return result;
+        }
+        catch
+        {
+            if (transaction is not null)
             {
-                await Session.AbortTransactionAsync(ct);
+                await transaction.RollbackAsync(ct);
             }
 
-            throw new MongoDbException(ex.Message);
+            throw;
         }
-    }
-
-    private async Task CommitTransactionAsync(CancellationToken ct = default)
-    {
-        if (Session != null && Session.IsInTransaction)
+        finally
         {
-            await Session.CommitTransactionAsync(ct);
+            if (transaction is not null)
+            {
+                await transaction.DisposeAsync();
+            }
         }
-    }
-
-    public void Dispose()
-    {
-        Session?.Dispose();
     }
 }

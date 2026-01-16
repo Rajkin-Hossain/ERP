@@ -2,11 +2,11 @@
 using ERP.ProductModule.Domain.Entities;
 using ERP.ProductModule.Domain.ValueObjects;
 using ERP.ProductModule.MongoDb.Data;
-using MongoDb;
+using ERP.ProductModule.MongoDb.Repositories;
 
 namespace ERP.ProductModule.MongoDb.Repositories.Read;
 
-public class ProductReadRepository(ProductReadDbContext dbcontext)
-    : MongoRepositoryBase<Product, ProductId>(dbcontext), IProductReadRepository
+public class ProductReadRepository(ProductDbContext dbcontext)
+    : EfCoreRepositoryBase<Product, ProductId>(dbcontext), IProductReadRepository
 {
 }
