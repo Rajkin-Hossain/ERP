@@ -16,11 +16,12 @@ public sealed class CategoryConfiguration : IEntityTypeConfiguration<Category>
 
         builder.HasKey(category => category.Id);
         builder.Property(category => category.Id)
-            .HasConversion(id => id.Value, value => new CategoryId(value));
+            .HasConversion(id => id.Value, value => new CategoryId(value))
+            .HasElementName("_id");
 
         builder.Property(category => category.CategoryName)
             .HasConversion(name => name.Value, value => new CategoryName(value))
-            .HasMaxLength(200)
+            .HasElementName("categoryName")
             .IsRequired();
     }
 }

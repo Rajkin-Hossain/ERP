@@ -16,38 +16,27 @@ public sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
 
         builder.HasKey(product => product.Id);
         builder.Property(product => product.Id)
-            .HasConversion(id => id.Value, value => new ProductId(value));
+            .HasConversion(id => id.Value, value => new ProductId(value))
+            .HasElementName("_id");
 
         builder.Property(product => product.CategoryId)
             .HasConversion(id => id.Value, value => new CategoryId(value))
+            .HasElementName("CategoryId")
             .IsRequired();
 
-        /*builder.Property(product => product.ProductName)
+        builder.Property(product => product.ProductName)
             .HasConversion(name => name.Value, value => new ProductName(value))
-            .HasMaxLength(200)
+            .HasElementName("ProductName")
             .IsRequired();
 
         builder.Property(product => product.ImageUrl)
             .HasConversion(url => url.Value, value => new ImageUrl(value))
+            .HasElementName("ImageUrl")
             .IsRequired();
 
         builder.Property(product => product.Price)
             .HasConversion(price => price.Value, value => new Price(value))
-            .IsRequired();*/
-
-        builder.OwnsOne(p => p.ProductName, owned =>
-        {
-            owned.Property(x => x.Value).HasElementName("productName");
-        });
-
-        builder.OwnsOne(p => p.ImageUrl, owned =>
-        {
-            owned.Property(x => x.Value).HasElementName("imageUrl");
-        });
-
-        builder.OwnsOne(p => p.Price, owned =>
-        {
-            owned.Property(x => x.Value).HasElementName("price");
-        });
+            .HasElementName("Price")
+            .IsRequired();
     }
 }

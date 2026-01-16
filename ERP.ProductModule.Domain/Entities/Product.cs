@@ -11,7 +11,7 @@ public class Product : AggregateRoot<ProductId>
     public ImageUrl ImageUrl { get; private set; }
     public Price Price { get; private set; }
 
-    private Product() { } // For EF Core
+    private Product() { }
 
     private Product(
         ProductId id,
