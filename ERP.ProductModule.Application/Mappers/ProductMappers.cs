@@ -7,9 +7,9 @@ namespace ERP.ProductModule.Application.Mappers;
 public static class ProductMappers
 {
     public static Expression<Func<Product, ProductResult>> ToProductToProductResultExpression
-        => product => new ProductResult(
-            product.ProductName.Value,
-            product.ImageUrl.Value,
-            product.Price.Value
+        => p => new ProductResult(
+            p.ProductName.Value, // should be OK because converter stores scalar string
+            p.ImageUrl.Value,
+            p.Price.Value
         );
 }

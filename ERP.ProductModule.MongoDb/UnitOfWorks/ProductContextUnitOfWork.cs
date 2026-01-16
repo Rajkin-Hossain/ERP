@@ -31,7 +31,7 @@ public sealed class ProductContextUnitOfWork(ProductDbContext dbContext) : IUnit
 
             return await ExecuteWithoutTransactionAsync(dbAction, ct);
         }
-        catch (NotSupportedException)
+        catch (NotSupportedException ex)
         {
             return await ExecuteWithoutTransactionAsync(dbAction, ct);
         }
@@ -49,10 +49,15 @@ public sealed class ProductContextUnitOfWork(ProductDbContext dbContext) : IUnit
         var result = await dbAction(ct);
 
         await AddTrackedDomainEvents(ct);
-        await dbContext.SaveChangesAsync(ct);
+        await SaveChangesAsync(ct);
 
         ClearTrackedDomainEvents();
         return result;
+    }
+
+    private async Task SaveChangesAsync(CancellationToken ct)
+    {
+        await dbContext.SaveChangesAsync(ct);
     }
 
     private async Task AddTrackedDomainEvents(CancellationToken ct)

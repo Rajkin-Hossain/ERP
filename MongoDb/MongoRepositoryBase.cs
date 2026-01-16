@@ -6,102 +6,148 @@ using System.Linq.Expressions;
 
 namespace MongoDb;
 
-public abstract class MongoRepositoryBase<T, TId>(DbContext dbContext) : IRepositoryBase<T, TId>
+public class MongoRepositoryBase<T, TId>(DbContext dbContext) : IRepositoryBase<T, TId>
     where T : Entity<TId>
     where TId : notnull
 {
-    private readonly DbSet<T> _dbSet = dbContext.Set<T>();
+    private static Expression<Func<T, bool>> IdEquals(TId id)
+        => x => EqualityComparer<TId>.Default.Equals(x.Id, id);
 
+    // -------------------------
+    // Dynamic Query
+    // -------------------------
     public IQueryable<T> GetConditional(Expression<Func<T, bool>>? predicate = null)
     {
-        var query = _dbSet.AsQueryable();
-        return predicate is null ? query : query.Where(predicate);
+        var q = dbContext.Set<T>().AsQueryable();
+        return predicate is null ? q : q.Where(predicate);
+    }
+
+    public IQueryable<T> GetNoTrackingConditional(Expression<Func<T, bool>>? predicate = null)
+    {
+        var q = dbContext.Set<T>().AsNoTracking();
+        return predicate is null ? q : q.Where(predicate);
     }
 
     public IQueryable<T> GetSingleConditional(Expression<Func<T, bool>> predicate)
+        => GetConditional(predicate).Take(1);
+
+    // -------------------------
+    // Read Tracking
+    // -------------------------
+    public async Task<T?> FindAsync(TId id, CancellationToken ct = default)
+        => await GetConditional(IdEquals(id)).FirstOrDefaultAsync(ct);
+
+    public async Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>>? predicate, CancellationToken ct = default)
+        => await GetConditional(predicate).FirstOrDefaultAsync(ct);
+
+    public async Task<List<T>> FetchModelsByIdsAsync(TId[] ids, CancellationToken ct = default)
     {
-        return GetConditional(predicate).Take(1);
+        if (ids is null || ids.Length == 0) return [];
+        return await GetConditional(x => ids.Contains(x.Id)).ToListAsync(ct);
     }
 
-    public Task<T?> FindAsync(TId id, CancellationToken ct = default)
+    // -------------------------
+    // Read No Tracking
+    // -------------------------
+    public async Task<T?> FindNoTrackingAsync(TId id, CancellationToken ct = default)
+        => await GetNoTrackingConditional(IdEquals(id)).FirstOrDefaultAsync(ct);
+
+    public async Task<T?> FirstOrDefaultNoTrackingAsync(Expression<Func<T, bool>>? predicate, CancellationToken ct = default)
+        => await GetNoTrackingConditional(predicate).FirstOrDefaultAsync(ct);
+
+    public async Task<List<T>> FetchModelsByIdsNoTrackingAsync(TId[] ids, CancellationToken ct = default)
     {
-        return _dbSet.FirstOrDefaultAsync(entity => entity.Id.Equals(id), ct);
+        if (ids is null || ids.Length == 0) return [];
+        return await GetNoTrackingConditional(x => ids.Contains(x.Id)).ToListAsync(ct);
     }
 
-    public Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>>? predicate, CancellationToken ct = default)
-    {
-        return predicate is null
-            ? _dbSet.FirstOrDefaultAsync(ct)
-            : _dbSet.FirstOrDefaultAsync(predicate, ct);
-    }
-
-    public Task<bool> ExistAsync(Expression<Func<T, bool>>? predicate, CancellationToken ct = default)
-    {
-        return predicate is null
-            ? _dbSet.AnyAsync(ct)
-            : _dbSet.AnyAsync(predicate, ct);
-    }
-
-    public Task<List<T>> FetchModelsByIdsAsync(TId[] ids, CancellationToken ct = default)
-    {
-        if (ids is null || ids.Length == 0)
-        {
-            return Task.FromResult<List<T>>([]);
-        }
-
-        return _dbSet.Where(entity => ids.Contains(entity.Id)).ToListAsync(ct);
-    }
-
-    public Task<TResult?> FindAsync<TResult>(TId id, Expression<Func<T, TResult>> selector, CancellationToken ct = default)
-    {
-        ArgumentNullException.ThrowIfNull(selector);
-        return _dbSet.Where(entity => entity.Id.Equals(id)).Select(selector).FirstOrDefaultAsync(ct);
-    }
-
-    public Task<TResult?> FirstOrDefaultAsync<TResult>(Expression<Func<T, bool>>? predicate, Expression<Func<T, TResult>> selector, CancellationToken ct = default)
+    public async Task<TResult?> FindAsync<TResult>(TId id, Expression<Func<T, TResult>> selector, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(selector);
-        var query = GetConditional(predicate);
-        return query.Select(selector).FirstOrDefaultAsync(ct);
+        return await GetConditional(IdEquals(id)).Select(selector).FirstOrDefaultAsync(ct);
     }
 
-    public Task<List<TResult>> FetchModelsByIdsAsync<TResult>(TId[] ids, Expression<Func<T, TResult>> selector, CancellationToken ct = default)
+    public async Task<TResult?> FindNoTrackingAsync<TResult>(TId id, Expression<Func<T, TResult>> selector, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(selector);
-        if (ids is null || ids.Length == 0)
-        {
-            return Task.FromResult<List<TResult>>([]);
-        }
-
-        return _dbSet.Where(entity => ids.Contains(entity.Id)).Select(selector).ToListAsync(ct);
+        return await GetNoTrackingConditional(IdEquals(id)).Select(selector).FirstOrDefaultAsync(ct);
     }
 
-    public Task InsertAsync(T model, CancellationToken ct = default)
+    public async Task<TResult?> FirstOrDefaultAsync<TResult>(
+        Expression<Func<T, bool>>? predicate,
+        Expression<Func<T, TResult>> selector,
+        CancellationToken ct = default)
+    {
+        ArgumentNullException.ThrowIfNull(selector);
+        return await GetConditional(predicate).Select(selector).FirstOrDefaultAsync(ct);
+    }
+
+    public async Task<TResult?> FirstOrDefaultNoTrackingAsync<TResult>(
+        Expression<Func<T, bool>>? predicate,
+        Expression<Func<T, TResult>> selector,
+        CancellationToken ct = default)
+    {
+        ArgumentNullException.ThrowIfNull(selector);
+        return await GetNoTrackingConditional(predicate).Select(selector).FirstOrDefaultAsync(ct);
+    }
+
+    public async Task<List<TResult>> FetchModelsByIdsAsync<TResult>(
+        TId[] ids,
+        Expression<Func<T, TResult>> selector,
+        CancellationToken ct = default)
+    {
+        ArgumentNullException.ThrowIfNull(selector);
+        if (ids is null || ids.Length == 0) return [];
+        return await GetConditional(x => ids.Contains(x.Id)).Select(selector).ToListAsync(ct);
+    }
+
+    public async Task<List<TResult>> FetchModelsByIdsNoTrackingAsync<TResult>(
+        TId[] ids,
+        Expression<Func<T, TResult>> selector,
+        CancellationToken ct = default)
+    {
+        ArgumentNullException.ThrowIfNull(selector);
+        if (ids is null || ids.Length == 0) return [];
+        return await GetNoTrackingConditional(x => ids.Contains(x.Id)).Select(selector).ToListAsync(ct);
+    }
+
+    // -------------------------
+    // Insert
+    // -------------------------
+    public async Task InsertAsync(T model, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(model);
-        return _dbSet.AddAsync(model, ct).AsTask();
+        await dbContext.Set<T>().AddAsync(model, cancellationToken: ct);
     }
 
-    public Task InsertRangeAsync(IEnumerable<T> models, CancellationToken ct = default)
+    public async Task InsertRangeAsync(IEnumerable<T> models, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(models);
-        return _dbSet.AddRangeAsync(models, ct);
+        await dbContext.Set<T>().AddRangeAsync(models.Where(m => m != null), cancellationToken: ct);
     }
 
-    public Task UpdateAsync(T model, CancellationToken ct = default)
+    //Update
+    public async Task UpdateAsync(T model, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(model);
-        _dbSet.Update(model);
-        return Task.CompletedTask;
+        dbContext.Set<T>().Update(model);
+        await Task.CompletedTask;
     }
 
-    public Task DeleteAsync(T model, CancellationToken ct = default)
+    //Delete
+    public async Task DeleteAsync(T model, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(model);
-        _dbSet.Remove(model);
-        return Task.CompletedTask;
+        dbContext.Set<T>().Remove(model);
+        await Task.CompletedTask;
     }
 
+    public async Task<int> ExecuteDeleteAsync(Expression<Func<T, bool>> predicate, CancellationToken ct = default)
+    {
+        return predicate is null ? throw new ArgumentNullException(nameof(predicate)) : await GetConditional(predicate).ExecuteDeleteAsync(ct);
+    }
+
+    //Pagination
     public async Task<PagedResult<T>> ToPagedResultAsync(
         IQueryable<T> source,
         int pageNumber,
@@ -112,19 +158,19 @@ public abstract class MongoRepositoryBase<T, TId>(DbContext dbContext) : IReposi
         ArgumentOutOfRangeException.ThrowIfLessThan(pageNumber, 1);
         ArgumentOutOfRangeException.ThrowIfLessThan(pageSize, 1);
 
-        var totalCount = await source.CountAsync(ct);
+        IQueryable<T> query = source;
+
+        var totalCount = await query.CountAsync(ct);
 
         if (totalCount == 0)
-        {
             return PagedResult<T>.Create([], pageNumber, pageSize, 0);
-        }
 
-        var items = await source
+        var items = await query
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync(ct);
 
-        return PagedResult<T>.Create(items, pageNumber, pageSize, (int)totalCount);
+        return PagedResult<T>.Create(items, pageNumber, pageSize, totalCount);
     }
 
     public async Task<PagedResult<TResult>> ToPagedResultAsync<TResult>(
@@ -139,19 +185,25 @@ public abstract class MongoRepositoryBase<T, TId>(DbContext dbContext) : IReposi
         ArgumentOutOfRangeException.ThrowIfLessThan(pageNumber, 1);
         ArgumentOutOfRangeException.ThrowIfLessThan(pageSize, 1);
 
-        var totalCount = await source.CountAsync(ct);
+        IQueryable<T> query = source;
+
+        var totalCount = await query.CountAsync(ct);
 
         if (totalCount == 0)
-        {
             return PagedResult<TResult>.Create([], pageNumber, pageSize, 0);
-        }
 
-        var items = await source
+        var items = await query
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .Select(selector)
             .ToListAsync(ct);
 
-        return PagedResult<TResult>.Create(items, pageNumber, pageSize, (int)totalCount);
+        return PagedResult<TResult>.Create(items, pageNumber, pageSize, totalCount);
+    }
+
+    public async Task<bool> ExistAsync(Expression<Func<T, bool>>? predicate, CancellationToken token)
+    {
+        return await GetConditional(predicate)
+            .AnyAsync(cancellationToken: token);
     }
 }
