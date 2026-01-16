@@ -8,7 +8,7 @@ using MediatR;
 
 namespace ERP.ProductModule.Application.QueryHandlers;
 
-public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, AppResult<IEnumerable<ProductResults>>>
+public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, AppResult<IEnumerable<ProductResult>>>
 {
     private readonly IProductReadRepository _repo;
     private readonly IAsyncQueryExecutor _executor;
