@@ -1,6 +1,5 @@
 ﻿using Hangfire;
-using Hangfire.Redis.StackExchange;
-using Microsoft.Extensions.Configuration;
+using Hangfire.InMemory;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HangfireJob.Extensions;
@@ -10,18 +9,16 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddHangfireInfrastructure(
         this IServiceCollection services)
         {
-            services.AddHangfire((sp, cfg) =>
+            services.AddHangfire(cfg =>
             {
-                var configuration = sp.GetRequiredService<IConfiguration>();
-                var redisCs = configuration.GetConnectionString("cache");
-
                 cfg.UseSimpleAssemblyNameTypeSerializer()
                    .UseRecommendedSerializerSettings()
-                   .UseRedisStorage(redisCs, new RedisStorageOptions
+                   // Use the In-Memory storage instead of Redis
+                   .UseInMemoryStorage(new InMemoryStorageOptions
                    {
-                       Prefix = "hangfire:",
-                       Db = 2, // separate DB index for jobs
-                       InvisibilityTimeout = TimeSpan.FromMinutes(5)
+                       // Limits memory growth on your 8GB RAM PC
+                       MaxExpirationTime = TimeSpan.FromHours(1),
+                       IdType = InMemoryStorageIdType.Long
                    });
             });
 
