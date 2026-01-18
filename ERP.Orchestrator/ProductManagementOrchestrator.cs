@@ -13,17 +13,17 @@ public class ProductManagementOrchestrator
         _serviceBus = serviceBus;
     }
 
-    public async Task ProductCreatedEventHandler(ProductCreatedEvent e)
+    public async Task ProductCreatedEventHandler(ProductCreatedMessageEvent e)
     {
         await _serviceBus.PublishAsync(
-            new CreateProductCommand(e.ProductId), CancellationToken.None
+            new CreateProductMessageCommand(e.ProductId), CancellationToken.None
         );
     }
 
-    public async Task ProductUpdatedEventHandler(ProductUpdatedEvent e)
+    public async Task ProductUpdatedEventHandler(ProductUpdatedMessageEvent e)
     {
         await _serviceBus.PublishAsync(
-            new UpdateProductCommand(e.ProductId), CancellationToken.None
+            new UpdateProductMessageCommand(e.ProductId), CancellationToken.None
         );
     }
 }

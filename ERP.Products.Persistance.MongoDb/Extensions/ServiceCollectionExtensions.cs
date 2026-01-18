@@ -25,6 +25,8 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IUnitOfWork, ProductContextUnitOfWork>();
 
+        services.AddScoped<IOutboxRepository, OutboxRepository>();
+
         return services;
     }
 }

@@ -1,7 +1,7 @@
 ﻿using BuildingBlocks.Domain.Entities;
+using ERP.Products.Domain.Entities;
 using ERP.Products.Domain.ValueObjects;
 using ERP.Products.Persistance.MongoDb.Data;
-using ERP.Products.Persistance.MongoDb.Models.Outbox;
 using ERP.SharedKernal.Interfaces;
 
 namespace ERP.Products.Persistance.MongoDb.UnitOfWorks;

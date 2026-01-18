@@ -14,7 +14,7 @@ public static class IntegrationEventMapper
             var e = JsonSerializer.Deserialize<ProductCreatedDomainEvent>(payload)
                      ?? throw new InvalidOperationException("Bad payload");
 
-            return new ProductCreatedEvent(
+            return new ProductCreatedMessageEvent(
                 Guid.NewGuid()
             );
         },
@@ -24,7 +24,7 @@ public static class IntegrationEventMapper
             var e = JsonSerializer.Deserialize<ProductUpdatedDomainEvent>(payload)
                      ?? throw new InvalidOperationException("Bad payload");
 
-            return new ProductUpdatedEvent(
+            return new ProductUpdatedMessageEvent(
                 Guid.NewGuid()
             );
         }

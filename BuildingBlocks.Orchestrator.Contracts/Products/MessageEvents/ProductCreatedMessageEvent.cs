@@ -2,4 +2,4 @@
 
 namespace BuildingBlocks.Orchestrator.Contracts.Products.MessageEvents;
 
-public record ProductCreatedEvent(Guid ProductId) : IMessageEvent;
+public record ProductCreatedMessageEvent(Guid ProductId) : IMessageEvent;

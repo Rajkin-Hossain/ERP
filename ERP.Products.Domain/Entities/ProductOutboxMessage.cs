@@ -1,9 +1,9 @@
-﻿using BuildingBlocks.Domain.Interfaces;
+using BuildingBlocks.Domain.Interfaces;
 using ERP.Products.Domain.ValueObjects;
-using ERP.Products.Persistance.MongoDb.Enums;
+using ERP.Products.Domain.Enums;
 using System.Text.Json;
 
-namespace ERP.Products.Persistance.MongoDb.Models.Outbox;
+namespace ERP.Products.Domain.Entities;
 
 public sealed class ProductOutboxMessage
 {

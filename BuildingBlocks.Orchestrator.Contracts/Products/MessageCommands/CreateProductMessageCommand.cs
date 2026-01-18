@@ -2,4 +2,4 @@
 
 namespace BuildingBlocks.Orchestrator.Contracts.Products.MessageCommands;
 
-public record CreateProductCommand(Guid ProductId) : IMessageCommand;
+public record CreateProductMessageCommand(Guid ProductId) : IMessageCommand;

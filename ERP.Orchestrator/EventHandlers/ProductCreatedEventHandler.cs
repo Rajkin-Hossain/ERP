@@ -3,7 +3,7 @@ using MassTransit;
 
 namespace ERP.Orchestrator.EventHandlers;
 
-public class ProductCreatedEventHandler : IConsumer<ProductCreatedEvent>
+public class ProductCreatedEventHandler : IConsumer<ProductCreatedMessageEvent>
 {
     private readonly ProductManagementOrchestrator orchestrator;
 
@@ -12,7 +12,7 @@ public class ProductCreatedEventHandler : IConsumer<ProductCreatedEvent>
         this.orchestrator = orchestrator;
     }
 
-    public async Task Consume(ConsumeContext<ProductCreatedEvent> context)
+    public async Task Consume(ConsumeContext<ProductCreatedMessageEvent> context)
     {
         await orchestrator.ProductCreatedEventHandler(context.Message);
     }

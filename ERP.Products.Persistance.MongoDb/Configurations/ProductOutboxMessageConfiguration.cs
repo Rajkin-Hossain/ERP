@@ -1,4 +1,4 @@
-﻿using ERP.Products.Persistance.MongoDb.Models.Outbox;
+﻿using ERP.Products.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MongoDB.EntityFrameworkCore.Extensions;

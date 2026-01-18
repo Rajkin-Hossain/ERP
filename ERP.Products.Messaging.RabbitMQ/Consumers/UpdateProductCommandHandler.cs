@@ -4,9 +4,9 @@ using System.Diagnostics;
 
 namespace ERP.Products.Messaging.RabbitMQ.Consumers;
 
-public class UpdateProductCommandHandler : IConsumer<UpdateProductCommand>
+public class UpdateProductCommandHandler : IConsumer<UpdateProductMessageCommand>
 {
-    public async Task Consume(ConsumeContext<UpdateProductCommand> context)
+    public async Task Consume(ConsumeContext<UpdateProductMessageCommand> context)
     {
         Debug.WriteLine($"Received DeleteProductCommand for ProductId: {context.Message.ProductId}");
     }

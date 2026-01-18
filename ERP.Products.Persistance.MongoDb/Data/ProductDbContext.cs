@@ -1,5 +1,4 @@
 ﻿using ERP.Products.Domain.Entities;
-using ERP.Products.Persistance.MongoDb.Models.Outbox;
 using Microsoft.EntityFrameworkCore;
 
 namespace ERP.Products.Persistance.MongoDb.Data;

@@ -6,9 +6,9 @@ using System.Diagnostics;
 
 namespace ERP.Products.Messaging.RabbitMQ.Consumers;
 
-public class CreateProductCommandHandler : IConsumer<CreateProductCommand>
+public class CreateProductCommandHandler : IConsumer<CreateProductMessageCommand>
 {
-    public async Task Consume(ConsumeContext<CreateProductCommand> context)
+    public async Task Consume(ConsumeContext<CreateProductMessageCommand> context)
     {
         Debug.WriteLine("CreateProductCommandHandler invoked");
     }
@@ -19,6 +19,6 @@ public class Test(IServiceBus bus)
 {
     public async Task SendTestCommand()
     {
-        await bus.PublishAsync(new ProductCreatedEvent(Guid.NewGuid()), CancellationToken.None);
+        await bus.PublishAsync(new ProductCreatedMessageEvent(Guid.NewGuid()), CancellationToken.None);
     }
 }
