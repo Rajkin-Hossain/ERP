@@ -1,3 +1,4 @@
+using ERP.Products.Application.Interfaces;
 using ERP.Products.Messaging.RabbitMQ.Interfaces;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
@@ -9,14 +10,15 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddMessageBusInfrastructure(this IServiceCollection services)
     {
+        services.AddScoped<IProductOutboxDispatcher, ProductOutboxDispatcher>();
+        services.AddScoped<IServiceBus, RabbitMQBus>();
+
         return services.AddMessageBus(typeof(ServiceCollectionExtensions).Assembly);
     }
 
     public static IServiceCollection AddMessageBus(
         this IServiceCollection services, params Assembly[] assemblies)
     {
-        services.AddScoped<IServiceBus, RabbitMQBus>();
-
         services.AddMassTransit(config =>
         {
             // Consumer discovery

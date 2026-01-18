@@ -1,14 +1,14 @@
-using ERP.Products.Domain.Entities;
+using ERP.Shared.Domain.OutboxEntity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MongoDB.EntityFrameworkCore.Extensions;
 namespace ERP.Products.Persistance.MongoDb.Configurations;
 
-public sealed class ProductOutboxMessageConfiguration : IEntityTypeConfiguration<ProductOutboxMessage>
+public sealed class ProductOutboxMessageConfiguration : IEntityTypeConfiguration<OutboxMessage>
 {
     public const string CollectionName = "product_outbox";
 
-    public void Configure(EntityTypeBuilder<ProductOutboxMessage> builder)
+    public void Configure(EntityTypeBuilder<OutboxMessage> builder)
     {
         builder.ToCollection(CollectionName);
 

@@ -1,14 +1,12 @@
+using ERP.Shared.Domain.Enums;
 using ERP.Shared.Domain.Interfaces;
-
-using ERP.Products.Domain.ValueObjects;
-using ERP.Products.Domain.Enums;
 using System.Text.Json;
 
-namespace ERP.Products.Domain.Entities;
+namespace ERP.Shared.Domain.OutboxEntity;
 
-public sealed class ProductOutboxMessage
+public sealed class OutboxMessage
 {
-    private ProductOutboxMessage() { }
+    private OutboxMessage() { }
 
     public Guid Id { get; private set; }
     public string EventType { get; private set; } = default!;
@@ -19,18 +17,18 @@ public sealed class ProductOutboxMessage
     public OutboxStatus Status { get; private set; }
     public int RetryCount { get; private set; }
 
-    public static ProductOutboxMessage Create(
-        ProductId aggregateId,
+    public static OutboxMessage Create(
+        Guid aggregateId,
         IDomainEvent domainEvent,
         JsonSerializerOptions? jsonOptions = null)
     {
         var eventType = domainEvent.GetType();
 
-        return new ProductOutboxMessage
+        return new OutboxMessage
         {
             Id = Guid.NewGuid(),
             EventType = eventType.FullName ?? eventType.Name,
-            AggregateId = aggregateId.Value,
+            AggregateId = aggregateId,
             OccurredOnUtc = DateTime.UtcNow,
             Payload = JsonSerializer.Serialize(domainEvent, eventType, jsonOptions),
             Status = OutboxStatus.Pending,

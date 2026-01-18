@@ -1,4 +1,4 @@
-namespace ERP.Products.Domain.Enums;
+namespace ERP.Shared.Domain.Enums;
 
 public enum OutboxStatus
 {

@@ -1,6 +1,4 @@
 using ERP.MessageOrchestrator.Contracts.Products.MessageCommands;
-using ERP.MessageOrchestrator.Contracts.Products.MessageEvents;
-using ERP.Products.Messaging.RabbitMQ.Interfaces;
 using MassTransit;
 using System.Diagnostics;
 
@@ -11,15 +9,6 @@ public class CreateProductMessageCommandHandler : IConsumer<CreateProductMessage
     public async Task Consume(ConsumeContext<CreateProductMessageCommand> context)
     {
         Debug.WriteLine("CreateProductCommandHandler invoked");
-    }
-}
-
-
-public class Test(IServiceBus bus)
-{
-    public async Task SendTestCommand()
-    {
-        await bus.PublishAsync(new ProductCreatedMessageEvent(Guid.NewGuid()), CancellationToken.None);
     }
 }
 

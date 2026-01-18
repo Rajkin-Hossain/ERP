@@ -1,3 +1,4 @@
+using ERP.MessageOrchestrator.Contracts.Interfaces;
 using ERP.MessageOrchestrator.Interfaces;
 using MassTransit;
 
@@ -12,7 +13,7 @@ public class RabbitMQBus : IServiceBus
         _bus = bus;
     }
 
-    public async Task PublishAsync<T>(T message, CancellationToken ct = default) where T : class
+    public async Task PublishCommandAsync<T>(T message, CancellationToken ct = default) where T : IMessageCommand
     {
         await _bus.Publish(message, ct);
     }

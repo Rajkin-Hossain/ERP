@@ -1,4 +1,5 @@
 using ERP.Products.Domain.Entities;
+using ERP.Shared.Domain.OutboxEntity;
 using Microsoft.EntityFrameworkCore;
 namespace ERP.Products.Persistance.MongoDb.Data;
 
@@ -6,7 +7,7 @@ public sealed class ProductDbContext(DbContextOptions<ProductDbContext> options)
 {
     public DbSet<Product> Products => Set<Product>();
     public DbSet<Category> Categories => Set<Category>();
-    public DbSet<ProductOutboxMessage> ProductOutboxMessages => Set<ProductOutboxMessage>();
+    public DbSet<OutboxMessage> ProductOutboxMessages => Set<OutboxMessage>();
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

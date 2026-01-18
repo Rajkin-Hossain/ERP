@@ -1,8 +1,8 @@
-using ERP.Products.Domain.Entities;
 using ERP.Products.Domain.ValueObjects;
 using ERP.Products.Persistance.MongoDb.Data;
 using ERP.Shared.Application.Interfaces;
 using ERP.Shared.Domain.Entities;
+using ERP.Shared.Domain.OutboxEntity;
 namespace ERP.Products.Persistance.MongoDb.UnitOfWorks;
 
 public sealed class ProductContextUnitOfWork(ProductDbContext dbContext) : IUnitOfWork
@@ -63,14 +63,14 @@ public sealed class ProductContextUnitOfWork(ProductDbContext dbContext) : IUnit
         var entities = GetTrackedBaseEntities();
         if (!entities.Any()) return;
 
-        var outboxBatch = new List<ProductOutboxMessage>(
+        var outboxBatch = new List<OutboxMessage>(
             capacity: entities.Sum(e => e.DomainEvents.Count));
 
         foreach (var entity in entities)
         {
             foreach (var ev in entity.DomainEvents)
             {
-                outboxBatch.Add(ProductOutboxMessage.Create(entity.Id, ev));
+                outboxBatch.Add(OutboxMessage.Create(entity.Id.Value, ev));
             }
         }
 

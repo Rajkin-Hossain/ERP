@@ -9,7 +9,7 @@ public static class IntegrationEventMapper
 {
     private static readonly Dictionary<string, Func<string, IMessageEvent>> _map = new()
     {
-        [nameof(ProductCreatedDomainEvent)] = payload =>
+        [typeof(ProductCreatedDomainEvent).FullName!] = payload =>
         {
             var e = JsonSerializer.Deserialize<ProductCreatedDomainEvent>(payload)
                      ?? throw new InvalidOperationException("Bad payload");
@@ -19,7 +19,7 @@ public static class IntegrationEventMapper
             );
         },
 
-        [nameof(ProductUpdatedDomainEvent)] = payload =>
+        [typeof(ProductUpdatedDomainEvent).FullName!] = payload =>
         {
             var e = JsonSerializer.Deserialize<ProductUpdatedDomainEvent>(payload)
                      ?? throw new InvalidOperationException("Bad payload");
