@@ -1,4 +1,4 @@
-﻿using BuildingBlocks.Messaging.RabbitMq.Extensions;
+using ERP.Products.Messaging.RabbitMQ.Extensions;
 using System.Reflection;
 
 namespace ERP.Orchestrator.Extensions;
@@ -15,3 +15,4 @@ public static class ServiceCollectionExtensions
         return services;
     }
 }
+

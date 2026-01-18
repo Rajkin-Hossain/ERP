@@ -1,5 +1,5 @@
-﻿using BuildingBlocks.Application.Interfaces;
 using ERP.Products.Application.Interfaces;
+using ERP.Products.Messaging.RabbitMQ.Interfaces;
 
 namespace ERP.Products.Messaging.RabbitMQ;
 
@@ -18,3 +18,4 @@ public class ProductOutboxDispatcher : IProductOutboxDispatcher
     {
     }
 }
+

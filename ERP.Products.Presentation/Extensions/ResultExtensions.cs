@@ -1,5 +1,5 @@
-﻿using BuildingBlocks.Application.Result;
-using BuildingBlocks.Presentation;
+using ERP.Products.Application.Result;
+using ERP.Products.Presentation;
 using Microsoft.AspNetCore.Http;
 
 namespace ERP.Products.Presentation.Extensions;
@@ -62,3 +62,4 @@ public static class ResultExtensions
         return AppErrorType.Unexpected;
     }
 }
+

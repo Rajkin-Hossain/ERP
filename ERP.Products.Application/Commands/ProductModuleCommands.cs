@@ -1,4 +1,4 @@
-﻿using BuildingBlocks.Application.Result;
+using ERP.Products.Application.Result;
 using ERP.Products.Domain.ValueObjects;
 using MediatR;
 

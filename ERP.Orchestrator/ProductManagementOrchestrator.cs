@@ -1,6 +1,6 @@
-﻿using BuildingBlocks.Application.Interfaces;
-using BuildingBlocks.Orchestrator.Contracts.Products.MessageCommands;
-using BuildingBlocks.Orchestrator.Contracts.Products.MessageEvents;
+using ERP.Orchestrator.Contract.Products.MessageCommands;
+using ERP.Orchestrator.Contract.Products.MessageEvents;
+using ERP.Products.Messaging.RabbitMQ.Interfaces;
 
 namespace ERP.Orchestrator;
 
@@ -27,3 +27,4 @@ public class ProductManagementOrchestrator
         );
     }
 }
+

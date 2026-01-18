@@ -1,4 +1,3 @@
-﻿using ERP.Products.Application.Interfaces;
 using Hangfire;
 using Hangfire.InMemory;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,10 +7,8 @@ namespace ERP.Products.Dispatcher.Hangfire.Extensions;
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddHangfireInfrastructure(
-        this IServiceCollection services) {
-
-            services.AddScoped<IOutboxDispatchTrigger, OutboxDispatchTrigger>();
-
+        this IServiceCollection services)
+        {
             services.AddHangfire(cfg =>
             {
                 cfg.UseSimpleAssemblyNameTypeSerializer()
@@ -25,8 +22,9 @@ public static class ServiceCollectionExtensions
                    });
             });
 
-            services.AddHangfireServer();
+        services.AddHangfireServer();
 
         return services;
     }
 }
+

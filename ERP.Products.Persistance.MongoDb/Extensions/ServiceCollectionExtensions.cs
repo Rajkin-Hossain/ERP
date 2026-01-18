@@ -1,31 +1,36 @@
-using BuildingBlocks.Application.Interfaces;
-using BuildingBlocks.Persistence.MongoDb.Extensions;
-using BuildingBlocks.Persistence.MongoDb.QueryExecutor;
-using ERP.Products.Application.Interfaces;
+using ERP.Products.Persistance.MongoDb.Options;
 using ERP.Products.Persistance.MongoDb.Data;
 using ERP.Products.Persistance.MongoDb.Repositories;
-using ERP.Products.Persistance.MongoDb.UnitOfWorks;
-using ERP.SharedKernal.Interfaces;
+using ERP.Products.Application.Interfaces;
+using ERP.Products.Persistance.MongoDb.QueryExecutor;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Driver;
+using ERP.Products.Persistance.MongoDb.UnitOfWorks;
 
 namespace ERP.Products.Persistance.MongoDb.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddMongoInfrastructure(this IServiceCollection services,
-        IConfiguration configuration)
+    public static IServiceCollection AddMongoInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<IAsyncQueryExecutor, MongoAsyncQueryExecutor>();
+        var section = configuration.GetSection(MongoOptions.SectionName);
+        services.Configure<MongoOptions>(section);
+        services.AddSingleton<IMongoClient>(_ => new MongoClient(section.Get<MongoOptions>()?.ConnectionString));
 
-        services.AddMongoServices<ProductDbContext>(configuration);
+        services.AddDbContext<ProductDbContext>((provider, options) =>
+        {
+            var mongoOptions = provider.GetRequiredService<Microsoft.Extensions.Options.IOptions<MongoOptions>>().Value;
+            var client = provider.GetRequiredService<IMongoClient>();
+            options.UseMongoDB(client, mongoOptions.WriteDatabaseName);
+        });
 
         services.AddScoped<IProductReadRepository, ProductReadRepository>();
         services.AddScoped<IProductWriteRepository, ProductWriteRepository>();
-
-        services.AddScoped<IUnitOfWork, ProductContextUnitOfWork>();
-
         services.AddScoped<IOutboxRepository, OutboxRepository>();
+        services.AddScoped<IUnitOfWork, ProductContextUnitOfWork>();
+        services.AddScoped<IAsyncQueryExecutor, MongoAsyncQueryExecutor>();
 
         return services;
     }

@@ -16,8 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BuildingBlocks.Presentation\BuildingBlocks.Presentation.csproj" />
+    <ProjectReference Include="..\ERP.Products.Dispatcher.Hangfire\ERP.Products.Dispatcher.Hangfire.csproj" />
     <ProjectReference Include="..\ERP.Products.Application\ERP.Products.Application.csproj" />
+    <ProjectReference Include="..\ERP.Products.Persistance.MongoDb\ERP.Products.Persistance.MongoDb.csproj" />
+    <ProjectReference Include="..\ERP.Products.Messaging.RabbitMQ\ERP.Products.Messaging.RabbitMQ.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,9 +1,8 @@
-﻿using BuildingBlocks.Application.Result;
+using ERP.Products.Application.Result;
 using ERP.Products.Application.Commands;
 using ERP.Products.Application.Interfaces;
 using ERP.Products.Domain.Entities;
 using ERP.Products.Domain.ValueObjects;
-using ERP.SharedKernal.Interfaces;
 using MediatR;
 
 namespace ERP.Products.Application.CommandHandlers;
@@ -34,3 +33,4 @@ public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductC
         return AppResult<ProductId>.Ok(productId);
     }
 }
+

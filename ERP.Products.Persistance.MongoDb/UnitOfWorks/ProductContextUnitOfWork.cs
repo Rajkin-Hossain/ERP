@@ -1,8 +1,8 @@
-﻿using BuildingBlocks.Domain.Entities;
+using ERP.Products.Application.Interfaces;
+using ERP.Products.Domain.Entities;
 using ERP.Products.Domain.Entities;
 using ERP.Products.Domain.ValueObjects;
 using ERP.Products.Persistance.MongoDb.Data;
-using ERP.SharedKernal.Interfaces;
 
 namespace ERP.Products.Persistance.MongoDb.UnitOfWorks;
 
@@ -98,3 +98,4 @@ public sealed class ProductContextUnitOfWork(ProductDbContext dbContext) : IUnit
             .Where(e => e.DomainEvents.Count > 0);
     }
 }
+

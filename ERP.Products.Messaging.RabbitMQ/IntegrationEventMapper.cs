@@ -1,5 +1,5 @@
-﻿using BuildingBlocks.Orchestrator.Contracts.Interfaces;
-using BuildingBlocks.Orchestrator.Contracts.Products.MessageEvents;
+using ERP.Orchestrator.Contract.Interfaces;
+using ERP.Orchestrator.Contract.Products.MessageEvents;
 using ERP.Products.Domain.DomainEvents;
 using System.Text.Json;
 
@@ -38,3 +38,4 @@ public static class IntegrationEventMapper
         return factory(payload);
     }
 }
+

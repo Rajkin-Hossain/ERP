@@ -1,5 +1,5 @@
-﻿using BuildingBlocks.Application.Interfaces;
-using BuildingBlocks.Application.Result;
+using ERP.Products.Application.Interfaces;
+using ERP.Products.Application.Result;
 using ERP.Products.Application.Contracts;
 using ERP.Products.Application.Interfaces;
 using ERP.Products.Application.Mappers;
@@ -30,3 +30,4 @@ public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, 
         return AppResult<IEnumerable<ProductResult>>.Ok(results);
     }
 }
+

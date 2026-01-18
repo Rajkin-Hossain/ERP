@@ -1,4 +1,4 @@
-﻿using BuildingBlocks.Presentation;
+using ERP.Products.Presentation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Builder;
 
@@ -18,3 +18,4 @@ public static class ResponseCodeExtensions
             .Produces<ApiResponse<string>>(StatusCodes.Status500InternalServerError);
     }
 }
+

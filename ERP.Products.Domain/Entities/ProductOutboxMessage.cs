@@ -1,4 +1,4 @@
-using BuildingBlocks.Domain.Interfaces;
+using ERP.Products.Domain.Interfaces;
 using ERP.Products.Domain.ValueObjects;
 using ERP.Products.Domain.Enums;
 using System.Text.Json;
@@ -54,3 +54,4 @@ public sealed class ProductOutboxMessage
         RetryCount++;
     }
 }
+

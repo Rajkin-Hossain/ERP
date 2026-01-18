@@ -11,20 +11,13 @@
     <Project Path="ERP.Products.Messaging.RabbitMQ/ERP.Products.Messaging.RabbitMQ.csproj" />
     <Project Path="ERP.Products.Persistance.MongoDb/ERP.Products.Persistance.MongoDb.csproj" />
   </Folder>
-  <Folder Name="/BuildingBlocks/">
-    <Project Path="BuildingBlocks.Application/BuildingBlocks.Application.csproj" Id="931ddef7-7b19-4a68-bc10-2f9a7fa03324" />
-    <Project Path="BuildingBlocks.Domain/BuildingBlocks.Domain.csproj" Id="864675d4-8d6a-4c4f-8e8c-d94bff97c4dc" />
-    <Project Path="BuildingBlocks.Orchestrator.Contracts/BuildingBlocks.Orchestrator.Contracts.csproj" Id="abf5b2ff-8da8-4ba6-af45-ac23f0e63cd2" />
-    <Project Path="BuildingBlocks.Presentation/BuildingBlocks.Presentation.csproj" Id="b9bee7ab-9bf6-4bc5-946a-140f0dff6503" />
-  </Folder>
-  <Folder Name="/BuildingBlocks/Infrastructures/">
-    <Project Path="BuildingBlocks.Messaging.RabbitMq/BuildingBlocks.Messaging.RabbitMq.csproj" Id="b9c3bb7c-7015-41b1-a677-2e253d3cc2f2" />
-    <Project Path="BuildingBlocks.Persistence.MongoDb/BuildingBlocks.Persistence.MongoDb.csproj" Id="16a5d83f-267a-4205-86b9-9a2c0f03d380" />
+  <Folder Name="/Contracts/">
+    <Project Path="ERP.Orchestrator.Contract/ERP.Orchestrator.Contract.csproj" />
   </Folder>
   <Folder Name="/Host/">
-    <Project Path="E:/Projects/ERP/ERP.AppHost/ERP.AppHost.csproj" Id="560ac3a6-60c4-458a-a65a-9e30e87d0c01" />
+    <Project Path="ERP.AppHost/ERP.AppHost.csproj" />
   </Folder>
   <Folder Name="/MessagingOrchestrator/">
-    <Project Path="E:/Projects/ERP/ERP.Orchestrator/ERP.Orchestrator.csproj" Id="686caa5c-2830-4ce6-b39e-472a2c9e5a99" />
+    <Project Path="ERP.Orchestrator/ERP.Orchestrator.csproj" />
   </Folder>
 </Solution>

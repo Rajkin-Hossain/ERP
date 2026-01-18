@@ -1,4 +1,4 @@
-﻿using BuildingBlocks.Domain.Entities;
+using ERP.Products.Domain.Entities;
 using ERP.Products.Domain.DomainEvents;
 using ERP.Products.Domain.ValueObjects;
 
@@ -64,3 +64,4 @@ public class Product : AggregateRoot<ProductId>
         Price = newPrice;
     }
 }
+

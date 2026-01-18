@@ -1,4 +1,4 @@
-﻿using BuildingBlocks.Domain.Entities;
+using ERP.Products.Domain.Entities;
 using ERP.Products.Domain.ValueObjects;
 
 namespace ERP.Products.Domain.Entities;
@@ -21,3 +21,4 @@ public sealed class Category : Entity<CategoryId>
         return new Category(CategoryId.New(), categoryName);
     }
 }
+

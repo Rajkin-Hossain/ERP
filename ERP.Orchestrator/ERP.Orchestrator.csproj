@@ -8,11 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.1" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="9.0.0" />
   </ItemGroup>
     
   <ItemGroup>
-    <ProjectReference Include="..\BuildingBlocks.Messaging.RabbitMq\BuildingBlocks.Messaging.RabbitMq.csproj" />
-    <ProjectReference Include="..\BuildingBlocks.Orchestrator.Contracts\BuildingBlocks.Orchestrator.Contracts.csproj" />
+    <ProjectReference Include="..\ERP.Products.Messaging.RabbitMQ\ERP.Products.Messaging.RabbitMQ.csproj" />
+    <ProjectReference Include="..\ERP.Orchestrator.Contract\ERP.Orchestrator.Contract.csproj" />
   </ItemGroup>
 
 </Project>
