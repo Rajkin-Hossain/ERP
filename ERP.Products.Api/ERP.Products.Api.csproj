@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -7,18 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Extensions\wiv4cp3o.34i~" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.1" />
     <PackageReference Include="Scalar.AspNetCore" Version="2.12.5" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BuildingBlocks.Presentation\BuildingBlocks.Presentation.csproj" />
-    <ProjectReference Include="..\ERP.Products.Application\ERP.Products.Application.csproj" />
+    <ProjectReference Include="..\ERP.Products.Dispatcher.Hangfire\ERP.Products.Dispatcher.Hangfire.csproj" />
+    <ProjectReference Include="..\ERP.Products.Presentation\ERP.Products.Presentation.csproj" />
+    <ProjectReference Include="..\ERP.Products.Persistance.MongoDb\ERP.Products.Persistance.MongoDb.csproj" />
+    <ProjectReference Include="..\ERP.Products.Messaging.RabbitMQ\ERP.Products.Messaging.RabbitMQ.csproj" />
   </ItemGroup>
 
 </Project>

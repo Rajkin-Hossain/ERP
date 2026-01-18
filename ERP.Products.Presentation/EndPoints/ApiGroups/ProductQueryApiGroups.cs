@@ -1,6 +1,9 @@
-﻿using ERP.ProductModule.Presentation.Extensions;
-using ERP.Products.Presentation.Extensions;
+﻿using ERP.Products.Presentation.Extensions;
+using ERP.Products.Application.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 
 namespace ERP.Products.Presentation.EndPoints.ApiGroups;
 

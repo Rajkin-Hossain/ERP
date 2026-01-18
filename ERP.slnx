@@ -1,11 +1,13 @@
 <Solution>
   <Folder Name="/BoundedContexts/" />
   <Folder Name="/BoundedContexts/Products/">
-    <Project Path="ERP.ProductModule.Presentation/ERP.Products.Presentation.csproj" />
+    <Project Path="ERP.Products.Api/ERP.Products.Api.csproj" />
     <Project Path="ERP.Products.Application/ERP.Products.Application.csproj" />
     <Project Path="ERP.Products.Domain/ERP.Products.Domain.csproj" />
+    <Project Path="ERP.Products.Presentation/ERP.Products.Presentation.csproj" />
   </Folder>
   <Folder Name="/BoundedContexts/Products/Infrastructures/">
+    <Project Path="ERP.Products.Dispatcher.Hangfire/ERP.Products.Dispatcher.Hangfire.csproj" />
     <Project Path="ERP.Products.Messaging.RabbitMQ/ERP.Products.Messaging.RabbitMQ.csproj" />
     <Project Path="ERP.Products.Persistance.MongoDb/ERP.Products.Persistance.MongoDb.csproj" />
   </Folder>
@@ -16,7 +18,6 @@
     <Project Path="BuildingBlocks.Presentation/BuildingBlocks.Presentation.csproj" Id="b9bee7ab-9bf6-4bc5-946a-140f0dff6503" />
   </Folder>
   <Folder Name="/BuildingBlocks/Infrastructures/">
-    <Project Path="BuildingBlocks.Hangfire/BuildingBlocks.Hangfire.csproj" Id="fb5eb417-ece4-45aa-bf67-ec4b873088b9" />
     <Project Path="BuildingBlocks.Messaging.RabbitMq/BuildingBlocks.Messaging.RabbitMq.csproj" Id="b9c3bb7c-7015-41b1-a677-2e253d3cc2f2" />
     <Project Path="BuildingBlocks.Persistence.MongoDb/BuildingBlocks.Persistence.MongoDb.csproj" Id="16a5d83f-267a-4205-86b9-9a2c0f03d380" />
   </Folder>

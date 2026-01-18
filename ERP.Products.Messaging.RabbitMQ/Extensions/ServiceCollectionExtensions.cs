@@ -1,5 +1,5 @@
 using BuildingBlocks.Messaging.RabbitMq.Extensions;
-using ERP.Products.Messaging.RabbitMQ.Outbox;
+using ERP.Products.Application.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddMessageBusInfrastructure(this IServiceCollection services)
     {
-        services.AddScoped<ProductOutboxJob>();
+        services.AddScoped<IProductOutboxDispatcher, ProductOutboxDispatcher>();
 
         services.AddMessageBus(Assembly.GetExecutingAssembly()); //consumer assembly
 

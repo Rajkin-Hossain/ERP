@@ -1,5 +1,6 @@
 ﻿using BuildingBlocks.Application.Result;
 using BuildingBlocks.Presentation;
+using Microsoft.AspNetCore.Http;
 
 namespace ERP.Products.Presentation.Extensions;
 

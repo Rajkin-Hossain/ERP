@@ -1,0 +1,6 @@
+@ERP.Products.Api_HostAddress = http://localhost:5157
+
+GET {{ERP.Products.Api_HostAddress}}/health
+Accept: application/json
+
+###

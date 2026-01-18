@@ -1,12 +1,13 @@
 ﻿using BuildingBlocks.Application.Interfaces;
+using ERP.Products.Application.Interfaces;
 
-namespace ERP.Products.Messaging.RabbitMQ.Outbox;
+namespace ERP.Products.Messaging.RabbitMQ;
 
-public class ProductOutboxJob
+public class ProductOutboxDispatcher : IProductOutboxDispatcher
 {
     private readonly IServiceBus _bus;
 
-    public ProductOutboxJob(IServiceBus bus)
+    public ProductOutboxDispatcher(IServiceBus bus)
     {
         _bus = bus;
     }

@@ -1,26 +1,28 @@
 ﻿using ERP.Products.Application.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
 namespace ERP.Products.Presentation.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddPresentationServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddApplicationServices();
 
-        services.AddMessageBusInfrastructure();
-        services.AddMongoInfrastructure(configuration);
-        services.AddHangfireInfrastructure();
-
-        services.AddPresentationServices(configuration);
+        services.AddAddProblemDetailsServices(configuration);
+        services.AddOpenApi();
+        //Authentication & Authorization
+        //services.AddAuthServices(configuration);
+        services.AddCorsServices(configuration);
 
         return services;
     }
 
-    private static IServiceCollection AddPresentationServices(this IServiceCollection services, IConfiguration configuration)
+    private static IServiceCollection AddAddProblemDetailsServices(this IServiceCollection services, IConfiguration configuration)
     {
         //For unhandled exceptions
         services.AddProblemDetails(options =>
@@ -36,15 +38,6 @@ public static class ServiceCollectionExtensions
                 }
             };
         });
-
-        //OpenApi Specification
-        services.AddOpenApi();
-
-        //Authentication & Authorization
-        //services.AddAuthServices(configuration);
-
-        // CORS
-        services.AddCorsServices(configuration);
 
         return services;
     }
