@@ -68,9 +68,9 @@ public sealed class ProductContextUnitOfWork(ProductDbContext dbContext) : IUnit
 
         foreach (var entity in entities)
         {
-            foreach (var ev in entity.DomainEvents)
+            foreach (var domainEvent in entity.DomainEvents)
             {
-                outboxBatch.Add(OutboxMessage.Create(entity.Id.Value, ev));
+                outboxBatch.Add(OutboxMessage.Create(entity.Id.Value, domainEvent));
             }
         }
 

@@ -19,18 +19,17 @@ public sealed class OutboxMessage
 
     public static OutboxMessage Create(
         Guid aggregateId,
-        IDomainEvent domainEvent,
-        JsonSerializerOptions? jsonOptions = null)
+        IDomainEvent domainEvent)
     {
-        var eventType = domainEvent.GetType();
+        var messageType = domainEvent.GetType();
 
         return new OutboxMessage
         {
             Id = Guid.NewGuid(),
-            EventType = eventType.FullName ?? eventType.Name,
+            EventType = messageType.FullName ?? messageType.Name,
             AggregateId = aggregateId,
             OccurredOnUtc = DateTime.UtcNow,
-            Payload = JsonSerializer.Serialize(domainEvent, eventType, jsonOptions),
+            Payload = JsonSerializer.Serialize(domainEvent, messageType),
             Status = OutboxStatus.Pending,
             RetryCount = 0
         };

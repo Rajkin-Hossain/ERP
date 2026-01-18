@@ -15,7 +15,11 @@ public static class IntegrationEventMapper
                      ?? throw new InvalidOperationException("Bad payload");
 
             return new ProductCreatedMessageEvent(
-                Guid.NewGuid()
+                e.ProductId.Value,
+                e.ProductName.Value,
+                e.CategoryId.Value,
+                e.ImageUrl.Value,
+                e.Price.Value
             );
         },
 
@@ -25,7 +29,11 @@ public static class IntegrationEventMapper
                      ?? throw new InvalidOperationException("Bad payload");
 
             return new ProductUpdatedMessageEvent(
-                Guid.NewGuid()
+                e.ProductId.Value,
+                e.ProductName.Value,
+                e.CategoryId.Value,
+                e.ImageUrl.Value,
+                e.Price.Value
             );
         }
     };
@@ -38,8 +46,3 @@ public static class IntegrationEventMapper
         return factory(payload);
     }
 }
-
-
-
-
-

@@ -16,14 +16,26 @@ public class ProductManagementOrchestrator
     public async Task ProductCreatedEventHandler(ProductCreatedMessageEvent e)
     {
         await _serviceBus.PublishCommandAsync(
-            new CreateProductMessageCommand(e.ProductId), CancellationToken.None
+            new CreateProductMessageCommand(
+                e.ProductId,
+                e.Name,
+                e.CategoryId,
+                e.ImageUrl,
+                e.Price),
+            CancellationToken.None
         );
     }
 
     public async Task ProductUpdatedEventHandler(ProductUpdatedMessageEvent e)
     {
         await _serviceBus.PublishCommandAsync(
-            new UpdateProductMessageCommand(e.ProductId), CancellationToken.None
+            new UpdateProductMessageCommand(
+                e.ProductId,
+                e.Name,
+                e.CategoryId,
+                e.ImageUrl,
+                e.Price),
+            CancellationToken.None
         );
     }
 }

@@ -1,7 +1,6 @@
-using ERP.Shared.Domain.Entities;
-
 using ERP.Products.Domain.DomainEvents;
 using ERP.Products.Domain.ValueObjects;
+using ERP.Shared.Domain.Entities;
 
 namespace ERP.Products.Domain.Entities;
 
@@ -37,7 +36,12 @@ public class Product : AggregateRoot<ProductId>
     {
         var product = new Product(ProductId.New(), productName, categoryId, imageUrl, price);
 
-        product.AddDomainEvent(new ProductCreatedDomainEvent());
+        product.AddDomainEvent(new ProductCreatedDomainEvent(
+            product.Id,
+            product.ProductName,
+            product.CategoryId,
+            product.ImageUrl,
+            product.Price));
 
         return product;
     }
@@ -52,7 +56,12 @@ public class Product : AggregateRoot<ProductId>
         ImageUrl = imageUrl;
         Price = price;
 
-        AddDomainEvent(new ProductUpdatedDomainEvent());
+        AddDomainEvent(new ProductUpdatedDomainEvent(
+            Id,
+            ProductName,
+            CategoryId,
+            ImageUrl,
+            Price));
     }
 
     // "UpdatePrice"

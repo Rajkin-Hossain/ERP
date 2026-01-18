@@ -8,7 +8,12 @@ public class UpdateProductMessageCommandHandler : IConsumer<UpdateProductMessage
 {
     public async Task Consume(ConsumeContext<UpdateProductMessageCommand> context)
     {
-        Debug.WriteLine($"Received DeleteProductCommand for ProductId: {context.Message.ProductId}");
+        var message = context.Message;
+        var json = System.Text.Json.JsonSerializer.Serialize(message, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
+        
+        Debug.WriteLine($"UpdateProductCommandHandler invoked with payload:\n{json}");
+        
+        await Task.CompletedTask;
     }
 }
 
