@@ -11,28 +11,15 @@ public class CreateProductMessageCommandHandler : IConsumer<CreateProductMessage
     {
         var message = context.Message;
 
-        var nameResult = ProductName.Create(message.Name);
-        var categoryIdResult = CategoryId.Create(message.CategoryId);
-        var imageResult = ImageUrl.Create(message.ImageUrl);
-        var priceResult = Price.Create(message.Price);
-
-        if (!nameResult.IsSuccess || !categoryIdResult.IsSuccess || !imageResult.IsSuccess || !priceResult.IsSuccess)
-        {
-             // In a real system, you might move this to an error queue or log it
-             throw new Exception("Invalid product data received from message bus.");
-        }
-
+        // If any of these fail, a DomainException is thrown, 
+        // and MassTransit will handle it (retry/dead-letter).
         var product = Product.Create(
-            nameResult.Value!,
-            categoryIdResult.Value!,
-            imageResult.Value!,
-            priceResult.Value!
+            message.Name,
+            message.CategoryId,
+            message.ImageUrl,
+            message.Price
         );
         
         // Note: In a real implementation, you would save this to the DB here.
     }
 }
-
-
-
-

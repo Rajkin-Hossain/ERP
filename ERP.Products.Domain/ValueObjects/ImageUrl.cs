@@ -1,4 +1,4 @@
-using ERP.Shared.Domain;
+using ERP.Shared.Domain.Exceptions;
 
 namespace ERP.Products.Domain.ValueObjects;
 
@@ -8,21 +8,20 @@ public sealed record ImageUrl
 
     public ImageUrl(string value)
     {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            Value = string.Empty;
+            return;
+        }
+
+        if (!Uri.TryCreate(value, UriKind.Absolute, out _))
+            throw new DomainException("Invalid image URL format.");
+
         Value = value;
     }
 
-    public static DomainResult<ImageUrl> Create(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-            return DomainResult<ImageUrl>.Success(new ImageUrl(value));
-
-        if (!Uri.TryCreate(value, UriKind.Absolute, out _))
-            return DomainResult<ImageUrl>.Failure("Invalid image URL format.");
-
-        return DomainResult<ImageUrl>.Success(new ImageUrl(value));
-    }
+    public static ImageUrl Create(string value) => new(value);
 
     public static implicit operator string(ImageUrl url) => url.Value;
-
-    public static implicit operator ImageUrl(string url) => new(url);
+    public static implicit operator ImageUrl(string value) => new(value);
 }

@@ -1,4 +1,4 @@
-using ERP.Shared.Domain;
+using ERP.Shared.Domain.Exceptions;
 
 namespace ERP.Products.Domain.ValueObjects;
 
@@ -8,21 +8,17 @@ public record ProductName
 
     public ProductName(string value)
     {
+        if (string.IsNullOrWhiteSpace(value))
+            throw new DomainException("Product name cannot be empty.");
+
+        if (value.Length > 200)
+            throw new DomainException("Product name cannot exceed 200 characters.");
+
         Value = value;
     }
 
-    public static DomainResult<ProductName> Create(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-            return DomainResult<ProductName>.Failure("Product name cannot be empty.");
-        
-        if (value.Length > 200)
-            return DomainResult<ProductName>.Failure("Product name cannot exceed 200 characters.");
-
-        return DomainResult<ProductName>.Success(new ProductName(value));
-    }
+    public static ProductName Create(string value) => new(value);
 
     public static implicit operator string(ProductName name) => name.Value;
+    public static implicit operator ProductName(string value) => new(value);
 }
-
-

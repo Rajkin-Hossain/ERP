@@ -1,9 +1,12 @@
-using ERP.Products.Application.Extensions;
+ï»¿using ERP.Products.Application.Extensions;
+using ERP.Shared.Domain.Exceptions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+
 namespace ERP.Products.Presentation.Extensions;
 
 public static class ServiceCollectionExtensions
@@ -29,7 +32,15 @@ public static class ServiceCollectionExtensions
             options.CustomizeProblemDetails = context =>
             {
                 var exception = context.HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
-                if (exception != null)
+
+                if (exception is DomainException domainEx)
+                {
+                    context.ProblemDetails.Status = StatusCodes.Status400BadRequest;
+                    context.ProblemDetails.Title = "Domain Rule Violation";
+                    context.ProblemDetails.Detail = domainEx.Message;
+                    context.ProblemDetails.Type = "https://erp.com/errors/domain-violation";
+                }
+                else if (exception != null)
                 {
                     // This adds a 'rawError' field to your JSON output
                     context.ProblemDetails.Extensions["rawError"] = exception.Message;
@@ -56,7 +67,7 @@ public static class ServiceCollectionExtensions
             {
                 options.Authority = authority;
 
-                // Most Cognito JWT validation “just works” with Authority.
+                // Most Cognito JWT validation just works with Authority.
                 // These validations are the important ones:
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -119,6 +130,3 @@ public static class ServiceCollectionExtensions
         return services;
     }
 }
-
-
-

@@ -1,4 +1,4 @@
-using ERP.Shared.Domain;
+using ERP.Shared.Domain.Exceptions;
 
 namespace ERP.Products.Domain.ValueObjects;
 
@@ -8,19 +8,15 @@ public record CategoryName
 
     public CategoryName(string value)
     {
+        if (string.IsNullOrWhiteSpace(value))
+            throw new DomainException("Category name cannot be empty.");
+            
+        if (value.Length > 200)
+            throw new DomainException("Category name cannot exceed 200 characters.");
+
         Value = value;
     }
 
-    public static DomainResult<CategoryName> Create(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-            return DomainResult<CategoryName>.Failure("Category name cannot be empty.");
-            
-        if (value.Length > 200)
-            return DomainResult<CategoryName>.Failure("Category name cannot exceed 200 characters.");
-
-        return DomainResult<CategoryName>.Success(new CategoryName(value));
-    }
-
     public static implicit operator string(CategoryName name) => name.Value;
+    public static implicit operator CategoryName(string value) => new(value);
 }
