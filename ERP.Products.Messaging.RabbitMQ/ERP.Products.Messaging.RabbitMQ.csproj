@@ -11,8 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ERP.MessageOrchestrator.Contract\ERP.MessageOrchestrator.Contract.csproj" />
     <ProjectReference Include="..\ERP.Products.Application\ERP.Products.Application.csproj" />
-    <ProjectReference Include="..\ERP.Orchestrator.Contract\ERP.Orchestrator.Contract.csproj" />
+    <ProjectReference Include="..\ERP.Orchestrator.Contract\ERP.MessageOrchestrator.Contract.csproj" />
   </ItemGroup>
 
 </Project>

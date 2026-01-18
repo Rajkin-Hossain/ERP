@@ -1,4 +1,4 @@
-using ERP.Orchestrator.Extensions;
+using ERP.MessageOrchestrator.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

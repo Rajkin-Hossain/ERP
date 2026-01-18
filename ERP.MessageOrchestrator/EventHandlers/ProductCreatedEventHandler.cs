@@ -1,7 +1,7 @@
-using ERP.Orchestrator.Contract.Products.MessageEvents;
+using ERP.MessageOrchestrator.Contract.Products.MessageEvents;
 using MassTransit;
 
-namespace ERP.Orchestrator.EventHandlers;
+namespace ERP.MessageOrchestrator.EventHandlers;
 
 public class ProductCreatedEventHandler : IConsumer<ProductCreatedMessageEvent>
 {

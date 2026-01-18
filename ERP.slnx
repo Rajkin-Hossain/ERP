@@ -12,12 +12,12 @@
     <Project Path="ERP.Products.Persistance.MongoDb/ERP.Products.Persistance.MongoDb.csproj" />
   </Folder>
   <Folder Name="/Contracts/">
-    <Project Path="ERP.Orchestrator.Contract/ERP.Orchestrator.Contract.csproj" />
+    <Project Path="ERP.MessageOrchestrator.Contract/ERP.MessageOrchestrator.Contract.csproj" />
   </Folder>
   <Folder Name="/Host/">
     <Project Path="ERP.AppHost/ERP.AppHost.csproj" />
   </Folder>
-  <Folder Name="/MessagingOrchestrator/">
-    <Project Path="ERP.Orchestrator/ERP.Orchestrator.csproj" />
+  <Folder Name="/MessageOrchestrator/">
+    <Project Path="ERP.MessageOrchestrator/ERP.MessageOrchestrator.csproj" />
   </Folder>
 </Solution>

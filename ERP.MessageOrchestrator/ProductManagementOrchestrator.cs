@@ -1,8 +1,8 @@
-using ERP.Orchestrator.Contract.Products.MessageCommands;
-using ERP.Orchestrator.Contract.Products.MessageEvents;
+using ERP.MessageOrchestrator.Contract.Products.MessageCommands;
+using ERP.MessageOrchestrator.Contract.Products.MessageEvents;
 using ERP.Products.Messaging.RabbitMQ.Interfaces;
 
-namespace ERP.Orchestrator;
+namespace ERP.MessageOrchestrator;
 
 public class ProductManagementOrchestrator
 {

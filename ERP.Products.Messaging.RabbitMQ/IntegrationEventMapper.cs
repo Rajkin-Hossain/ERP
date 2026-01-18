@@ -1,5 +1,5 @@
-using ERP.Orchestrator.Contract.Interfaces;
-using ERP.Orchestrator.Contract.Products.MessageEvents;
+using ERP.MessageOrchestrator.Contract.Interfaces;
+using ERP.MessageOrchestrator.Contract.Products.MessageEvents;
 using ERP.Products.Domain.DomainEvents;
 using System.Text.Json;
 

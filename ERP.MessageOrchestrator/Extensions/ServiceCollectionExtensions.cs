@@ -1,7 +1,7 @@
 using ERP.Products.Messaging.RabbitMQ.Extensions;
 using System.Reflection;
 
-namespace ERP.Orchestrator.Extensions;
+namespace ERP.MessageOrchestrator.Extensions;
 
 public static class ServiceCollectionExtensions
 {
