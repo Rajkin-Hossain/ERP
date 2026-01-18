@@ -1,7 +1,7 @@
-﻿using ERP.SharedKernal;
-using ERP.SharedKernal.AppResult;
+﻿using BuildingBlocks.Application.Result;
+using BuildingBlocks.Presentation;
 
-namespace ERP.ProductModule.Presentation.Extensions;
+namespace ERP.Products.Presentation.Extensions;
 
 public static class ResultExtensions
 {
@@ -17,7 +17,7 @@ public static class ResultExtensions
             return TypedResults.StatusCode(StatusCodes.Status500InternalServerError);
         }
 
-        var dominantType = ResolveErrorType(result.Errors.Select(e => e.Type));
+        var dominantType = ResolveAppErrorType(result.Errors.Select(e => e.Type));
 
         var relevantErrors = result.Errors
             .Where(e => e.Type == dominantType)
@@ -27,37 +27,37 @@ public static class ResultExtensions
 
         return dominantType switch
         {
-            ErrorType.Validation => TypedResults.BadRequest(
+            AppErrorType.Validation => TypedResults.BadRequest(
                 ApiResponse<string>.Fail(
                     message: "Validation failed.",
                     errors: messages)),
 
-            ErrorType.Conflict => TypedResults.Conflict(
+            AppErrorType.Conflict => TypedResults.Conflict(
                 ApiResponse<string>.Fail(
                     message: "Conflict occurred.",
                     errors: messages)),
 
-            ErrorType.NotFound => TypedResults.NotFound(
+            AppErrorType.NotFound => TypedResults.NotFound(
                 ApiResponse<string>.Fail(
                     message: "Resource not found.",
                     errors: messages)),
 
-            ErrorType.Unauthorized => TypedResults.Unauthorized(),
+            AppErrorType.Unauthorized => TypedResults.Unauthorized(),
 
-            ErrorType.Forbidden => TypedResults.Forbid(),
+            AppErrorType.Forbidden => TypedResults.Forbid(),
 
             _ => TypedResults.StatusCode(StatusCodes.Status500InternalServerError)
         };
     }
 
-    private static ErrorType ResolveErrorType(IEnumerable<ErrorType> types)
+    private static AppErrorType ResolveAppErrorType(IEnumerable<AppErrorType> types)
     {
-        if (types.Contains(ErrorType.Unauthorized)) return ErrorType.Unauthorized;
-        if (types.Contains(ErrorType.Forbidden)) return ErrorType.Forbidden;
-        if (types.Contains(ErrorType.NotFound)) return ErrorType.NotFound;
-        if (types.Contains(ErrorType.Conflict)) return ErrorType.Conflict;
-        if (types.Contains(ErrorType.Validation)) return ErrorType.Validation;
+        if (types.Contains(AppErrorType.Unauthorized)) return AppErrorType.Unauthorized;
+        if (types.Contains(AppErrorType.Forbidden)) return AppErrorType.Forbidden;
+        if (types.Contains(AppErrorType.NotFound)) return AppErrorType.NotFound;
+        if (types.Contains(AppErrorType.Conflict)) return AppErrorType.Conflict;
+        if (types.Contains(AppErrorType.Validation)) return AppErrorType.Validation;
 
-        return ErrorType.Unexpected;
+        return AppErrorType.Unexpected;
     }
 }

@@ -1,4 +1,4 @@
-﻿using ERP.Orchestrator.Contract.ProductModule.Events;
+﻿using BuildingBlocks.Orchestrator.Contracts.Products.MessageEvents;
 using MassTransit;
 
 namespace ERP.Orchestrator.EventHandlers;

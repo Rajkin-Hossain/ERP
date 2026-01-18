@@ -1,6 +1,4 @@
-﻿using ERP.SharedKernal.Interfaces;
-using RabbitMQ;
-using RabbitMQ.Extensions;
+﻿using BuildingBlocks.Messaging.RabbitMq.Extensions;
 using System.Reflection;
 
 namespace ERP.Orchestrator.Extensions;

@@ -1,6 +1,6 @@
-﻿using ERP.ProductModule.Presentation.EndPoints.ApiGroups;
+﻿using ERP.Products.Presentation.EndPoints.ApiGroups;
 
-namespace ERP.ProductModule.Presentation.EndPoints;
+namespace ERP.Products.Presentation.EndPoints;
 
 public static class ProductApiEndPoints
 {

@@ -1,10 +1,9 @@
-﻿using ERP.ProductModule.Application.Commands;
-using ERP.ProductModule.MongoDb.Outbox;
-using ERP.ProductModule.Presentation.Extensions;
-using Hangfire;
+﻿using ERP.ProductModule.Presentation.Extensions;
+using ERP.Products.Application.Commands;
+using ERP.Products.Presentation.Extensions;
 using MediatR;
 
-namespace ERP.ProductModule.Presentation.EndPoints.ApiGroups;
+namespace ERP.Products.Presentation.EndPoints.ApiGroups;
 
 public static class ProductCommandApiGroups
 {

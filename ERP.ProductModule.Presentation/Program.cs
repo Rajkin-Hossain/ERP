@@ -1,6 +1,5 @@
-﻿using ERP.ProductModule.Presentation.EndPoints;
-using ERP.ProductModule.Presentation.Extensions;
-using ERP.ProductModule.MongoDb.Extensions;
+﻿using ERP.Products.Presentation.EndPoints;
+using ERP.Products.Presentation.Extensions;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,13 +1,9 @@
-﻿using ERP.ProductModule.Application.Extensions;
-using ERP.ProductModule.MongoDb.Extensions;
-using ERP.ProductModule.RabbitMQ.Extensions;
-using HangfireJob.Extensions;
+﻿using ERP.Products.Application.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
-using MongoDb.Extensions;
 
-namespace ERP.ProductModule.Presentation.Extensions;
+namespace ERP.Products.Presentation.Extensions;
 
 public static class ServiceCollectionExtensions
 {

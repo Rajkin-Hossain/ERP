@@ -9,10 +9,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.1" />
   </ItemGroup>
-
+    
   <ItemGroup>
-    <ProjectReference Include="..\ERP.SharedKernal\ERP.SharedKernal.csproj" />
-    <ProjectReference Include="..\RabbitMQ\RabbitMQ.csproj" />
+    <ProjectReference Include="..\BuildingBlocks.Messaging.RabbitMq\BuildingBlocks.Messaging.RabbitMq.csproj" />
+    <ProjectReference Include="..\BuildingBlocks.Orchestrator.Contracts\BuildingBlocks.Orchestrator.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

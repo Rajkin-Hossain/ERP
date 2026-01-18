@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BuildingBlocks.Messaging.RabbitMq\BuildingBlocks.Messaging.RabbitMq.csproj" />
+    <ProjectReference Include="..\BuildingBlocks.Orchestrator.Contracts\BuildingBlocks.Orchestrator.Contracts.csproj" />
+    <ProjectReference Include="..\ERP.Products.Application\ERP.Products.Application.csproj" />
+  </ItemGroup>
+
+</Project>

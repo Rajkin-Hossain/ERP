@@ -1,6 +1,6 @@
-﻿using ERP.Orchestrator.Contract.ProductModule.Commands;
-using ERP.Orchestrator.Contract.ProductModule.Events;
-using ERP.SharedKernal.Interfaces;
+﻿using BuildingBlocks.Application.Interfaces;
+using BuildingBlocks.Orchestrator.Contracts.Products.MessageCommands;
+using BuildingBlocks.Orchestrator.Contracts.Products.MessageEvents;
 
 namespace ERP.Orchestrator;
 
@@ -15,14 +15,14 @@ public class ProductManagementOrchestrator
 
     public async Task ProductCreatedEventHandler(ProductCreatedEvent e)
     {
-        await _serviceBus.PublishCommand(
+        await _serviceBus.PublishAsync(
             new CreateProductCommand(e.ProductId), CancellationToken.None
         );
     }
 
     public async Task ProductUpdatedEventHandler(ProductUpdatedEvent e)
     {
-        await _serviceBus.PublishCommand(
+        await _serviceBus.PublishAsync(
             new UpdateProductCommand(e.ProductId), CancellationToken.None
         );
     }

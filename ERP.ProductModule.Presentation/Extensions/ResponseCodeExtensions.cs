@@ -1,6 +1,6 @@
-﻿using ERP.SharedKernal;
+﻿using BuildingBlocks.Presentation;
 
-namespace ERP.ProductModule.Presentation.Extensions;
+namespace ERP.Products.Presentation.Extensions;
 
 public static class ResponseCodeExtensions
 {

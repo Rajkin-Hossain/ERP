@@ -1,32 +1,29 @@
 <Solution>
-  <Folder Name="/Auth/">
-    <Project Path="E:/Projects/ERP/ERP.Auth.Application/ERP.Auth.Application.csproj" />
-    <Project Path="E:/Projects/ERP/ERP.Auth.Infrastructure/ERP.Auth.Infrastructure.csproj" />
-    <Project Path="E:/Projects/ERP/ERP.Auth.Presentation/ERP.Auth.Presentation.csproj" />
+  <Folder Name="/BoundedContexts/" />
+  <Folder Name="/BoundedContexts/Products/">
+    <Project Path="ERP.ProductModule.Presentation/ERP.Products.Presentation.csproj" />
+    <Project Path="ERP.Products.Application/ERP.Products.Application.csproj" />
+    <Project Path="ERP.Products.Domain/ERP.Products.Domain.csproj" />
   </Folder>
-  <Folder Name="/BC/" />
-  <Folder Name="/BC/ProductModule/">
-    <Project Path="E:/Projects/ERP/ERP.ProductModule.Application/ERP.ProductModule.Application.csproj" />
-    <Project Path="E:/Projects/ERP/ERP.ProductModule.Domain/ERP.ProductModule.Domain.csproj" />
-    <Project Path="E:/Projects/ERP/ERP.ProductModule.Presentation/ERP.ProductModule.Presentation.csproj" />
+  <Folder Name="/BoundedContexts/Products/Infrastructures/">
+    <Project Path="ERP.Products.Messaging.RabbitMQ/ERP.Products.Messaging.RabbitMQ.csproj" />
+    <Project Path="ERP.Products.Persistance.MongoDb/ERP.Products.Persistance.MongoDb.csproj" />
   </Folder>
-  <Folder Name="/BC/ProductModule/Infrastructures/">
-    <Project Path="E:/Projects/ERP/ERP.ProductModule.MongoDb/ERP.ProductModule.MongoDb.csproj" Id="1d1d34f8-0c20-445d-9e12-2d4dd9f62c79" />
-    <Project Path="E:/Projects/ERP/ERP.ProductModule.RabbitMQ/ERP.ProductModule.RabbitMQ.csproj" Id="f2aedec5-f3a5-4141-97f4-904c1ba8dc61" />
+  <Folder Name="/BuildingBlocks/">
+    <Project Path="BuildingBlocks.Application/BuildingBlocks.Application.csproj" Id="931ddef7-7b19-4a68-bc10-2f9a7fa03324" />
+    <Project Path="BuildingBlocks.Domain/BuildingBlocks.Domain.csproj" Id="864675d4-8d6a-4c4f-8e8c-d94bff97c4dc" />
+    <Project Path="BuildingBlocks.Orchestrator.Contracts/BuildingBlocks.Orchestrator.Contracts.csproj" Id="abf5b2ff-8da8-4ba6-af45-ac23f0e63cd2" />
+    <Project Path="BuildingBlocks.Presentation/BuildingBlocks.Presentation.csproj" Id="b9bee7ab-9bf6-4bc5-946a-140f0dff6503" />
+  </Folder>
+  <Folder Name="/BuildingBlocks/Infrastructures/">
+    <Project Path="BuildingBlocks.Hangfire/BuildingBlocks.Hangfire.csproj" Id="fb5eb417-ece4-45aa-bf67-ec4b873088b9" />
+    <Project Path="BuildingBlocks.Messaging.RabbitMq/BuildingBlocks.Messaging.RabbitMq.csproj" Id="b9c3bb7c-7015-41b1-a677-2e253d3cc2f2" />
+    <Project Path="BuildingBlocks.Persistence.MongoDb/BuildingBlocks.Persistence.MongoDb.csproj" Id="16a5d83f-267a-4205-86b9-9a2c0f03d380" />
   </Folder>
   <Folder Name="/Host/">
     <Project Path="E:/Projects/ERP/ERP.AppHost/ERP.AppHost.csproj" Id="560ac3a6-60c4-458a-a65a-9e30e87d0c01" />
   </Folder>
-  <Folder Name="/Lib/">
-    <Project Path="E:/Projects/ERP/HangfireJob/HangfireJob.csproj" Id="7ac2b0dd-c6c2-423f-b897-ef72835819be" />
-    <Project Path="E:/Projects/ERP/MongoDb/MongoDb.csproj" Id="4282a81a-15cf-4479-b422-7c23983c4255" />
-    <Project Path="E:/Projects/ERP/RabbitMQ/RabbitMQ.csproj" Id="273869f9-00c5-44af-add0-f1efcf7f4260" />
-  </Folder>
-  <Folder Name="/Orchestrator/">
-    <Project Path="E:/Projects/ERP/ERP.Orchestrator.Contract/ERP.Orchestrator.Contract.csproj" Id="34da319f-325a-4983-9cdc-4723338c6c1f" />
+  <Folder Name="/MessagingOrchestrator/">
     <Project Path="E:/Projects/ERP/ERP.Orchestrator/ERP.Orchestrator.csproj" Id="686caa5c-2830-4ce6-b39e-472a2c9e5a99" />
-  </Folder>
-  <Folder Name="/SharedKernal/">
-    <Project Path="E:/Projects/ERP/ERP.SharedKernal/ERP.SharedKernal.csproj" />
   </Folder>
 </Solution>

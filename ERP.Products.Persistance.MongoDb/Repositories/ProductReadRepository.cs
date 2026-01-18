@@ -1,0 +1,12 @@
+﻿using BuildingBlocks.Persistence.MongoDb;
+using ERP.Products.Application.Interfaces;
+using ERP.Products.Domain.Entities;
+using ERP.Products.Domain.ValueObjects;
+using ERP.Products.Persistance.MongoDb.Data;
+
+namespace ERP.Products.Persistance.MongoDb.Repositories;
+
+public class ProductReadRepository(ProductDbContext dbcontext)
+    : MongoRepositoryBase<Product, ProductId>(dbcontext), IProductReadRepository
+{
+}

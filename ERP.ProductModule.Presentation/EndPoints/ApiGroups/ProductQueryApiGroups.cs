@@ -1,8 +1,8 @@
-﻿using ERP.ProductModule.Application.Queries;
-using ERP.ProductModule.Presentation.Extensions;
+﻿using ERP.ProductModule.Presentation.Extensions;
+using ERP.Products.Presentation.Extensions;
 using MediatR;
 
-namespace ERP.ProductModule.Presentation.EndPoints.ApiGroups;
+namespace ERP.Products.Presentation.EndPoints.ApiGroups;
 
 public static class ProductQueryApiGroups
 {

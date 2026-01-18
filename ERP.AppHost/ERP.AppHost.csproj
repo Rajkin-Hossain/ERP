@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ERP.Orchestrator\ERP.Orchestrator.csproj" />
-    <ProjectReference Include="..\ERP.ProductModule.Presentation\ERP.ProductModule.Presentation.csproj" />
   </ItemGroup>
 
 </Project>
