@@ -1,14 +1,10 @@
-using ERP.Shared.Application.Result;
 using ERP.Products.Application.Commands;
-using ERP.Shared.Application.Interfaces;
-
-using ERP.Shared.Domain.Entities;
-
-using ERP.Products.Domain.ValueObjects;
-using MediatR;
-
 using ERP.Products.Application.Interfaces;
 using ERP.Products.Domain.Entities;
+using ERP.Products.Domain.ValueObjects;
+using ERP.Shared.Application.Interfaces;
+using ERP.Shared.Application.Result;
+using MediatR;
 namespace ERP.Products.Application.CommandHandlers;
 
 public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, AppResult<ProductId>>

@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-
-using ERP.Products.Application.Interfaces;
 namespace ERP.Products.Presentation.Extensions;
 
 public static class ServiceCollectionExtensions

@@ -1,4 +1,4 @@
-namespace ERP.Shared.Presentation;
+namespace ERP.Shared.Presentation.Models;
 
 public sealed class ApiResponse<T>
 {

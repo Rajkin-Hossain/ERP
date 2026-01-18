@@ -1,8 +1,6 @@
-using ERP.Shared.Application.Interfaces;
-
+using ERP.Products.Application.Interfaces;
 using Hangfire;
 
-using ERP.Products.Application.Interfaces;
 namespace ERP.Products.Dispatcher.Hangfire;
 
 public class OutboxDispatchTrigger : IOutboxDispatchTrigger

@@ -1,4 +1,3 @@
-using ERP.Products.Application.Interfaces;
 namespace ERP.Products.Messaging.RabbitMQ.Interfaces;
 
 public interface IServiceBus

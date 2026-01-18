@@ -1,7 +1,6 @@
 using ERP.Products.Dispatcher.Hangfire.Extensions;
 using ERP.Products.Messaging.RabbitMQ.Extensions;
 using ERP.Products.Persistance.MongoDb.Extensions;
-using ERP.Shared.Presentation.Extensions;
 using ERP.Products.Presentation.Extensions;
 
 namespace ERP.Products.Api.Extensions;

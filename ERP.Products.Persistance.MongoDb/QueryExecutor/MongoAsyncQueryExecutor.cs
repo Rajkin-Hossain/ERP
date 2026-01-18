@@ -1,9 +1,6 @@
 using ERP.Shared.Application.Interfaces;
 
 using Microsoft.EntityFrameworkCore;
-
-using ERP.Products.Domain.Entities;
-using ERP.Products.Application.Interfaces;
 namespace ERP.Products.Persistance.MongoDb.QueryExecutor;
 
 public sealed class MongoAsyncQueryExecutor : IAsyncQueryExecutor

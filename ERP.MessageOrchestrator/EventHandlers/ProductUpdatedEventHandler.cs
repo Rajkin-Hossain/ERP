@@ -1,4 +1,3 @@
-using ERP.MessageOrchestrator;
 using ERP.MessageOrchestrator.Contracts.Products.MessageEvents;
 using MassTransit;
 

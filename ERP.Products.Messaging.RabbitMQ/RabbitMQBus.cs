@@ -1,7 +1,5 @@
 using ERP.Products.Messaging.RabbitMQ.Interfaces;
 using MassTransit;
-
-using ERP.Products.Application.Interfaces;
 namespace ERP.Products.Messaging.RabbitMQ;
 
 public class RabbitMQBus : IServiceBus
