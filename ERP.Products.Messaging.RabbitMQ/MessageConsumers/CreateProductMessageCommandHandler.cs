@@ -1,10 +1,9 @@
-using ERP.Shared.Integration.Products.MessageCommands;
-using ERP.Shared.Integration.Products.MessageEvents;
+using ERP.MessageOrchestrator.Contracts.Products.MessageCommands;
+using ERP.MessageOrchestrator.Contracts.Products.MessageEvents;
 using ERP.Products.Messaging.RabbitMQ.Interfaces;
 using MassTransit;
 using System.Diagnostics;
 
-using ERP.Products.Application.Interfaces;
 namespace ERP.Products.Messaging.RabbitMQ.MessageConsumers;
 
 public class CreateProductMessageCommandHandler : IConsumer<CreateProductMessageCommand>

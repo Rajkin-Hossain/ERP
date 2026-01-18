@@ -5,6 +5,7 @@
     <Platform Name="x86" />
   </Configurations>
   <Project Path="ERP.AppHost/ERP.AppHost.csproj" />
+  <Project Path="ERP.MessageOrchestrator.Contracts/ERP.MessageOrchestrator.Contracts.csproj" />
   <Project Path="ERP.MessageOrchestrator/ERP.MessageOrchestrator.csproj" />
   <Project Path="ERP.Products.Api/ERP.Products.Api.csproj" />
   <Project Path="ERP.Products.Application/ERP.Products.Application.csproj" />
@@ -15,6 +16,5 @@
   <Project Path="ERP.Products.Presentation/ERP.Products.Presentation.csproj" />
   <Project Path="ERP.Shared.Application/ERP.Shared.Application.csproj" />
   <Project Path="ERP.Shared.Domain/ERP.Shared.Domain.csproj" />
-  <Project Path="ERP.Shared.Integration/ERP.Shared.Integration.csproj" />
   <Project Path="ERP.Shared.Presentation/ERP.Shared.Presentation.csproj" />
 </Solution>

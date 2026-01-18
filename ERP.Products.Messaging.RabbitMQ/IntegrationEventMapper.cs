@@ -1,9 +1,8 @@
-using ERP.Shared.Integration.Interfaces;
-using ERP.Shared.Integration.Products.MessageEvents;
+using ERP.MessageOrchestrator.Contracts.Interfaces;
+using ERP.MessageOrchestrator.Contracts.Products.MessageEvents;
 using ERP.Products.Domain.DomainEvents;
 using System.Text.Json;
 
-using ERP.Products.Application.Interfaces;
 namespace ERP.Products.Messaging.RabbitMQ;
 
 public static class IntegrationEventMapper

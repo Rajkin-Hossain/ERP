@@ -1,8 +1,8 @@
-using ERP.Shared.Integration.Products.MessageCommands;
 using MassTransit;
 using System.Diagnostics;
 
 using ERP.Products.Application.Interfaces;
+using ERP.MessageOrchestrator.Contracts.Products.MessageCommands;
 namespace ERP.Products.Messaging.RabbitMQ.MessageConsumers;
 
 public class UpdateProductMessageCommandHandler : IConsumer<UpdateProductMessageCommand>
