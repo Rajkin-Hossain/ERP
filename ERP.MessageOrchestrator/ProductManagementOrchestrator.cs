@@ -1,6 +1,6 @@
 using ERP.MessageOrchestrator.Contract.Products.MessageCommands;
 using ERP.MessageOrchestrator.Contract.Products.MessageEvents;
-using ERP.Products.Messaging.RabbitMQ.Interfaces;
+using ERP.MessageOrchestrator.Interfaces;
 
 namespace ERP.MessageOrchestrator;
 

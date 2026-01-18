@@ -13,7 +13,6 @@
     
   <ItemGroup>
     <ProjectReference Include="..\ERP.MessageOrchestrator.Contract\ERP.MessageOrchestrator.Contract.csproj" />
-    <ProjectReference Include="..\ERP.Products.Messaging.RabbitMQ\ERP.Products.Messaging.RabbitMQ.csproj" />
   </ItemGroup>
 
 </Project>
