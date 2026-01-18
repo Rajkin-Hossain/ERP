@@ -13,7 +13,6 @@
   <ItemGroup>
     <ProjectReference Include="..\ERP.MessageOrchestrator.Contracts\ERP.MessageOrchestrator.Contracts.csproj" />
     <ProjectReference Include="..\ERP.Products.Application\ERP.Products.Application.csproj" />
-    <ProjectReference Include="..\ERP.Shared.Integration\ERP.MessageOrchestrator.Contracts.csproj" />
   </ItemGroup>
 
 </Project>
