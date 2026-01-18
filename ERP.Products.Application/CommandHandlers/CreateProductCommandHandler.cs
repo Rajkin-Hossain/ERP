@@ -20,7 +20,7 @@ public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductC
     {
         var product = Product.Create(
             request.Name,
-            Guid.Parse(request.CategoryId),
+            request.CategoryId,
             request.ImageUrl,
             request.Price);
 

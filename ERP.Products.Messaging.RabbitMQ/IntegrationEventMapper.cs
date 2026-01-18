@@ -7,11 +7,17 @@ namespace ERP.Products.Messaging.RabbitMQ;
 
 public static class IntegrationEventMapper
 {
+    private static readonly JsonSerializerOptions _jsonOptions = new()
+    {
+        Converters = { new ValueObjectConverterFactory() },
+        PropertyNameCaseInsensitive = true
+    };
+
     private static readonly Dictionary<string, Func<string, IMessageEvent>> _map = new()
     {
         [typeof(ProductCreatedDomainEvent).FullName!] = payload =>
         {
-            var e = JsonSerializer.Deserialize<ProductCreatedDomainEvent>(payload)
+            var e = JsonSerializer.Deserialize<ProductCreatedDomainEvent>(payload, _jsonOptions)
                      ?? throw new InvalidOperationException("Bad payload");
 
             return new ProductCreatedMessageEvent(
@@ -25,7 +31,7 @@ public static class IntegrationEventMapper
 
         [typeof(ProductUpdatedDomainEvent).FullName!] = payload =>
         {
-            var e = JsonSerializer.Deserialize<ProductUpdatedDomainEvent>(payload)
+            var e = JsonSerializer.Deserialize<ProductUpdatedDomainEvent>(payload, _jsonOptions)
                      ?? throw new InvalidOperationException("Bad payload");
 
             return new ProductUpdatedMessageEvent(

@@ -6,7 +6,7 @@ public sealed record ImageUrl
 {
     public string Value { get; init; }
 
-    public ImageUrl(string value)
+    private ImageUrl(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
         {

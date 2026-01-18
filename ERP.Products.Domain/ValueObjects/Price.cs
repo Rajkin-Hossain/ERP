@@ -6,7 +6,7 @@ public sealed record Price
 {
     public decimal Value { get; }
 
-    public Price(decimal value)
+    private Price(decimal value)
     {
         if (value < 0)
             throw new DomainException("Price cannot be negative.");

@@ -15,11 +15,11 @@ public sealed class CategoryConfiguration : IEntityTypeConfiguration<Category>
 
         builder.HasKey(category => category.Id);
         builder.Property(category => category.Id)
-            .HasConversion(id => id.Value, value => new CategoryId(value))
+            .HasConversion(id => id.Value, value => CategoryId.Create(value))
             .HasElementName("_id");
 
         builder.Property(category => category.CategoryName)
-            .HasConversion(name => name.Value, value => new CategoryName(value))
+            .HasConversion(name => name.Value, value => CategoryName.Create(value))
             .HasElementName("CategoryName")
             .IsRequired();
     }

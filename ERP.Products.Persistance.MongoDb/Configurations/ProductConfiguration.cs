@@ -15,26 +15,26 @@ public sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
 
         builder.HasKey(product => product.Id);
         builder.Property(product => product.Id)
-            .HasConversion(id => id.Value, value => new ProductId(value))
+            .HasConversion(id => id.Value, value => ProductId.Create(value))
             .HasElementName("_id");
 
         builder.Property(product => product.CategoryId)
-            .HasConversion(id => id.Value, value => new CategoryId(value))
+            .HasConversion(id => id.Value, value => CategoryId.Create(value))
             .HasElementName("CategoryId")
             .IsRequired();
 
         builder.Property(product => product.ProductName)
-            .HasConversion(name => name.Value, value => new ProductName(value))
+            .HasConversion(name => name.Value, value => ProductName.Create(value))
             .HasElementName("ProductName")
             .IsRequired();
 
         builder.Property(product => product.ImageUrl)
-            .HasConversion(url => url.Value, value => new ImageUrl(value))
+            .HasConversion(url => url.Value, value => ImageUrl.Create(value))
             .HasElementName("ImageUrl")
             .IsRequired();
 
         builder.Property(product => product.Price)
-            .HasConversion(price => price.Value, value => new Price(value))
+            .HasConversion(price => price.Value, value => Price.Create(value))
             .HasElementName("Price")
             .IsRequired();
     }

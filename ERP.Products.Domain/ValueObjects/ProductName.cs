@@ -6,7 +6,7 @@ public record ProductName
 {
     public string Value { get; init; }
 
-    public ProductName(string value)
+    private ProductName(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
             throw new DomainException("Product name cannot be empty.");
