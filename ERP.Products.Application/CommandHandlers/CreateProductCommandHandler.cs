@@ -2,7 +2,6 @@ using ERP.Products.Application.Commands;
 using ERP.Products.Application.Interfaces;
 using ERP.Products.Domain.Entities;
 using ERP.Products.Domain.ValueObjects;
-using ERP.Shared.Application.Interfaces;
 using ERP.Shared.Application.Result;
 using MediatR;
 namespace ERP.Products.Application.CommandHandlers;
@@ -10,27 +9,35 @@ namespace ERP.Products.Application.CommandHandlers;
 public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, AppResult<ProductId>>
 {
     private readonly IProductWriteRepository _repo;
-    private readonly IUnitOfWork _unitOfWork;
 
-    public CreateProductCommandHandler(IProductWriteRepository repo,
-        IUnitOfWork unitOfWork)
+    public CreateProductCommandHandler(IProductWriteRepository repo)
     {
         _repo = repo;
-        _unitOfWork = unitOfWork;
     }
 
     public async Task<AppResult<ProductId>> Handle(CreateProductCommand request, CancellationToken ct)
     {
-        var product = Product.Create(request.Name, Guid.Parse(request.CategoryId), request.ImageUrl, request.Price);
+        // 1. Validate Value Objects
+        var nameResult = ProductName.Create(request.Name);
+        var imageResult = ImageUrl.Create(request.ImageUrl);
+        var priceResult = Price.Create(request.Price);
+        var categoryId = new CategoryId(Guid.Parse(request.CategoryId));
 
-        var productId = await _unitOfWork.StartTransactionAsync(async ct =>
-        {
-            await _repo.InsertAsync(product, ct);
+        // 2. Aggregate Domain Errors
+        if (!nameResult.IsSuccess) return AppResult<ProductId>.Fail(new AppError(AppErrorType.Validation, nameResult.ErrorMessage!));
+        if (!imageResult.IsSuccess) return AppResult<ProductId>.Fail(new AppError(AppErrorType.Validation, imageResult.ErrorMessage!));
+        if (!priceResult.IsSuccess) return AppResult<ProductId>.Fail(new AppError(AppErrorType.Validation, priceResult.ErrorMessage!));
 
-            return product.Id;
-        }, ct);
+        // 3. Create Entity
+        var product = Product.Create(
+            nameResult.Value!,
+            categoryId,
+            imageResult.Value!,
+            priceResult.Value!);
 
-        return AppResult<ProductId>.Ok(productId);
+        await _repo.InsertAsync(product, ct);
+
+        return AppResult<ProductId>.Ok(product.Id);
     }
 }
 

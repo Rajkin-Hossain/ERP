@@ -1,5 +1,4 @@
-using ERP.Shared.Domain.Exceptions;
-
+using ERP.Shared.Domain;
 
 namespace ERP.Products.Domain.ValueObjects;
 
@@ -9,20 +8,16 @@ public sealed record Price
 
     public Price(decimal value)
     {
-        if (value < 0)
-            throw new DomainException("Amount cannot be negative.");
-
         Value = value;
     }
 
-    public static implicit operator Price(decimal value)
+    public static DomainResult<Price> Create(decimal value)
     {
-        return new Price(value);
+        if (value < 0)
+            return DomainResult<Price>.Failure("Price cannot be negative.");
+
+        return DomainResult<Price>.Success(new Price(value));
     }
+
+    public static implicit operator decimal(Price price) => price.Value;
 }
-
-
-
-
-
-

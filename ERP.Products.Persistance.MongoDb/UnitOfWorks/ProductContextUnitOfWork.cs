@@ -11,13 +11,14 @@ public sealed class ProductContextUnitOfWork(ProductDbContext dbContext) : IUnit
         Func<CancellationToken, Task<TResult>> dbAction,
         CancellationToken ct = default)
     {
-        // Mongo EF provider may or may not support EF transactions.
-        // We attempt it; if not supported, we run without a transaction.
+        // Mongo EF provider for MongoDB supports transactions in a Replica Set environment.
         try
         {
-            /*await using var tx = await dbContext.Database.BeginTransactionAsync(ct);
+            await using var tx = await dbContext.Database.BeginTransactionAsync(ct);
 
             var result = await dbAction(ct);
+            //this var results now hold the AppResult<ProductId>.Ok object.
+            //It will return when below cases are done successfully.
 
             await AddTrackedDomainEvents(ct);
             await dbContext.SaveChangesAsync(ct);
@@ -25,17 +26,11 @@ public sealed class ProductContextUnitOfWork(ProductDbContext dbContext) : IUnit
             await tx.CommitAsync(ct);
 
             ClearTrackedDomainEvents();
-            return result;*/
-
-            return await ExecuteWithoutTransactionAsync(dbAction, ct);
+            return result;
         }
-        catch (NotSupportedException)
+        catch (Exception ex) when (ex is NotSupportedException or InvalidOperationException)
         {
-            return await ExecuteWithoutTransactionAsync(dbAction, ct);
-        }
-        catch (InvalidOperationException)
-        {
-            // Some providers throw InvalidOperationException instead of NotSupportedException
+            // Fallback for non-transactional environments (e.g., Standalone MongoDB instace)
             return await ExecuteWithoutTransactionAsync(dbAction, ct);
         }
     }
