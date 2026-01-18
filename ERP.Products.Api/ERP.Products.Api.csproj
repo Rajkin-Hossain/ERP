@@ -7,12 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.1" />
-    <PackageReference Include="Scalar.AspNetCore" Version="2.12.5" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ERP.Products.Dispatcher.Hangfire\ERP.Products.Dispatcher.Hangfire.csproj" />
     <ProjectReference Include="..\ERP.Products.Presentation\ERP.Products.Presentation.csproj" />
     <ProjectReference Include="..\ERP.Products.Persistance.MongoDb\ERP.Products.Persistance.MongoDb.csproj" />
