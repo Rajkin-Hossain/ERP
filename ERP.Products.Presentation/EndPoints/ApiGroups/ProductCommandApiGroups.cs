@@ -1,11 +1,14 @@
-﻿using ERP.Products.Application.Commands;
-using ERP.Products.Application.Interfaces;
+using ERP.Products.Application.Commands;
+using ERP.Shared.Application.Interfaces;
+
+using ERP.Shared.Presentation.Extensions;
 using ERP.Products.Presentation.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
+using ERP.Products.Application.Interfaces;
 namespace ERP.Products.Presentation.EndPoints.ApiGroups;
 
 public static class ProductCommandApiGroups
@@ -39,3 +42,9 @@ public static class ProductCommandApiGroups
         .WithName("UpdateProduct");
     }
 }
+
+
+
+
+
+

@@ -1,6 +1,9 @@
-﻿using ERP.Products.Domain.Entities;
+using ERP.Shared.Domain.Entities;
+
 using Microsoft.EntityFrameworkCore;
 
+using ERP.Products.Domain.Entities;
+using ERP.Products.Application.Interfaces;
 namespace ERP.Products.Persistance.MongoDb.Data;
 
 public sealed class ProductDbContext(DbContextOptions<ProductDbContext> options) : DbContext(options)
@@ -22,3 +25,9 @@ public sealed class ProductDbContext(DbContextOptions<ProductDbContext> options)
         base.OnModelCreating(modelBuilder);
     }
 }
+
+
+
+
+
+

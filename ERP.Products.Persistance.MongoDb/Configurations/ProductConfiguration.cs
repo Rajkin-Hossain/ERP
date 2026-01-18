@@ -1,9 +1,12 @@
-﻿using ERP.Products.Domain.Entities;
+using ERP.Shared.Domain.Entities;
+
 using ERP.Products.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MongoDB.EntityFrameworkCore.Extensions;
 
+using ERP.Products.Domain.Entities;
+using ERP.Products.Application.Interfaces;
 namespace ERP.Products.Persistance.MongoDb.Configurations;
 
 public sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
@@ -40,3 +43,9 @@ public sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
             .IsRequired();
     }
 }
+
+
+
+
+
+

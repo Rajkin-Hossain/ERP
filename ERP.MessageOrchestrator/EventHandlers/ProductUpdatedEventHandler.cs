@@ -1,5 +1,5 @@
 using ERP.MessageOrchestrator;
-using ERP.MessageOrchestrator.Contract.Products.MessageEvents;
+using ERP.Shared.Integration.Products.MessageEvents;
 using MassTransit;
 
 namespace ERP.MessageOrchestrator.EventHandlers;
@@ -18,4 +18,5 @@ public class ProductUpdatedEventHandler : IConsumer<ProductUpdatedMessageEvent>
         await orchestrator.ProductUpdatedEventHandler(context.Message);
     }
 }
+
 

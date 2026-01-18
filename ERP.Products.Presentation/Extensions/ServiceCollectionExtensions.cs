@@ -1,10 +1,11 @@
-﻿using ERP.Products.Application.Extensions;
+using ERP.Products.Application.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
+using ERP.Products.Application.Interfaces;
 namespace ERP.Products.Presentation.Extensions;
 
 public static class ServiceCollectionExtensions
@@ -57,7 +58,7 @@ public static class ServiceCollectionExtensions
             {
                 options.Authority = authority;
 
-                // Most Cognito JWT validation “just works” with Authority.
+                // Most Cognito JWT validation �just works� with Authority.
                 // These validations are the important ones:
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -66,7 +67,7 @@ public static class ServiceCollectionExtensions
 
                     ValidateLifetime = true,
 
-                    // ✅ IMPORTANT for Cognito Access Tokens
+                    // ? IMPORTANT for Cognito Access Tokens
                     // Access tokens often don't have aud the way you expect.
                     ValidateAudience = false,
                 };
@@ -120,3 +121,6 @@ public static class ServiceCollectionExtensions
         return services;
     }
 }
+
+
+

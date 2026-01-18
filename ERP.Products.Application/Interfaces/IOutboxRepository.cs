@@ -1,5 +1,8 @@
-﻿using ERP.Products.Domain.Entities;
+using ERP.Shared.Domain.Entities;
 
+
+using ERP.Products.Application.Interfaces;
+using ERP.Products.Domain.Entities;
 namespace ERP.Products.Application.Interfaces;
 
 public interface IOutboxRepository
@@ -9,3 +12,9 @@ public interface IOutboxRepository
     Task UpdateAsync(ProductOutboxMessage message, CancellationToken ct = default);
     Task SaveChangesAsync(CancellationToken ct = default);
 }
+
+
+
+
+
+

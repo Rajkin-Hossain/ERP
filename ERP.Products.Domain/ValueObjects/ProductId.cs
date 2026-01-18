@@ -16,3 +16,5 @@ public sealed record ProductId
 
     public static ProductId New() => new(Guid.CreateVersion7());
 }
+
+

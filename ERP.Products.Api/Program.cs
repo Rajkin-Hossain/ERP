@@ -32,3 +32,5 @@ app.MapGet("/health", () => Results.Ok(new { Status = "Healthy" }));
 app.MapProductApiEndPoints();
 
 app.Run();
+
+

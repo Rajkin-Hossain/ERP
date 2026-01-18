@@ -1,9 +1,13 @@
-﻿using ERP.Products.Application.Interfaces;
-using ERP.Products.Domain.Entities;
+using ERP.Shared.Application.Interfaces;
+
+using ERP.Shared.Domain.Entities;
+
 using ERP.Products.Domain.Enums;
 using ERP.Products.Persistance.MongoDb.Data;
 using Microsoft.EntityFrameworkCore;
 
+using ERP.Products.Domain.Entities;
+using ERP.Products.Application.Interfaces;
 namespace ERP.Products.Persistance.MongoDb.Repositories;
 
 public class OutboxRepository(ProductDbContext dbcontext) : IOutboxRepository
@@ -31,3 +35,8 @@ public class OutboxRepository(ProductDbContext dbcontext) : IOutboxRepository
         await dbcontext.SaveChangesAsync(ct);
     }
 }
+
+
+
+
+

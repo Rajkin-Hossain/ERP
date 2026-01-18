@@ -1,11 +1,15 @@
-using ERP.Products.Application.Interfaces;
-using ERP.Products.Application.Result;
+using ERP.Shared.Application.Interfaces;
+
+using ERP.Shared.Application.Result;
 using ERP.Products.Application.Contracts;
-using ERP.Products.Application.Interfaces;
+using ERP.Shared.Application.Interfaces;
+
 using ERP.Products.Application.Mappers;
 using ERP.Products.Application.Queries;
 using MediatR;
 
+using ERP.Products.Application.Interfaces;
+using ERP.Products.Domain.Entities;
 namespace ERP.Products.Application.QueryHandlers;
 
 public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, AppResult<IEnumerable<ProductResult>>>
@@ -30,4 +34,10 @@ public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, 
         return AppResult<IEnumerable<ProductResult>>.Ok(results);
     }
 }
+
+
+
+
+
+
 

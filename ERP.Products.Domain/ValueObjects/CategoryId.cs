@@ -16,3 +16,5 @@ public sealed record CategoryId
 
     public static CategoryId New() => new(Guid.CreateVersion7());
 }
+
+

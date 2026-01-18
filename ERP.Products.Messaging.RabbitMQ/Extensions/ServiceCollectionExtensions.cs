@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
+using ERP.Products.Application.Interfaces;
 namespace ERP.Products.Messaging.RabbitMQ.Extensions;
 
 public static class ServiceCollectionExtensions
@@ -38,3 +39,6 @@ public static class ServiceCollectionExtensions
         return services;
     }
 }
+
+
+

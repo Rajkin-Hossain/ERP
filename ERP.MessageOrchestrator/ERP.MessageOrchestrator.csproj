@@ -10,9 +10,10 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.1" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="9.0.0" />
   </ItemGroup>
-    
+
   <ItemGroup>
-    <ProjectReference Include="..\ERP.MessageOrchestrator.Contract\ERP.MessageOrchestrator.Contract.csproj" />
+    <ProjectReference Include="..\ERP.Shared.Application\ERP.Shared.Application.csproj" />
+    <ProjectReference Include="..\ERP.Shared.Integration\ERP.Shared.Integration.csproj" />
   </ItemGroup>
 
 </Project>

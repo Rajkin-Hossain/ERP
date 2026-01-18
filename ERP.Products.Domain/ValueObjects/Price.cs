@@ -1,4 +1,5 @@
-using ERP.Products.Domain.Exceptions;
+using ERP.Shared.Domain.Exceptions;
+
 
 namespace ERP.Products.Domain.ValueObjects;
 
@@ -19,4 +20,9 @@ public sealed record Price
         return new Price(value);
     }
 }
+
+
+
+
+
 

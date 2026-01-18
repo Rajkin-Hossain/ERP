@@ -1,9 +1,13 @@
-using ERP.Products.Application.Interfaces;
-using ERP.Products.Application.Paging;
-using ERP.Products.Domain.Entities;
+using ERP.Shared.Application.Interfaces;
+
+using ERP.Shared.Application.Paging;
+using ERP.Shared.Domain.Entities;
+
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
+using ERP.Products.Domain.Entities;
+using ERP.Products.Application.Interfaces;
 namespace ERP.Products.Persistance.MongoDb;
 
 public abstract class MongoRepositoryBase<T, TId>(DbContext dbContext) : IRepositoryBase<T, TId>
@@ -155,4 +159,10 @@ public abstract class MongoRepositoryBase<T, TId>(DbContext dbContext) : IReposi
         return AppPagedResult<TResult>.Create(items, pageNumber, pageSize, (int)totalCount);
     }
 }
+
+
+
+
+
+
 

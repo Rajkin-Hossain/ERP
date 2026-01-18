@@ -1,8 +1,11 @@
-﻿using ERP.Products.Domain.Entities;
+using ERP.Shared.Domain.Entities;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MongoDB.EntityFrameworkCore.Extensions;
 
+using ERP.Products.Domain.Entities;
+using ERP.Products.Application.Interfaces;
 namespace ERP.Products.Persistance.MongoDb.Configurations;
 
 public sealed class ProductOutboxMessageConfiguration : IEntityTypeConfiguration<ProductOutboxMessage>
@@ -43,3 +46,9 @@ public sealed class ProductOutboxMessageConfiguration : IEntityTypeConfiguration
             .IsRequired();
     }
 }
+
+
+
+
+
+

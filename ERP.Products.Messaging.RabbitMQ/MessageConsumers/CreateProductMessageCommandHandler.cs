@@ -1,9 +1,10 @@
-using ERP.MessageOrchestrator.Contract.Products.MessageCommands;
-using ERP.MessageOrchestrator.Contract.Products.MessageEvents;
+using ERP.Shared.Integration.Products.MessageCommands;
+using ERP.Shared.Integration.Products.MessageEvents;
 using ERP.Products.Messaging.RabbitMQ.Interfaces;
 using MassTransit;
 using System.Diagnostics;
 
+using ERP.Products.Application.Interfaces;
 namespace ERP.Products.Messaging.RabbitMQ.MessageConsumers;
 
 public class CreateProductMessageCommandHandler : IConsumer<CreateProductMessageCommand>
@@ -22,3 +23,7 @@ public class Test(IServiceBus bus)
         await bus.PublishAsync(new ProductCreatedMessageEvent(Guid.NewGuid()), CancellationToken.None);
     }
 }
+
+
+
+

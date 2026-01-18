@@ -1,7 +1,8 @@
 using ERP.Products.Persistance.MongoDb.Options;
 using ERP.Products.Persistance.MongoDb.Data;
 using ERP.Products.Persistance.MongoDb.Repositories;
-using ERP.Products.Application.Interfaces;
+using ERP.Shared.Application.Interfaces;
+
 using ERP.Products.Persistance.MongoDb.QueryExecutor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using ERP.Products.Persistance.MongoDb.UnitOfWorks;
 
+using ERP.Products.Domain.Entities;
+using ERP.Products.Application.Interfaces;
 namespace ERP.Products.Persistance.MongoDb.Extensions;
 
 public static class ServiceCollectionExtensions
@@ -35,3 +38,9 @@ public static class ServiceCollectionExtensions
         return services;
     }
 }
+
+
+
+
+
+

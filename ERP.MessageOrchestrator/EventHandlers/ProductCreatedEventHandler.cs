@@ -1,4 +1,4 @@
-using ERP.MessageOrchestrator.Contract.Products.MessageEvents;
+using ERP.Shared.Integration.Products.MessageEvents;
 using MassTransit;
 
 namespace ERP.MessageOrchestrator.EventHandlers;
@@ -17,4 +17,5 @@ public class ProductCreatedEventHandler : IConsumer<ProductCreatedMessageEvent>
         await orchestrator.ProductCreatedEventHandler(context.Message);
     }
 }
+
 

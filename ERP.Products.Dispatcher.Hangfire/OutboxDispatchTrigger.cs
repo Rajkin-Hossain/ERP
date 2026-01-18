@@ -1,6 +1,8 @@
-﻿using ERP.Products.Application.Interfaces;
+using ERP.Shared.Application.Interfaces;
+
 using Hangfire;
 
+using ERP.Products.Application.Interfaces;
 namespace ERP.Products.Dispatcher.Hangfire;
 
 public class OutboxDispatchTrigger : IOutboxDispatchTrigger
@@ -10,3 +12,9 @@ public class OutboxDispatchTrigger : IOutboxDispatchTrigger
         BackgroundJob.Enqueue<IProductOutboxDispatcher>(job => job.ExecuteAsync());
     }
 }
+
+
+
+
+
+

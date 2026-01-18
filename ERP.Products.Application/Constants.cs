@@ -1,3 +1,5 @@
+using ERP.Products.Application.Interfaces;
+using ERP.Products.Domain.Entities;
 namespace ERP.Products.Application;
 
 public class Constants
@@ -6,4 +8,7 @@ public class Constants
     public const int DefaultPageSize = 20;
     public const int MaxPageSize = 100;
 }
+
+
+
 

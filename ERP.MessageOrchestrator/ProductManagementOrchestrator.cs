@@ -1,5 +1,5 @@
-using ERP.MessageOrchestrator.Contract.Products.MessageCommands;
-using ERP.MessageOrchestrator.Contract.Products.MessageEvents;
+using ERP.Shared.Integration.Products.MessageCommands;
+using ERP.Shared.Integration.Products.MessageEvents;
 using ERP.MessageOrchestrator.Interfaces;
 
 namespace ERP.MessageOrchestrator;
@@ -27,4 +27,5 @@ public class ProductManagementOrchestrator
         );
     }
 }
+
 

@@ -2,6 +2,7 @@ using Hangfire;
 using Hangfire.InMemory;
 using Microsoft.Extensions.DependencyInjection;
 
+using ERP.Products.Application.Interfaces;
 namespace ERP.Products.Dispatcher.Hangfire.Extensions;
 
 public static class ServiceCollectionExtensions
@@ -27,4 +28,7 @@ public static class ServiceCollectionExtensions
         return services;
     }
 }
+
+
+
 

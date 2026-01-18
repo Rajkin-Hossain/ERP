@@ -1,4 +1,4 @@
-﻿namespace ERP.Products.Domain.ValueObjects;
+namespace ERP.Products.Domain.ValueObjects;
 
 public record CategoryName
 {
@@ -18,3 +18,5 @@ public record CategoryName
         return new CategoryName(value);
     }
 }
+
+

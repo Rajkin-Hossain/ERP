@@ -1,10 +1,14 @@
-using ERP.Products.Application.Result;
+using ERP.Shared.Application.Result;
 using ERP.Products.Application.Commands;
-using ERP.Products.Application.Interfaces;
-using ERP.Products.Domain.Entities;
+using ERP.Shared.Application.Interfaces;
+
+using ERP.Shared.Domain.Entities;
+
 using ERP.Products.Domain.ValueObjects;
 using MediatR;
 
+using ERP.Products.Application.Interfaces;
+using ERP.Products.Domain.Entities;
 namespace ERP.Products.Application.CommandHandlers;
 
 public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, AppResult<ProductId>>
@@ -33,4 +37,10 @@ public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductC
         return AppResult<ProductId>.Ok(productId);
     }
 }
+
+
+
+
+
+
 

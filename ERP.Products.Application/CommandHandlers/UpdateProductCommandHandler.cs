@@ -1,9 +1,12 @@
-using ERP.Products.Application.Result;
+using ERP.Shared.Application.Result;
 using ERP.Products.Application.Commands;
-using ERP.Products.Application.Interfaces;
+using ERP.Shared.Application.Interfaces;
+
 using ERP.Products.Domain.ValueObjects;
 using MediatR;
 
+using ERP.Products.Application.Interfaces;
+using ERP.Products.Domain.Entities;
 namespace ERP.Products.Application.CommandHandlers;
 
 public sealed class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, AppResult<ProductId>>
@@ -39,4 +42,10 @@ public sealed class UpdateProductCommandHandler : IRequestHandler<UpdateProductC
         return AppResult<ProductId>.Ok(productId);
     }
 }
+
+
+
+
+
+
 

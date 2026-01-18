@@ -1,4 +1,5 @@
-using ERP.Products.Domain.Exceptions;
+using ERP.Shared.Domain.Exceptions;
+
 
 namespace ERP.Products.Domain.ValueObjects;
 
@@ -22,3 +23,8 @@ public sealed record ImageUrl
         return new ImageUrl(value);
     }
 }
+
+
+
+
+

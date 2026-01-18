@@ -10,4 +10,8 @@
     <Folder Include="DomainServices\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ERP.Shared.Domain\ERP.Shared.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
