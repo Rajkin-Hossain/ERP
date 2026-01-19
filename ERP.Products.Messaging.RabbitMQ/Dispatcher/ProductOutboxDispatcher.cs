@@ -1,6 +1,7 @@
 using ERP.Products.Application.Interfaces;
 using ERP.Products.Messaging.RabbitMQ.Interfaces;
-namespace ERP.Products.Messaging.RabbitMQ;
+using ERP.Products.Messaging.RabbitMQ.Mappers;
+namespace ERP.Products.Messaging.RabbitMQ.Dispatcher;
 
 public class ProductOutboxDispatcher : IProductOutboxDispatcher
 {

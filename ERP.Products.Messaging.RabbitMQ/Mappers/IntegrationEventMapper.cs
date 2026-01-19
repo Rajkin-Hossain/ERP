@@ -1,9 +1,10 @@
 using ERP.MessageOrchestrator.Contracts.Interfaces;
 using ERP.MessageOrchestrator.Contracts.Products.MessageEvents;
 using ERP.Products.Domain.DomainEvents;
+using ERP.Products.Messaging.RabbitMQ.Factories;
 using System.Text.Json;
 
-namespace ERP.Products.Messaging.RabbitMQ;
+namespace ERP.Products.Messaging.RabbitMQ.Mappers;
 
 public static class IntegrationEventMapper
 {

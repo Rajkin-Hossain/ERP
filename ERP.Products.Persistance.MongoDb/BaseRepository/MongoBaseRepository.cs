@@ -5,7 +5,7 @@ using ERP.Shared.Domain.Entities;
 
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-namespace ERP.Products.Persistance.MongoDb;
+namespace ERP.Products.Persistance.MongoDb.BaseRepository;
 
 public abstract class MongoRepositoryBase<T, TId>(DbContext dbContext) : IRepositoryBase<T, TId>
     where T : Entity<TId>

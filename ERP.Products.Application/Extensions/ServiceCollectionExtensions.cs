@@ -1,4 +1,4 @@
-using ERP.Shared.Application.Behaviors;
+using ERP.Products.Application.Behaviors;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -11,7 +11,8 @@ public static class ServiceCollectionExtensions
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
-            cfg.AddOpenBehavior(typeof(TransactionBehavior<,>));
+            cfg.AddOpenBehavior(typeof(OutboxDispatchBehavior<,>));
+            //cfg.AddOpenBehavior(typeof(TransactionBehavior<,>));
         });
 
         return services;

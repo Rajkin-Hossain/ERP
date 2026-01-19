@@ -1,5 +1,4 @@
 using ERP.Products.Application.Commands;
-using ERP.Products.Application.Interfaces;
 using ERP.Shared.Presentation.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -12,11 +11,9 @@ public static class ProductCommandApiGroups
     public static void MapProductCommandApiGroups(this RouteGroupBuilder group)
     {
         group.MapPost(string.Empty, async (CreateProductCommand cmd,
-            IMediator mediator,
-            IOutboxDispatchTrigger outboxDispatchTrigger, CancellationToken ct) =>
+            IMediator mediator, CancellationToken ct) =>
         {
             var result = await mediator.Send(cmd, ct);
-            outboxDispatchTrigger.EnqueueJob();
             return result.ToHttpResult();
         })
         .ProducesStandardApiResponses()
@@ -25,11 +22,9 @@ public static class ProductCommandApiGroups
         .WithName("CreateProduct");
 
         group.MapPut("/{productId}", async (string productId, UpdateProductCommand cmd,
-            IOutboxDispatchTrigger outboxDispatchTrigger,
             IMediator mediator, CancellationToken ct) =>
         {
             var result = await mediator.Send(cmd, ct);
-            outboxDispatchTrigger.EnqueueJob();
             return result.ToHttpResult();
         })
         .ProducesStandardApiResponses()

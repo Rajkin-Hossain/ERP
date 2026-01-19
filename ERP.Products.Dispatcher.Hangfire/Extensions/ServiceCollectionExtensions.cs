@@ -1,4 +1,5 @@
 using ERP.Products.Application.Interfaces;
+using ERP.Products.Dispatcher.Hangfire.Triggers;
 using Hangfire;
 using Hangfire.InMemory;
 using Microsoft.Extensions.DependencyInjection;

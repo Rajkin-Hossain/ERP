@@ -1,4 +1,6 @@
 using ERP.Products.Application.Interfaces;
+using ERP.Products.Messaging.RabbitMQ.Bus;
+using ERP.Products.Messaging.RabbitMQ.Dispatcher;
 using ERP.Products.Messaging.RabbitMQ.Interfaces;
 using MassTransit;
 using Microsoft.Extensions.Configuration;

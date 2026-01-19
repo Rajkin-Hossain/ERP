@@ -2,7 +2,7 @@ using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace ERP.Products.Messaging.RabbitMQ;
+namespace ERP.Products.Messaging.RabbitMQ.Factories;
 
 public class ValueObjectConverterFactory : JsonConverterFactory
 {
