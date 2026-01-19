@@ -1,6 +1,5 @@
 using ERP.MessageOrchestrator.Contracts.Products.MessageCommands;
 using ERP.Products.Domain.Entities;
-using ERP.Products.Domain.ValueObjects;
 using MassTransit;
 
 namespace ERP.Products.Messaging.RabbitMQ.MessageConsumers;
@@ -19,7 +18,7 @@ public class CreateProductMessageCommandHandler : IConsumer<CreateProductMessage
             message.ImageUrl,
             message.Price
         );
-        
+
         // Note: In a real implementation, you would save this to the DB here.
     }
 }

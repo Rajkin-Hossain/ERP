@@ -9,6 +9,6 @@ public sealed class TransactionBehavior<TRequest, TResponse>(IUnitOfWork unitOfW
 {
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken ct)
     {
-        return await unitOfWork.StartTransactionAsync(async _ => await next(), ct); //next() calls the next behavior/handler in the pipeline which is Handle function
+        return await unitOfWork.ExecuteWithTransactionAsync(async _ => await next(), ct); //next() calls the next behavior/handler in the pipeline which is Handle function
     }
 }

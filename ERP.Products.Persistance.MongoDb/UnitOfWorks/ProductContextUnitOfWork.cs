@@ -7,7 +7,7 @@ namespace ERP.Products.Persistance.MongoDb.UnitOfWorks;
 
 public sealed class ProductContextUnitOfWork(ProductDbContext dbContext) : IUnitOfWork
 {
-    public async Task<TResult> StartTransactionAsync<TResult>(
+    public async Task<TResult> ExecuteWithTransactionAsync<TResult>(
         Func<CancellationToken, Task<TResult>> dbAction,
         CancellationToken ct = default)
     {
@@ -35,7 +35,7 @@ public sealed class ProductContextUnitOfWork(ProductDbContext dbContext) : IUnit
         }
     }
 
-    private async Task<TResult> ExecuteWithoutTransactionAsync<TResult>(
+    public async Task<TResult> ExecuteWithoutTransactionAsync<TResult>(
         Func<CancellationToken, Task<TResult>> dbAction,
         CancellationToken ct)
     {

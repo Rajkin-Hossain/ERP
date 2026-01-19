@@ -1,4 +1,5 @@
 using ERP.Products.Application.Behaviors;
+using ERP.Shared.Application.Behaviors;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -12,6 +13,7 @@ public static class ServiceCollectionExtensions
         {
             cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             cfg.AddOpenBehavior(typeof(OutboxDispatchBehavior<,>));
+            cfg.AddOpenBehavior(typeof(NonTransactionalBehavior<,>));
             //cfg.AddOpenBehavior(typeof(TransactionBehavior<,>));
         });
 
