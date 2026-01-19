@@ -1,4 +1,4 @@
-using ERP.MessageOrchestrator.Contracts.Products.MessageCommands;
+using ERP.Contracts.MessageOrchestrator.Products.MessageCommands;
 using ERP.Products.Domain.Entities;
 using MassTransit;
 

@@ -1,4 +1,4 @@
-using ERP.MessageOrchestrator.Contracts.Interfaces;
+using ERP.Contracts.MessageOrchestrator.Interfaces;
 using ERP.Products.Messaging.RabbitMQ.Interfaces;
 using MassTransit;
 namespace ERP.Products.Messaging.RabbitMQ.Bus;

@@ -1,4 +1,4 @@
-using ERP.MessageOrchestrator.Contracts.Products.MessageCommands;
+using ERP.Contracts.MessageOrchestrator.Products.MessageCommands;
 using MassTransit;
 using System.Diagnostics;
 
@@ -10,9 +10,9 @@ public class UpdateProductMessageCommandHandler : IConsumer<UpdateProductMessage
     {
         var message = context.Message;
         var json = System.Text.Json.JsonSerializer.Serialize(message, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
-        
+
         Debug.WriteLine($"UpdateProductCommandHandler invoked with payload:\n{json}");
-        
+
         await Task.CompletedTask;
     }
 }

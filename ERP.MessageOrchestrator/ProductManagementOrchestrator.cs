@@ -1,5 +1,5 @@
-using ERP.MessageOrchestrator.Contracts.Products.MessageCommands;
-using ERP.MessageOrchestrator.Contracts.Products.MessageEvents;
+using ERP.Contracts.MessageOrchestrator.Products.MessageCommands;
+using ERP.Contracts.MessageOrchestrator.Products.MessageEvents;
 using ERP.MessageOrchestrator.Interfaces;
 
 namespace ERP.MessageOrchestrator;

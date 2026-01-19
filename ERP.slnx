@@ -4,6 +4,9 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
+  <Folder Name="/ArchitectureTests/">
+    <Project Path="tests/ArchitectureTests/ArchitectureTests.csproj" />
+  </Folder>
   <Folder Name="/BuildingBlocks/" />
   <Folder Name="/BuildingBlocks/Shared/">
     <Project Path="ERP.Shared.Application/ERP.Shared.Application.csproj" />
@@ -26,7 +29,7 @@
     <Project Path="ERP.Products.Persistance.MongoDb/ERP.Products.Persistance.MongoDb.csproj" />
   </Folder>
   <Folder Name="/Orchestrator/">
-    <Project Path="ERP.MessageOrchestrator.Contracts/ERP.MessageOrchestrator.Contracts.csproj" />
+    <Project Path="ERP.Contracts.MessageOrchestrator/ERP.Contracts.MessageOrchestrator.csproj" />
     <Project Path="ERP.MessageOrchestrator/ERP.MessageOrchestrator.csproj" />
   </Folder>
 </Solution>

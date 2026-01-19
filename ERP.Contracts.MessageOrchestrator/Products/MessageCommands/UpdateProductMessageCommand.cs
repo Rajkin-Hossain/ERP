@@ -1,6 +1,6 @@
-using ERP.MessageOrchestrator.Contracts.Interfaces;
+using ERP.Contracts.MessageOrchestrator.Interfaces;
 
-namespace ERP.MessageOrchestrator.Contracts.Products.MessageCommands;
+namespace ERP.Contracts.MessageOrchestrator.Products.MessageCommands;
 
 public record UpdateProductMessageCommand(
     Guid ProductId,

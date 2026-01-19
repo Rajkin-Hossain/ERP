@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ERP.MessageOrchestrator.Contracts\ERP.MessageOrchestrator.Contracts.csproj" />
+    <ProjectReference Include="..\ERP.Contracts.MessageOrchestrator\ERP.Contracts.MessageOrchestrator.csproj" />
     <ProjectReference Include="..\ERP.Shared.Application\ERP.Shared.Application.csproj" />
   </ItemGroup>
 

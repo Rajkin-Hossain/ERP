@@ -1,4 +1,4 @@
-using ERP.MessageOrchestrator.Contracts.Interfaces;
+using ERP.Contracts.MessageOrchestrator.Interfaces;
 
 namespace ERP.Products.Messaging.RabbitMQ.Interfaces;
 

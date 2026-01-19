@@ -1,5 +1,5 @@
-using ERP.MessageOrchestrator.Contracts.Interfaces;
-using ERP.MessageOrchestrator.Contracts.Products.MessageEvents;
+using ERP.Contracts.MessageOrchestrator.Interfaces;
+using ERP.Contracts.MessageOrchestrator.Products.MessageEvents;
 using ERP.Products.Domain.DomainEvents;
 using System.Text.Json;
 
@@ -24,7 +24,7 @@ public static class IntegrationEventMapper
             GetString(root, nameof(ProductUpdatedDomainEvent.ImageUrl)),
             GetDecimal(root, nameof(ProductUpdatedDomainEvent.Price))
         ),
-        
+
         [typeof(ProductPriceUpdatedDomainEvent).FullName!] = root => new ProductPriceUpdatedMessageEvent(
             GetGuid(root, nameof(ProductPriceUpdatedDomainEvent.ProductId)),
             GetDecimal(root, nameof(ProductPriceUpdatedDomainEvent.Price))
@@ -79,12 +79,12 @@ public static class IntegrationEventMapper
         return prop;
     }
 
-    private static Guid GetGuid(JsonElement root, string propertyName) 
+    private static Guid GetGuid(JsonElement root, string propertyName)
         => GetValueElement(root, propertyName).GetGuid();
 
-    private static string GetString(JsonElement root, string propertyName) 
+    private static string GetString(JsonElement root, string propertyName)
         => GetValueElement(root, propertyName).GetString() ?? string.Empty;
 
-    private static decimal GetDecimal(JsonElement root, string propertyName) 
+    private static decimal GetDecimal(JsonElement root, string propertyName)
         => GetValueElement(root, propertyName).GetDecimal();
 }

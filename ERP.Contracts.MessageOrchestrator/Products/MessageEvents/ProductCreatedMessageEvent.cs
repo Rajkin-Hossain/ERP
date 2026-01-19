@@ -1,6 +1,6 @@
-using ERP.MessageOrchestrator.Contracts.Interfaces;
+using ERP.Contracts.MessageOrchestrator.Interfaces;
 
-namespace ERP.MessageOrchestrator.Contracts.Products.MessageEvents;
+namespace ERP.Contracts.MessageOrchestrator.Products.MessageEvents;
 
 public record ProductCreatedMessageEvent(
     Guid ProductId,
