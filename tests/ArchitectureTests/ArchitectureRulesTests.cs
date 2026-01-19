@@ -21,6 +21,7 @@ public class ArchitectureRulesTests
     private static readonly Assembly ProductsPersistence = LoadAssembly("ERP.Products.Persistance.MongoDb");
     private static readonly Assembly ProductsMessaging = LoadAssembly("ERP.Products.Messaging.RabbitMQ");
     private static readonly Assembly ProductsDispatcher = LoadAssembly("ERP.Products.Dispatcher.Hangfire");
+    private static readonly Assembly ProductsDispatcherBackgroundWorker = LoadAssembly("ERP.Products.Dispatcher.BackgroundWorker");
     private static readonly Assembly ProductsPresentation = LoadAssembly("ERP.Products.Presentation");
     private static readonly Assembly ProductsApi = LoadAssembly("ERP.Products.Api");
 
@@ -32,6 +33,7 @@ public class ArchitectureRulesTests
         ProductsPersistence,
         ProductsMessaging,
         ProductsDispatcher,
+        ProductsDispatcherBackgroundWorker,
         ProductsPresentation,
         ProductsApi
     ];
@@ -40,7 +42,8 @@ public class ArchitectureRulesTests
     [
         ProductsPersistence,
         ProductsMessaging,
-        ProductsDispatcher
+        ProductsDispatcher,
+        ProductsDispatcherBackgroundWorker
     ];
 
     #region Shared Kernel Rules
@@ -148,9 +151,10 @@ public class ArchitectureRulesTests
     [Fact]
     public void Products_Infrastructure_Projects_Should_Not_Depend_On_Each_Other()
     {
-        AssertNoDependency(ProductsPersistence, "ERP.Products.Messaging", "ERP.Products.Dispatcher");
-        AssertNoDependency(ProductsMessaging, "ERP.Products.Persistance", "ERP.Products.Dispatcher");
-        AssertNoDependency(ProductsDispatcher, "ERP.Products.Persistance", "ERP.Products.Messaging");
+        AssertNoDependency(ProductsPersistence, "ERP.Products.Messaging", "ERP.Products.Dispatcher.Hangfire", "ERP.Products.Dispatcher.BackgroundWorker");
+        AssertNoDependency(ProductsMessaging, "ERP.Products.Persistance", "ERP.Products.Dispatcher.Hangfire", "ERP.Products.Dispatcher.BackgroundWorker");
+        AssertNoDependency(ProductsDispatcher, "ERP.Products.Persistance", "ERP.Products.Messaging", "ERP.Products.Dispatcher.BackgroundWorker");
+        AssertNoDependency(ProductsDispatcherBackgroundWorker, "ERP.Products.Persistance", "ERP.Products.Messaging", "ERP.Products.Dispatcher.Hangfire");
     }
 
     [Fact]
@@ -188,7 +192,7 @@ public class ArchitectureRulesTests
                 "ERP.MessageOrchestrator", // Implementation
                 "ERP.AppHost");
         }
-        
+
         // Only Messaging is allowed to depend on Orchestrator Contracts (specific rule from previous conversation)
         foreach (var assembly in ProductModuleAssemblies)
         {

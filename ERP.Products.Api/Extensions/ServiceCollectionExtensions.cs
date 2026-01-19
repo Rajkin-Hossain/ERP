@@ -27,6 +27,7 @@ public static class ServiceCollectionExtensions
         services.AddMongoInfrastructure(configuration);
         services.AddMessageBusInfrastructure();
         services.AddHangfireInfrastructure();
+        //services.AddOutboxBackgroundWorker();
 
         return services;
     }
