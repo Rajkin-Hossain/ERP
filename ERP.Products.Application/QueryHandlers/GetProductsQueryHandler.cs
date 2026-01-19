@@ -1,7 +1,7 @@
-using ERP.Products.Application.Contracts;
 using ERP.Products.Application.Interfaces;
 using ERP.Products.Application.Mappers;
 using ERP.Products.Application.Queries;
+using ERP.Products.Application.Results;
 using ERP.Shared.Application.Interfaces;
 using ERP.Shared.Application.Result;
 using MediatR;

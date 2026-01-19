@@ -1,4 +1,4 @@
-using ERP.Products.Application.Contracts;
+using ERP.Products.Application.Results;
 using ERP.Products.Domain.Entities;
 using System.Linq.Expressions;
 namespace ERP.Products.Application.Mappers;

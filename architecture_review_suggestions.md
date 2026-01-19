@@ -30,6 +30,7 @@ Overall, the project demonstrates a **strong understanding of Clean Architecture
 ### Suggestions
 - **Command Granularity**: `ProductModuleCommands.cs` currently houses multiple commands. As the project grows, consider splitting these into individual files or specific feature folders to improve maintainability.
 - **Validation Pipeline**: Implement a `FluentValidation` behavior in MediatR to centralize request validation before it reaches the handler.
+- **Naming Conventions (DTOs vs Contracts)**: Use the `DTOs` namespace for Application-level response/output models. Avoid using the generic `Contracts` name in the Application layer to prevent confusion with external `ERP.Contracts.MessageOrchestrator` (Messaging) projects.
 
 ---
 
@@ -65,7 +66,7 @@ Overall, the project demonstrates a **strong understanding of Clean Architecture
 - **Base Classes**: `Entity<TId>` and `AggregateRoot<TId>` are well-implemented with proper equality checks.
 
 ### Suggestions
-- **Messaging Contracts**: Ensure that `ERP.MessageOrchestrator.Contracts` defines pure DTOs/Events that do not depend on any specific layer implementation to maintain loose coupling between services.
+- **Messaging Contracts**: Ensure that `ERP.Contracts.MessageOrchestrator` defines pure DTOs/Events that do not depend on any specific layer implementation. This project should uniquely represent the **Integration Contracts** for the Message Orchestrator and RabbitMQ infrastructure, distinct from Application DTOs.
 
 ---
 

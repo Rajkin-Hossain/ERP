@@ -1,5 +1,5 @@
 using ERP.Products.Domain.ValueObjects;
-namespace ERP.Products.Application.Contracts;
+namespace ERP.Products.Application.Results;
 
 public sealed record ProductResult(
     ProductId ProductId,
