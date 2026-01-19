@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="NetArchTest.Rules" Version="1.3.2" />
+    <PackageReference Include="xunit" Version="2.6.6" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.6.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\ERP.MessageOrchestrator.Contracts\ERP.MessageOrchestrator.Contracts.csproj" />
+    <ProjectReference Include="..\..\ERP.Products.Api\ERP.Products.Api.csproj" />
+    <ProjectReference Include="..\..\ERP.Products.Application\ERP.Products.Application.csproj" />
+    <ProjectReference Include="..\..\ERP.Products.Dispatcher.Hangfire\ERP.Products.Dispatcher.Hangfire.csproj" />
+    <ProjectReference Include="..\..\ERP.Products.Domain\ERP.Products.Domain.csproj" />
+    <ProjectReference Include="..\..\ERP.Products.Messaging.RabbitMQ\ERP.Products.Messaging.RabbitMQ.csproj" />
+    <ProjectReference Include="..\..\ERP.Products.Persistance.MongoDb\ERP.Products.Persistance.MongoDb.csproj" />
+    <ProjectReference Include="..\..\ERP.Products.Presentation\ERP.Products.Presentation.csproj" />
+    <ProjectReference Include="..\..\ERP.Shared.Application\ERP.Shared.Application.csproj" />
+    <ProjectReference Include="..\..\ERP.Shared.Domain\ERP.Shared.Domain.csproj" />
+    <ProjectReference Include="..\..\ERP.Shared.Presentation\ERP.Shared.Presentation.csproj" />
+  </ItemGroup>
+</Project>
