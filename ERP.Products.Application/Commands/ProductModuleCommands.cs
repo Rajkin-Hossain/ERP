@@ -11,6 +11,9 @@ public sealed record CreateProductCommand(string Name, decimal Price, string Ima
 public sealed record UpdateProductCommand(Guid ProductId, string Name, decimal Price, string ImageUrl)
     : IBaseCommand<AppResult<ProductId>>, ITriggerOutbox;
 
+public sealed record UpdateProductPriceCommand(Guid ProductId, decimal NewPrice)
+    : IBaseCommand<AppResult<ProductId>>, ITriggerOutbox;
+
 
 
 

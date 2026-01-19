@@ -23,6 +23,11 @@ public static class IntegrationEventMapper
             GetGuid(root, nameof(ProductUpdatedDomainEvent.CategoryId)),
             GetString(root, nameof(ProductUpdatedDomainEvent.ImageUrl)),
             GetDecimal(root, nameof(ProductUpdatedDomainEvent.Price))
+        ),
+        
+        [typeof(ProductPriceUpdatedDomainEvent).FullName!] = root => new ProductPriceUpdatedMessageEvent(
+            GetGuid(root, nameof(ProductPriceUpdatedDomainEvent.ProductId)),
+            GetDecimal(root, nameof(ProductPriceUpdatedDomainEvent.Price))
         )
     };
 

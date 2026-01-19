@@ -14,7 +14,7 @@ public sealed record CategoryId
         Value = value;
     }
 
-    public CategoryId(string value)
+    private CategoryId(string value)
     {
         if (!Guid.TryParse(value, out var guid))
             throw new DomainException("Invalid Category Id format.");

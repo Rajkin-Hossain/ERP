@@ -38,6 +38,16 @@ public class ProductManagementOrchestrator
             CancellationToken.None
         );
     }
+
+    public async Task ProductPriceUpdatedEventHandler(ProductPriceUpdatedMessageEvent e)
+    {
+        await _serviceBus.PublishCommandAsync(
+            new UpdateProductPriceMessageCommand(
+                e.ProductId,
+                e.NewPrice),
+            CancellationToken.None
+        );
+    }
 }
 
 

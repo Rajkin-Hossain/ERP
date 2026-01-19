@@ -72,6 +72,10 @@ public class Product : AggregateRoot<ProductId>
             return;
 
         Price = newPrice;
+
+        AddDomainEvent(new ProductPriceUpdatedDomainEvent(
+            Id,
+            Price));
     }
 }
 

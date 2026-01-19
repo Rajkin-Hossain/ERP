@@ -1,6 +1,7 @@
 using ERP.Products.Presentation.EndPoints.CreateProduct;
 using ERP.Products.Presentation.EndPoints.GetProducts;
 using ERP.Products.Presentation.EndPoints.UpdateProduct;
+using ERP.Products.Presentation.EndPoints.UpdateProductPrice;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -16,6 +17,7 @@ public static class ProductsModule
 
         group.MapCreateProductEndpoint();
         group.MapUpdateProductEndpoint();
+        group.MapUpdateProductPriceEndpoint();
         group.MapGetProductsEndpoint();
     }
 }
