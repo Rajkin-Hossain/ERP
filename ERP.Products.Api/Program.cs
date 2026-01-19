@@ -29,7 +29,7 @@ app.MapGet("/", () => Results.Redirect("/scalar", permanent: false));
 
 app.MapGet("/health", () => Results.Ok(new { Status = "Healthy" }));
 
-app.MapProductApiEndPoints();
+app.MapProductEndpoints();
 
 app.Run();
 

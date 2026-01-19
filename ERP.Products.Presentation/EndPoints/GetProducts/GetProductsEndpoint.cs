@@ -4,13 +4,14 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-namespace ERP.Products.Presentation.EndPoints.ApiGroups;
 
-public static class ProductQueryApiGroups
+namespace ERP.Products.Presentation.EndPoints.GetProducts;
+
+public static class GetProductsEndpoint
 {
-    public static void MapProductQueryApiGroups(this RouteGroupBuilder group)
+    public static void MapGetProductsEndpoint(this IEndpointRouteBuilder app)
     {
-        group.MapGet(string.Empty, async (IMediator mediator, CancellationToken ct) =>
+        app.MapGet(string.Empty, async (IMediator mediator, CancellationToken ct) =>
         {
             var result = await mediator.Send(new GetProductsQuery(), ct);
             return result.ToHttpResult();
@@ -21,8 +22,3 @@ public static class ProductQueryApiGroups
         .WithName("GetProducts");
     }
 }
-
-
-
-
-
