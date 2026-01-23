@@ -5,7 +5,7 @@ using ERP.Shared.Domain.Entities;
 using ERP.Shared.Domain.OutboxEntity;
 namespace ERP.Products.Persistance.MongoDb.UnitOfWorks;
 
-public sealed class ProductContextUnitOfWork(ProductDbContext dbContext) : IUnitOfWork
+public sealed class ProductContextUnitOfWork(ProductReadDbContext dbContext) : IUnitOfWork
 {
     public async Task<TResult> ExecuteWithTransactionAsync<TResult>(
         Func<CancellationToken, Task<TResult>> dbAction,

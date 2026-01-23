@@ -1,13 +1,14 @@
 using ERP.Products.Application.Commands;
-using ERP.Products.Application.Interfaces;
+using ERP.Products.Domain.Entities;
 using ERP.Products.Domain.ValueObjects;
+using ERP.Shared.Application.Interfaces;
 using ERP.Shared.Application.Result;
 using MediatR;
 
 namespace ERP.Products.Application.CommandHandlers;
 
 public sealed class UpdateProductPriceCommandHandler(
-    IProductWriteRepository repository)
+    IRepository<Product, ProductId> repository)
     : IRequestHandler<UpdateProductPriceCommand, AppResult<ProductId>>
 {
     public async Task<AppResult<ProductId>> Handle(UpdateProductPriceCommand request, CancellationToken cancellationToken)

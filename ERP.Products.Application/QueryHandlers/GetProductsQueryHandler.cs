@@ -1,18 +1,21 @@
-using ERP.Products.Application.Interfaces;
 using ERP.Products.Application.Mappers;
 using ERP.Products.Application.Queries;
 using ERP.Products.Application.Results;
+using ERP.Products.Domain.Entities;
+using ERP.Products.Domain.ValueObjects;
 using ERP.Shared.Application.Interfaces;
 using ERP.Shared.Application.Result;
 using MediatR;
+
 namespace ERP.Products.Application.QueryHandlers;
 
 public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, AppResult<IEnumerable<ProductResult>>>
 {
-    private readonly IProductReadRepository _repo;
+    private readonly IReadRepository<Product, ProductId> _repo;
     private readonly IAsyncQueryExecutor _executor;
 
-    public GetProductsQueryHandler(IProductReadRepository repo, IAsyncQueryExecutor executor)
+    public GetProductsQueryHandler(IReadRepository<Product, ProductId> repo,
+        IAsyncQueryExecutor executor)
     {
         _repo = repo;
         _executor = executor;

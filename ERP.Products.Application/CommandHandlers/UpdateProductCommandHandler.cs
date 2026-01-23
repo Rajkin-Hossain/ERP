@@ -1,6 +1,7 @@
 using ERP.Products.Application.Commands;
-using ERP.Products.Application.Interfaces;
+using ERP.Products.Domain.Entities;
 using ERP.Products.Domain.ValueObjects;
+using ERP.Shared.Application.Interfaces;
 using ERP.Shared.Application.Result;
 using MediatR;
 
@@ -8,9 +9,9 @@ namespace ERP.Products.Application.CommandHandlers;
 
 public sealed class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, AppResult<ProductId>>
 {
-    private readonly IProductWriteRepository _repo;
+    private readonly IRepository<Product, ProductId> _repo;
 
-    public UpdateProductCommandHandler(IProductWriteRepository repo)
+    public UpdateProductCommandHandler(IRepository<Product, ProductId> repo)
     {
         _repo = repo;
     }

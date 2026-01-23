@@ -1,13 +1,14 @@
-using ERP.Shared.Application.Interfaces;
+﻿using ERP.Shared.Application.Interfaces;
 
 using ERP.Shared.Application.Paging;
 using ERP.Shared.Domain.Entities;
 
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+
 namespace ERP.Products.Persistance.MongoDb.BaseRepository;
 
-public abstract class MongoRepositoryBase<T, TId>(DbContext dbContext) : IRepositoryBase<T, TId>
+public abstract class MongoRepository<T, TId>(DbContext dbContext) : IRepository<T, TId>
     where T : Entity<TId>
     where TId : notnull
 {
@@ -77,32 +78,6 @@ public abstract class MongoRepositoryBase<T, TId>(DbContext dbContext) : IReposi
         return _dbSet.Where(entity => ids.Contains(entity.Id)).Select(selector).ToListAsync(ct);
     }
 
-    public Task InsertAsync(T model, CancellationToken ct = default)
-    {
-        ArgumentNullException.ThrowIfNull(model);
-        return _dbSet.AddAsync(model, ct).AsTask();
-    }
-
-    public Task InsertRangeAsync(IEnumerable<T> models, CancellationToken ct = default)
-    {
-        ArgumentNullException.ThrowIfNull(models);
-        return _dbSet.AddRangeAsync(models, ct);
-    }
-
-    public Task UpdateAsync(T model, CancellationToken ct = default)
-    {
-        ArgumentNullException.ThrowIfNull(model);
-        _dbSet.Update(model);
-        return Task.CompletedTask;
-    }
-
-    public Task DeleteAsync(T model, CancellationToken ct = default)
-    {
-        ArgumentNullException.ThrowIfNull(model);
-        _dbSet.Remove(model);
-        return Task.CompletedTask;
-    }
-
     public async Task<AppPagedResult<T>> ToPagedResultAsync(
         IQueryable<T> source,
         int pageNumber,
@@ -155,11 +130,41 @@ public abstract class MongoRepositoryBase<T, TId>(DbContext dbContext) : IReposi
 
         return AppPagedResult<TResult>.Create(items, pageNumber, pageSize, (int)totalCount);
     }
+
+    public Task<List<T>> ToListAsync(IQueryable<T> query, CancellationToken ct = default)
+    {
+        return query.ToListAsync(ct);
+    }
+
+    public Task<T?> FirstOrDefaultAsync(IQueryable<T> query, CancellationToken ct = default)
+    {
+        return query.FirstOrDefaultAsync(ct);
+    }
+
+    public Task InsertAsync(T model, CancellationToken ct = default)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        return _dbSet.AddAsync(model, ct).AsTask();
+    }
+
+    public Task InsertRangeAsync(IEnumerable<T> models, CancellationToken ct = default)
+    {
+        ArgumentNullException.ThrowIfNull(models);
+        return _dbSet.AddRangeAsync(models, ct);
+    }
+
+    public Task UpdateAsync(T model, CancellationToken ct = default)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        _dbSet.Update(model);
+        return Task.CompletedTask;
+    }
+
+    public Task DeleteAsync(T model, CancellationToken ct = default)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        _dbSet.Remove(model);
+        return Task.CompletedTask;
+    }
 }
-
-
-
-
-
-
 

@@ -4,8 +4,8 @@ using ERP.Shared.Domain.Entities;
 
 namespace ERP.Products.Persistance.MongoDb.Repositories;
 
-public class ProductReadRepository<T, TId>(ProductReadDbContext dbcontext)
-    : MongoReadRepository<T, TId>(dbcontext) where T : Entity<TId> where TId : notnull
+public class ProductRepository<T, TId>(ProductDbContext dbcontext)
+    : MongoRepository<T, TId>(dbcontext) where T : Entity<TId> where TId : notnull
 {
 }
 

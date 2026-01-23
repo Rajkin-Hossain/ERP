@@ -1,10 +1,9 @@
-﻿using ERP.Products.Domain.Entities;
+using ERP.Products.Domain.Entities;
 using ERP.Shared.Domain.OutboxEntity;
 using Microsoft.EntityFrameworkCore;
-
 namespace ERP.Products.Persistance.MongoDb.Data;
 
-public sealed class ProductDbContext(DbContextOptions<ProductDbContext> options) : DbContext(options)
+public sealed class ProductReadDbContext(DbContextOptions<ProductReadDbContext> options) : DbContext(options)
 {
     public DbSet<Product> Products => Set<Product>();
     public DbSet<Category> Categories => Set<Category>();
@@ -19,7 +18,13 @@ public sealed class ProductDbContext(DbContextOptions<ProductDbContext> options)
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductDbContext).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductReadDbContext).Assembly);
         base.OnModelCreating(modelBuilder);
     }
 }
+
+
+
+
+
+

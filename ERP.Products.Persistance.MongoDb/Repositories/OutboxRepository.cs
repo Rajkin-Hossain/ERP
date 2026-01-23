@@ -5,7 +5,7 @@ using ERP.Shared.Domain.OutboxEntity;
 using Microsoft.EntityFrameworkCore;
 namespace ERP.Products.Persistance.MongoDb.Repositories;
 
-public class OutboxRepository(ProductDbContext dbcontext) : IOutboxRepository
+public class OutboxRepository(ProductReadDbContext dbcontext) : IOutboxRepository
 {
     public async Task<IEnumerable<OutboxMessage>> GetUnprocessedMessagesAsync(CancellationToken ct = default)
     {

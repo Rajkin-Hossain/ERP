@@ -26,10 +26,19 @@ public static class ServiceCollectionExtensions
             options.UseMongoDB(client, mongoOptions.WriteDatabaseName);
         });
 
-        services.AddScoped<IProductReadRepository, ProductReadRepository>();
-        services.AddScoped<IProductWriteRepository, ProductWriteRepository>();
+        services.AddDbContext<ProductReadDbContext>((provider, options) =>
+        {
+            var mongoOptions = provider.GetRequiredService<Microsoft.Extensions.Options.IOptions<MongoOptions>>().Value;
+            var client = provider.GetRequiredService<IMongoClient>();
+            options.UseMongoDB(client, mongoOptions.WriteDatabaseName);
+        });
+
+        services.AddScoped(typeof(IReadRepository<,>), typeof(ProductReadRepository<,>));
+        services.AddScoped(typeof(IRepository<,>), typeof(ProductRepository<,>));
+
         services.AddScoped<IOutboxRepository, OutboxRepository>();
         services.AddScoped<IUnitOfWork, ProductContextUnitOfWork>();
+
         services.AddScoped<IAsyncQueryExecutor, MongoAsyncQueryExecutor>();
 
         return services;
