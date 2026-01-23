@@ -5,16 +5,16 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-namespace ERP.Products.Presentation.EndPoints.UpdateProductPrice;
+namespace ERP.Products.Presentation.CommandEndPoints.UpdateProductPrice;
 
 public static class UpdateProductPriceEndpoint
 {
     public static void MapUpdateProductPriceEndpoint(this IEndpointRouteBuilder app)
     {
-        app.MapPatch("/{productId:guid}/price", async (Guid productId, UpdateProductPriceRequest request, IMediator mediator, CancellationToken ct) =>
+        app.MapPatch("/{productId:guid}/price", async (Guid productId, UpdateProductPriceRequest request, ISender sender, CancellationToken ct) =>
         {
             var command = new UpdateProductPriceCommand(productId, request.NewPrice);
-            var result = await mediator.Send(command, ct);
+            var result = await sender.Send(command, ct);
             return result.ToHttpResult();
         })
         .ProducesStandardApiResponses()

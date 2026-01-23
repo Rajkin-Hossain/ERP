@@ -1,4 +1,4 @@
-namespace ERP.Products.Presentation.EndPoints.UpdateProduct;
+namespace ERP.Products.Presentation.CommandEndPoints.UpdateProduct;
 
 public sealed record UpdateProductRequest(
     string Name,

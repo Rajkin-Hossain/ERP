@@ -5,15 +5,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-namespace ERP.Products.Presentation.EndPoints.GetProducts;
+namespace ERP.Products.Presentation.QueryEndPoints.GetProducts;
 
 public static class GetProductsEndpoint
 {
     public static void MapGetProductsEndpoint(this IEndpointRouteBuilder app)
     {
-        app.MapGet(string.Empty, async (IMediator mediator, CancellationToken ct) =>
+        app.MapGet(string.Empty, async (ISender sender, CancellationToken ct) =>
         {
-            var result = await mediator.Send(new GetProductsQuery(), ct);
+            var result = await sender.Send(new GetProductsQuery(), ct);
             return result.ToHttpResult();
         })
         .ProducesStandardApiResponses()

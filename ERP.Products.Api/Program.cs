@@ -1,5 +1,6 @@
 using ERP.Products.Api.Extensions;
-using ERP.Products.Presentation.EndPoints;
+using ERP.Products.Presentation.CommandEndPoints;
+using ERP.Products.Presentation.QueryEndPoints;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,7 +30,8 @@ app.MapGet("/", () => Results.Redirect("/scalar", permanent: false));
 
 app.MapGet("/health", () => Results.Ok(new { Status = "Healthy" }));
 
-app.MapProductEndpoints();
+app.MapProductCommandEndpoints();
+app.MapProductQueryEndpoints();
 
 app.Run();
 

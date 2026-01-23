@@ -1,4 +1,4 @@
-namespace ERP.Products.Presentation.EndPoints.CreateProduct;
+namespace ERP.Products.Presentation.CommandEndPoints.CreateProduct;
 
 public sealed record CreateProductRequest(
     string Name,
