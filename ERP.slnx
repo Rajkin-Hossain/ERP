@@ -1,26 +1,36 @@
 <Solution>
-  <Folder Name="/Auth/">
-    <Project Path="E:/Projects/ERP/ERP.Auth.Application/ERP.Auth.Application.csproj" />
-    <Project Path="E:/Projects/ERP/ERP.Auth.Infrastructure/ERP.Auth.Infrastructure.csproj" />
-    <Project Path="E:/Projects/ERP/ERP.Auth.Presentation/ERP.Auth.Presentation.csproj" />
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/ArchitectureTests/">
+    <Project Path="tests/ArchitectureTests/ArchitectureTests.csproj" />
   </Folder>
-  <Folder Name="/BC/" />
-  <Folder Name="/BC/ProductModule/">
-    <Project Path="ERP.ProductModule.Application/ERP.ProductModule.Application.csproj" />
-    <Project Path="ERP.ProductModule.Domain/ERP.ProductModule.Domain.csproj" />
-    <Project Path="ERP.ProductModule.Infrastructure/ERP.ProductModule.Infrastructure.csproj" />
-    <Project Path="ERP.ProductModule.Presentation/ERP.ProductModule.Presentation.csproj" />
+  <Folder Name="/BuildingBlocks/" />
+  <Folder Name="/BuildingBlocks/Shared/">
+    <Project Path="ERP.Shared.Application/ERP.Shared.Application.csproj" />
+    <Project Path="ERP.Shared.Domain/ERP.Shared.Domain.csproj" />
+    <Project Path="ERP.Shared.Presentation/ERP.Shared.Presentation.csproj" />
   </Folder>
-  <Folder Name="/Lib/">
-    <Project Path="E:/Projects/ERP/EFCore/EFCore.csproj" />
-    <Project Path="Quartz/Quartz.csproj" Id="07f9d461-0b5a-4aa7-8488-7cec29c4af18" />
-    <Project Path="RabbitMQ/RabbitMQ.csproj" Id="273869f9-00c5-44af-add0-f1efcf7f4260" />
+  <Folder Name="/Host/">
+    <Project Path="ERP.AppHost/ERP.AppHost.csproj" />
+  </Folder>
+  <Folder Name="/Modules/" />
+  <Folder Name="/Modules/Products/">
+    <Project Path="ERP.Products.Api/ERP.Products.Api.csproj" />
+    <Project Path="ERP.Products.Application/ERP.Products.Application.csproj" />
+    <Project Path="ERP.Products.Domain/ERP.Products.Domain.csproj" />
+    <Project Path="ERP.Products.Presentation/ERP.Products.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Products/Infrastructures/">
+    <Project Path="ERP.Products.Dispatcher.BackgroundWorker/ERP.Products.Dispatcher.BackgroundWorker.csproj" />
+    <Project Path="ERP.Products.Dispatcher.Hangfire/ERP.Products.Dispatcher.Hangfire.csproj" />
+    <Project Path="ERP.Products.Messaging.RabbitMQ/ERP.Products.Messaging.RabbitMQ.csproj" />
+    <Project Path="ERP.Products.Persistance.MongoDb/ERP.Products.Persistance.MongoDb.csproj" />
   </Folder>
   <Folder Name="/Orchestrator/">
-    <Project Path="ERP.Orchestrator.Contract/ERP.Orchestrator.Contract.csproj" Id="34da319f-325a-4983-9cdc-4723338c6c1f" />
-    <Project Path="ERP.Orchestrator/ERP.Orchestrator.csproj" Id="686caa5c-2830-4ce6-b39e-472a2c9e5a99" />
-  </Folder>
-  <Folder Name="/SharedKernal/">
-    <Project Path="E:/Projects/ERP/ERP.SharedKernal/ERP.SharedKernal.csproj" />
+    <Project Path="ERP.Contracts.MessageOrchestrator/ERP.Contracts.MessageOrchestrator.csproj" />
+    <Project Path="ERP.MessageOrchestrator/ERP.MessageOrchestrator.csproj" />
   </Folder>
 </Solution>
