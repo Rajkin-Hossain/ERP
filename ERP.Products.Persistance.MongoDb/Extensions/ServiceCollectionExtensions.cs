@@ -1,10 +1,9 @@
-using ERP.Products.Application.Interfaces;
 using ERP.Products.Persistance.MongoDb.Data;
 using ERP.Products.Persistance.MongoDb.Options;
 using ERP.Products.Persistance.MongoDb.QueryExecutor;
 using ERP.Products.Persistance.MongoDb.Repositories;
 using ERP.Products.Persistance.MongoDb.UnitOfWorks;
-using ERP.Shared.Application.Interfaces;
+using ERP.Shared.Application.Abstractions.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

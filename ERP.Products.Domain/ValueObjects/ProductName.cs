@@ -2,7 +2,7 @@ using ERP.Shared.Domain.Exceptions;
 
 namespace ERP.Products.Domain.ValueObjects;
 
-public record ProductName
+public sealed record ProductName
 {
     public string Value { get; init; }
 

@@ -1,6 +1,6 @@
 namespace ERP.Shared.Presentation.Models;
 
-public sealed class ApiResponse<T>
+public sealed record ApiResponse<T>
 {
     public bool Success { get; init; }
     public T? Data { get; init; }

@@ -4,7 +4,7 @@ using ERP.Shared.Domain.Entities;
 
 namespace ERP.Products.Domain.Entities;
 
-public class Product : AggregateRoot<ProductId>
+public sealed class Product : AggregateRoot<ProductId>
 {
     public ProductName ProductName { get; private set; }
     public CategoryId CategoryId { get; private set; }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -8,17 +8,21 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.1" />
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.1" />
-        <PackageReference Include="Scalar.AspNetCore" Version="2.12.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ERP.Products.Application\ERP.Products.Application.csproj" />
-    <ProjectReference Include="..\ERP.Products.Dispatcher.BackgroundWorker\ERP.Products.Dispatcher.BackgroundWorker.csproj" />
+    <ProjectReference Include="..\ERP.InMemorySagaOrchestrator\ERP.InMemorySagaOrchestrator.csproj" />
+    <ProjectReference Include="..\ERP.Products.CommandApi\ERP.Products.CommandApi.csproj" />
+    <ProjectReference Include="..\ERP.Products.CommandHandlers\ERP.Products.CommandHandlers.csproj" />
     <ProjectReference Include="..\ERP.Products.Dispatcher.Hangfire\ERP.Products.Dispatcher.Hangfire.csproj" />
-    <ProjectReference Include="..\ERP.Products.Presentation\ERP.Products.Presentation.csproj" />
-    <ProjectReference Include="..\ERP.Products.Persistance.MongoDb\ERP.Products.Persistance.MongoDb.csproj" />
-    <ProjectReference Include="..\ERP.Products.Messaging.RabbitMQ\ERP.Products.Messaging.RabbitMQ.csproj" />
+    <ProjectReference Include="..\ERP.Products.Dispatcher.InMemoryMessaging\ERP.Products.Messaging.InMemory.csproj" />
+    <ProjectReference Include="..\ERP.Products.Persistance.PgSQL\ERP.Products.Persistance.PgSQL.csproj" />
+    <ProjectReference Include="..\ERP.Products.QueryApi\ERP.Products.QueryApi.csproj" />
+    <ProjectReference Include="..\ERP.Products.QueryHandler\ERP.Products.QueryHandler.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,7 +6,7 @@ namespace ERP.Shared.Presentation.Extensions;
 
 public static class ResultExtensions
 {
-    public static IResult ToHttpResult<T>(this AppResult<T> result)
+    public static IResult ToApiResponse<T>(this AppResult<T> result)
     {
         if (result.IsSuccess)
         {

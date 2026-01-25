@@ -1,4 +1,4 @@
-using ERP.Products.Application.Interfaces;
+using ERP.Shared.Application.Abstractions.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -43,7 +43,7 @@ public sealed class OutboxBackgroundWorker : BackgroundService
             _logger.LogInformation("Triggering Outbox Dispatcher...");
 
             using var scope = _scopeFactory.CreateScope();
-            var dispatcher = scope.ServiceProvider.GetRequiredService<IProductOutboxDispatcher>();
+            var dispatcher = scope.ServiceProvider.GetRequiredService<IDispatcher>();
 
             await dispatcher.ExecuteAsync(stoppingToken);
 

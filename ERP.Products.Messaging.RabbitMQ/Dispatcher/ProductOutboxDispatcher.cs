@@ -1,9 +1,11 @@
-using ERP.Products.Application.Interfaces;
+using ERP.Products.CommandHandlers.Interfaces;
 using ERP.Products.Messaging.RabbitMQ.Interfaces;
 using ERP.Products.Messaging.RabbitMQ.Mappers;
+using ERP.Shared.Application.Interfaces;
+
 namespace ERP.Products.Messaging.RabbitMQ.Dispatcher;
 
-public class ProductOutboxDispatcher : IProductOutboxDispatcher
+public class ProductOutboxDispatcher : IDispatcher
 {
     private readonly IServiceBus _bus;
     private readonly IOutboxRepository _outboxRepository;

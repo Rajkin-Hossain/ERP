@@ -1,5 +1,5 @@
-using ERP.Products.Application.Interfaces;
-using ERP.Products.Dispatcher.Hangfire.Triggers;
+using ERP.Products.Dispatcher.Hangfire.JobSchedulers;
+using ERP.Shared.Application.Abstractions.Interfaces;
 using Hangfire;
 using Hangfire.InMemory;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +11,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddHangfireInfrastructure(
         this IServiceCollection services)
     {
-        services.AddScoped<IOutboxDispatchTrigger, OutboxDispatchTrigger>();
+        services.AddScoped<IDispatcherJobScheduler, DispatcherJobScheduler>();
 
         services.AddHangfire(cfg =>
         {

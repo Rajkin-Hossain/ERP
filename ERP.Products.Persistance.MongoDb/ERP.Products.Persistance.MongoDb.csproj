@@ -12,12 +12,11 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="9.0.9" PrivateAssets="all" />
     <PackageReference Include="MongoDB.EntityFrameworkCore" Version="9.0.3" />
     <PackageReference Include="MongoDB.Driver" Version="3.6.0" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.9" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ERP.Products.Application\ERP.Products.Application.csproj" />
-    <ProjectReference Include="..\ERP.Shared.Application\ERP.Shared.Application.csproj" />
+    <ProjectReference Include="..\ERP.Products.CommandHandlers\ERP.Products.CommandHandlers.csproj" />
+    <ProjectReference Include="..\ERP.Shared.Application\ERP.Shared.Application.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

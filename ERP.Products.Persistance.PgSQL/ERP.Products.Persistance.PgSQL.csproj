@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.2" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ERP.Products.CommandHandlers\ERP.Products.CommandHandlers.csproj" />
+      <ProjectReference Include="..\ERP.Products.Domain\ERP.Products.Domain.csproj" />
+      <ProjectReference Include="..\ERP.Products.QueryHandler\ERP.Products.QueryHandler.csproj" />
+      <ProjectReference Include="..\ERP.Shared.Application\ERP.Shared.Application.csproj" />
+      <ProjectReference Include="..\ERP.Shared.Domain\ERP.Shared.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Migrations\DbContexts\ProductDbContext\Read\" />
+      <Folder Include="UnitOfWorks\DbContexts\ProductDbContext\Read\" />
+    </ItemGroup>
+
+</Project>

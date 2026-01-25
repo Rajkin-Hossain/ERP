@@ -1,8 +1,9 @@
 using ERP.Products.Domain.ValueObjects;
 using ERP.Products.Persistance.MongoDb.Data;
-using ERP.Shared.Application.Interfaces;
+using ERP.Shared.Application.Abstractions.Interfaces;
 using ERP.Shared.Domain.Entities;
 using ERP.Shared.Domain.OutboxEntity;
+
 namespace ERP.Products.Persistance.MongoDb.UnitOfWorks;
 
 public sealed class ProductContextUnitOfWork(ProductReadDbContext dbContext) : IUnitOfWork
@@ -31,11 +32,11 @@ public sealed class ProductContextUnitOfWork(ProductReadDbContext dbContext) : I
         catch (Exception ex) when (ex is NotSupportedException or InvalidOperationException)
         {
             // Fallback for non-transactional environments (e.g., Standalone MongoDB instace)
-            return await ExecuteWithoutTransactionAsync(dbAction, ct);
+            return await ExecuteAsync(dbAction, ct);
         }
     }
 
-    public async Task<TResult> ExecuteWithoutTransactionAsync<TResult>(
+    public async Task<TResult> ExecuteAsync<TResult>(
         Func<CancellationToken, Task<TResult>> dbAction,
         CancellationToken ct)
     {
@@ -90,6 +91,11 @@ public sealed class ProductContextUnitOfWork(ProductReadDbContext dbContext) : I
             .Entries<AggregateRoot<ProductId>>()
             .Select(e => e.Entity)
             .Where(e => e.DomainEvents.Count > 0);
+    }
+
+    public Task ExecuteAsync(CancellationToken ct = default)
+    {
+        throw new NotImplementedException();
     }
 }
 

@@ -1,7 +1,8 @@
-using ERP.Products.Application.Interfaces;
+using ERP.Products.CommandHandlers.Interfaces;
 using ERP.Products.Messaging.RabbitMQ.Bus;
 using ERP.Products.Messaging.RabbitMQ.Dispatcher;
 using ERP.Products.Messaging.RabbitMQ.Interfaces;
+using ERP.Shared.Application.Interfaces;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddMessageBusInfrastructure(this IServiceCollection services)
     {
-        services.AddScoped<IProductOutboxDispatcher, ProductOutboxDispatcher>();
+        services.AddScoped<IDispatcher, ProductOutboxDispatcher>();
         services.AddScoped<IServiceBus, RabbitMQBus>();
 
         return services.AddMessageBus(typeof(ServiceCollectionExtensions).Assembly);

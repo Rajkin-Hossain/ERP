@@ -1,6 +1,5 @@
-using ERP.Shared.Domain.Entities;
-
 using ERP.Products.Domain.ValueObjects;
+using ERP.Shared.Domain.Entities;
 
 namespace ERP.Products.Domain.Entities;
 

@@ -1,6 +1,5 @@
-﻿using ERP.Shared.Application.Interfaces;
-
-using ERP.Shared.Application.Paging;
+﻿using ERP.Shared.Application.Abstractions.Interfaces;
+using ERP.Shared.Application.Abstractions.Paging;
 using ERP.Shared.Domain.Entities;
 
 using Microsoft.EntityFrameworkCore;

@@ -1,37 +1,38 @@
 using ERP.Products.Api.Extensions;
-using ERP.Products.Presentation.CommandEndPoints;
-using ERP.Products.Presentation.QueryEndPoints;
-using Scalar.AspNetCore;
+using ERP.Products.Persistance.PgSQL.Extensions;
+using FastEndpoints;
+using FastEndpoints.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Common API services
-builder.Services.AddApiServices(builder.Configuration);
+//Common for all modules/bounded contexts
+builder.Host.AddHostServices();
 
 // Add Product Module services
 builder.Services.AddProductServices(builder.Configuration);
 
 var app = builder.Build();
 
-app.UseExceptionHandler();
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
-    app.MapScalarApiReference();
+    // Add migrations for bounded contexts
+    await app.Services.MigrateDbContext();
 }
+
+app.UseExceptionHandler();
 
 app.UseHttpsRedirection();
 
 app.UseCors("ApiCors");
 
-app.MapGet("/", () => Results.Redirect("/scalar", permanent: false));
+app.UseFastEndpoints();
+
+app.UseSwaggerGen();
+
+// Docs shortcut
+app.MapGet("/", () => Results.Redirect("/swagger", permanent: false));
 
 app.MapGet("/health", () => Results.Ok(new { Status = "Healthy" }));
-
-app.MapProductCommandEndpoints();
-app.MapProductQueryEndpoints();
 
 app.Run();
 
