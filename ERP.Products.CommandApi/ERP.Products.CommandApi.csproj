@@ -14,6 +14,7 @@
     
   <ItemGroup>
     <ProjectReference Include="..\ERP.Shared.Command.Contracts\ERP.Shared.Command.Contracts.csproj" />
+    <ProjectReference Include="..\ERP.Shared.Kernel\ERP.Shared.Kernel.csproj" />
     <ProjectReference Include="..\ERP.Shared.Presentation\ERP.Shared.Presentation.csproj" />
   </ItemGroup>
 

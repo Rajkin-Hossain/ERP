@@ -1,5 +1,5 @@
 ﻿using ERP.Products.Domain.Entities;
-using ERP.Shared.Query.Contracts.Modules.Products.Results;
+using ERP.Shared.Query.Contracts.Modules.Products.AppResult;
 using System.Linq.Expressions;
 
 namespace ERP.Products.QueryHandler.Mappers;

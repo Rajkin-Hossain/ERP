@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
 
 namespace ERP.Products.Dispatcher.BackgroundWorker.Extensions;
 

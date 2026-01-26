@@ -1,4 +1,4 @@
-using ERP.Shared.Application.Result;
+using ERP.Shared.Kernel.Result;
 using ERP.Shared.Presentation.Models;
 using Microsoft.AspNetCore.Http;
 

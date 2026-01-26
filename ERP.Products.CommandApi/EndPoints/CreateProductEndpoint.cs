@@ -1,6 +1,5 @@
-using ERP.Products.Domain.ValueObjects;
-using ERP.Shared.Application.Result;
 using ERP.Shared.Command.Contracts.Modules.Products;
+using ERP.Shared.Kernel.Result;
 using ERP.Shared.Presentation.Extensions;
 using FastEndpoints;
 using Microsoft.AspNetCore.Builder;
@@ -36,7 +35,7 @@ public sealed class CreateProductEndpoint(IMessageBus bus) : Endpoint<CreateProd
             req.ImageUrl,
             req.CategoryId);
 
-        var result = await _bus.InvokeAsync<AppResult<ProductId>>(command);
+        var result = await _bus.InvokeAsync<AppResult<Guid>>(command);
 
         return result.ToApiResponse();
     }

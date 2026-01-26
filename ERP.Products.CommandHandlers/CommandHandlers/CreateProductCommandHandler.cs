@@ -1,8 +1,8 @@
 ﻿using ERP.Products.Domain.Entities;
 using ERP.Products.Domain.ValueObjects;
-using ERP.Shared.Application.Interfaces;
-using ERP.Shared.Application.Result;
+using ERP.Shared.Application.Abstractions.Interfaces;
 using ERP.Shared.Command.Contracts.Modules.Products;
+using ERP.Shared.Kernel.Result;
 
 namespace ERP.Products.CommandHandlers.CommandHandlers;
 
@@ -11,7 +11,7 @@ public sealed class CreateProductCommandHandler(IRepository<Product, ProductId> 
     private readonly IRepository<Product, ProductId> _repo = repo;
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
-    public async Task<AppResult<ProductId>> Handle(CreateProductCommand request, CancellationToken ct)
+    public async Task<AppResult<Guid>> Handle(CreateProductCommand request, CancellationToken ct)
     {
         var product = Product.Create(
             request.Name,
@@ -27,6 +27,6 @@ public sealed class CreateProductCommandHandler(IRepository<Product, ProductId> 
         }, ct);
 
 
-        return AppResult<ProductId>.Ok(product.Id);
+        return AppResult<Guid>.Ok(product.Id);
     }
 }

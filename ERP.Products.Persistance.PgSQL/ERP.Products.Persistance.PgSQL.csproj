@@ -16,10 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ERP.Products.CommandHandlers\ERP.Products.CommandHandlers.csproj" />
       <ProjectReference Include="..\ERP.Products.Domain\ERP.Products.Domain.csproj" />
-      <ProjectReference Include="..\ERP.Products.QueryHandler\ERP.Products.QueryHandler.csproj" />
-      <ProjectReference Include="..\ERP.Shared.Application\ERP.Shared.Application.csproj" />
       <ProjectReference Include="..\ERP.Shared.Domain\ERP.Shared.Domain.csproj" />
     </ItemGroup>
 

@@ -2,8 +2,8 @@
 using ERP.Products.Domain.ValueObjects;
 using ERP.Products.QueryHandler.Mappers;
 using ERP.Shared.Application.Abstractions.Interfaces;
-using ERP.Shared.Application.Abstractions.Result;
-using ERP.Shared.Query.Contracts.Modules.Products.Results;
+using ERP.Shared.Kernel.Result;
+using ERP.Shared.Query.Contracts.Modules.Products.AppResult;
 
 namespace ERP.Products.QueryHandler.QueryHandlers;
 

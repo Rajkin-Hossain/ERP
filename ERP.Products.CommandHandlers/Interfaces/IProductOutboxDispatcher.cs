@@ -1,4 +1,4 @@
-﻿using ERP.Shared.Application.Interfaces;
+﻿using ERP.Shared.Application.Abstractions.Interfaces;
 
 namespace ERP.Products.CommandHandlers.Interfaces;
 

@@ -17,14 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ERP.Contracts.MessageOrchestrator\ERP.Contracts.MessageOrchestrator.csproj" />
-    <ProjectReference Include="..\..\ERP.MessageOrchestrator\ERP.MessageOrchestrator.csproj" />
     <ProjectReference Include="..\..\ERP.Products.Api\ERP.Products.Api.csproj" />
     <ProjectReference Include="..\..\ERP.Products.Dispatcher.Hangfire\ERP.Products.Dispatcher.Hangfire.csproj" />
     <ProjectReference Include="..\..\ERP.Products.Domain\ERP.Products.Domain.csproj" />
-    <ProjectReference Include="..\..\ERP.Products.Messaging.RabbitMQ\ERP.Products.Messaging.RabbitMQ.csproj" />
-    <ProjectReference Include="..\..\ERP.Products.Persistance.MongoDb\ERP.Products.Persistance.MongoDb.csproj" />
-    <ProjectReference Include="..\..\ERP.Shared.Application\ERP.Shared.Application.Abstractions.csproj" />
     <ProjectReference Include="..\..\ERP.Shared.Domain\ERP.Shared.Domain.csproj" />
     <ProjectReference Include="..\..\ERP.Shared.Presentation\ERP.Shared.Presentation.csproj" />
   </ItemGroup>

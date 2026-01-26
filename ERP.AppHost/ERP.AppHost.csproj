@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ERP.MessageOrchestrator\ERP.MessageOrchestrator.csproj" />
     <ProjectReference Include="..\ERP.Products.Api\ERP.Products.Api.csproj" />
   </ItemGroup>
 

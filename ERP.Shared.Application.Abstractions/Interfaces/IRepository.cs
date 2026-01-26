@@ -1,5 +1,5 @@
-using ERP.Shared.Application.Abstractions.Paging;
 using ERP.Shared.Domain.Entities;
+using ERP.Shared.Kernel.Paging;
 using System.Linq.Expressions;
 
 namespace ERP.Shared.Application.Abstractions.Interfaces;

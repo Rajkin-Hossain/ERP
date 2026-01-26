@@ -4,6 +4,7 @@ using ERP.Products.Persistance.PgSQL.Options;
 using ERP.Products.Persistance.PgSQL.QueryExecutor;
 using ERP.Products.Persistance.PgSQL.Repositories.DbContexts.ProductDbContext.Read;
 using ERP.Products.Persistance.PgSQL.Repositories.DbContexts.ProductDbContext.Write;
+using ERP.Products.Persistance.PgSQL.Storages;
 using ERP.Products.Persistance.PgSQL.UnitOfWorks.DbContexts.ProductDbContext.Write;
 using ERP.Shared.Application.Abstractions.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -66,7 +67,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped(typeof(IRepository<,>), typeof(ProductRepository<,>));
 
         //A write dbcontext should have 1 outbox repository for integration events.
-        services.AddScoped<IOutboxRepository, OutboxRepository>();
+        services.AddScoped<OutboxStorage>();
 
         //A write dbcontext should have 1 unit of work for all aggregate roots in a bounded context.
         services.AddScoped<IUnitOfWork, ProductContextUnitOfWork>();

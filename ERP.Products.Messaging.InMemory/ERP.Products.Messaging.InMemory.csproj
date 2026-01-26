@@ -6,9 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+    <ItemGroup>
+        <PackageReference Include="WolverineFx" Version="5.12.0" />
+    </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\ERP.Products.CommandHandlers\ERP.Products.CommandHandlers.csproj" />
-    <ProjectReference Include="..\ERP.Shared.Application\ERP.Shared.Application.Abstractions.csproj" />
+    <ProjectReference Include="..\ERP.Shared.Application.Abstractions\ERP.Shared.Application.Abstractions.csproj" />
     <ProjectReference Include="..\ERP.Shared.Event.Contracts\ERP.Shared.Event.Contracts.csproj" />
   </ItemGroup>
 

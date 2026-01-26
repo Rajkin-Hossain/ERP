@@ -1,7 +1,7 @@
-using ERP.Shared.Application.Result;
+using ERP.Shared.Kernel.Result;
 using ERP.Shared.Presentation.Extensions;
+using ERP.Shared.Query.Contracts.Modules.Products.AppResult;
 using ERP.Shared.Query.Contracts.Modules.Products.Queries;
-using ERP.Shared.Query.Contracts.Modules.Products.Results;
 using FastEndpoints;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;

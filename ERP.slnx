@@ -12,10 +12,12 @@
   </Folder>
   <Folder Name="/BuildingBlocks/" />
   <Folder Name="/BuildingBlocks/Shared/">
-    <Project Path="ERP.Shared.Application/ERP.Shared.Application.Abstractions.csproj" />
+    <Project Path="ERP.Shared.Application.Abstractions/ERP.Shared.Application.Abstractions.csproj" />
     <Project Path="ERP.Shared.Command.Contracts/ERP.Shared.Command.Contracts.csproj" Id="9217dde8-1191-4606-a4f9-4ea799b19581" />
     <Project Path="ERP.Shared.Domain/ERP.Shared.Domain.csproj" />
     <Project Path="ERP.Shared.Event.Contracts/ERP.Shared.Event.Contracts.csproj" Id="061cbb7e-fdbc-4e43-bdd2-bec69ae000d2" />
+    <Project Path="ERP.Shared.Infrastructure.Outbox/ERP.Shared.Infrastructures.csproj" Id="a723d8b8-f18e-426e-bd97-7a7cbada7f8a" />
+    <Project Path="ERP.Shared.Kernel/ERP.Shared.Kernel.csproj" Id="3bbd97fd-f9e0-4676-97c1-d666f5cbb3ed" />
     <Project Path="ERP.Shared.Presentation/ERP.Shared.Presentation.csproj" />
     <Project Path="ERP.Shared.Query.Contracts/ERP.Shared.Query.Contracts.csproj" Id="f2d36b3a-72d7-4dae-be7c-4d469343dbbf" />
   </Folder>
@@ -26,16 +28,16 @@
   <Folder Name="/Modules/Products/">
     <Project Path="ERP.Products.Domain/ERP.Products.Domain.csproj" />
   </Folder>
+  <Folder Name="/Modules/Products/Abstractions/">
+    <Project Path="ERP.Products.Application.Abstraction/ERP.Products.Application.Abstraction.csproj" Id="8d90f560-cf29-4630-986b-6f4684d89a6d" />
+  </Folder>
   <Folder Name="/Modules/Products/Commands/">
     <Project Path="ERP.Products.CommandApi/ERP.Products.CommandApi.csproj" Id="a6338fb8-6ee4-42c1-b087-da76a1afcf2a" />
     <Project Path="ERP.Products.CommandHandlers/ERP.Products.CommandHandlers.csproj" Id="d22fb050-4e89-4169-b900-b8dfdc3eb4d8" />
   </Folder>
   <Folder Name="/Modules/Products/Infrastructures/">
-    <Project Path="ERP.Products.Dispatcher.BackgroundWorker/ERP.Products.Dispatcher.BackgroundWorker.csproj" />
     <Project Path="ERP.Products.Dispatcher.Hangfire/ERP.Products.Dispatcher.Hangfire.csproj" />
     <Project Path="ERP.Products.Messaging.InMemory/ERP.Products.Messaging.InMemory.csproj" />
-    <Project Path="ERP.Products.Messaging.RabbitMQ/ERP.Products.Messaging.RabbitMQ.csproj" />
-    <Project Path="ERP.Products.Persistance.MongoDb/ERP.Products.Persistance.MongoDb.csproj" />
     <Project Path="ERP.Products.Persistance.PgSQL/ERP.Products.Persistance.PgSQL.csproj" />
   </Folder>
   <Folder Name="/Modules/Products/Queries/">
@@ -44,6 +46,5 @@
   </Folder>
   <Folder Name="/Orchestrator/">
     <Project Path="ERP.InMemorySagaOrchestrator/ERP.InMemorySagaOrchestrator.csproj" Id="3a397ea2-bf14-42d0-8e63-6661632dbc63" />
-    <Project Path="ERP.SagaOrchestrator/ERP.SagaOrchestrator.csproj" />
   </Folder>
 </Solution>

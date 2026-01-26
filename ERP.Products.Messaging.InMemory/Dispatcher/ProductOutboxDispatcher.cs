@@ -1,16 +1,14 @@
-using ERP.Products.CommandHandlers.Interfaces;
 using ERP.Products.Messaging.InMemory.Mappers;
-using ERP.Shared.Application.Abstractions.Interfaces;
-using ERP.Shared.Domain.OutboxEntity;
+using ERP.Shared.Application.Abstractions.Outbox;
 using ERP.Shared.Event.Contracts.Interfaces;
 using Wolverine;
 
 namespace ERP.Products.Messaging.InMemory.Dispatcher;
 
-public class ProductOutboxDispatcher(IMessageBus bus, IOutboxRepository outboxRepository) : IProductOutboxDispatcher
+public class ProductOutboxDispatcher(IMessageBus bus, IOutboxStore outboxRepository) : IProductOutboxDispatcher
 {
     private readonly IMessageBus _bus = bus;
-    private readonly IOutboxRepository _outboxRepository = outboxRepository;
+    private readonly IOutboxStore _outboxRepository = outboxRepository;
 
     public async Task ExecuteAsync(CancellationToken ct = default)
     {

@@ -13,8 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ERP.Products.CommandHandlers\ERP.Products.CommandHandlers.csproj" />
-      <ProjectReference Include="..\ERP.Shared.Application\ERP.Shared.Application.Abstractions.csproj" />
+      <ProjectReference Include="..\ERP.Shared.Application.Abstractions\ERP.Shared.Application.Abstractions.csproj" />
     </ItemGroup>
 
 </Project>
