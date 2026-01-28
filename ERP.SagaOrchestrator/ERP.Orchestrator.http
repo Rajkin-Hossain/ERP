@@ -1,6 +1,0 @@
-@ERP.Orchestrator_HostAddress = http://localhost:5218
-
-GET {{ERP.Orchestrator_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

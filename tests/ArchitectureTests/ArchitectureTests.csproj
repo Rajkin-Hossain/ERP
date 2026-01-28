@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\ERP.Products.Api\ERP.Products.Api.csproj" />
-    <ProjectReference Include="..\..\ERP.Products.Dispatcher.Hangfire\ERP.Products.Dispatcher.Hangfire.csproj" />
+    <ProjectReference Include="..\..\ERP.Products.Dispatcher.Hangfire\ERP.Products.JobSchedule.Hangfire.csproj" />
     <ProjectReference Include="..\..\ERP.Products.Domain\ERP.Products.Domain.csproj" />
     <ProjectReference Include="..\..\ERP.Shared.Domain\ERP.Shared.Domain.csproj" />
     <ProjectReference Include="..\..\ERP.Shared.Presentation\ERP.Shared.Presentation.csproj" />
