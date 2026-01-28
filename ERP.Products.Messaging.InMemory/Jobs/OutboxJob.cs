@@ -3,11 +3,11 @@ using ERP.Products.Messaging.InMemory.Mappers;
 using ERP.Shared.Application.Abstractions.Outbox;
 using Wolverine;
 
-namespace ERP.Products.Messaging.InMemory.Dispatcher;
+namespace ERP.Products.Messaging.InMemory.Jobs;
 
-public class ProductOutboxDispatcher(
+public sealed class OutboxJob(
     IMessageBus bus,
-    IOutboxStorage outboxStorage) : IProductOutboxDispatcher
+    IOutboxStorage outboxStorage) : IOutboxJob
 {
     private readonly IMessageBus _bus = bus;
     private readonly IOutboxStorage _outboxStorage = outboxStorage;

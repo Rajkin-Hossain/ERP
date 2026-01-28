@@ -11,7 +11,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddHangfireInfrastructure(
         this IServiceCollection services)
     {
-        services.AddScoped<IDispatcherJobScheduler, DispatcherJobScheduler>();
+        services.AddScoped<IJobScheduler, JobScheduler>();
 
         services.AddHangfire(cfg =>
         {

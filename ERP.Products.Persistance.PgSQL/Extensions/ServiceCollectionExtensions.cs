@@ -16,65 +16,63 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddPgInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddProductDbContextServices(configuration);
+        ArgumentNullException.ThrowIfNull(services);
+        ArgumentNullException.ThrowIfNull(configuration);
+
+        services.AddProductDbContextServices();
 
         return services;
     }
 
-    private static IServiceCollection AddProductDbContextServices(this IServiceCollection services, IConfiguration configuration)
+    private static IServiceCollection AddProductDbContextServices(this IServiceCollection services)
     {
-        //A bounded context may have 2 dbcontexts (read & write CQRS pattern)
-        //A dbcontext may has multiple aggregate roots.
-
-        //Write DbContext. 
         services.AddDbContextPool<ProductDbContext>((serviceProvider, options) =>
         {
-            var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-
-            PgOptions? pgOption = configuration.GetSection("PgDbSettings").Get<PgOptions>();
-
-            if (string.IsNullOrWhiteSpace(pgOption?.WriteConnectionString))
-            {
-                throw new InvalidOperationException(
-                    $"Connection string '{pgOption?.WriteConnectionString}' was not found. " +
-                    $"Store it in configuration as ConnectionStrings:{pgOption?.WriteConnectionString}.");
-            }
-
-            options.UseNpgsql(pgOption?.WriteConnectionString);
+            var pgOptions = GetPgOptions(serviceProvider);
+            ConfigureDbContext(options, pgOptions.WriteConnectionString, nameof(PgOptions.WriteConnectionString));
         });
 
-        //Read DbContext. 
         services.AddDbContextPool<ProductReadDbContext>((serviceProvider, options) =>
         {
-            IConfiguration configuration = serviceProvider.GetRequiredService<IConfiguration>();
-
-            PgOptions? pgOption = configuration.GetSection("PgDbSettings").Get<PgOptions>();
-
-            if (string.IsNullOrWhiteSpace(pgOption?.ReadConnectionString))
-            {
-                throw new InvalidOperationException(
-                    $"Connection string '{pgOption?.ReadConnectionString}' was not found. " +
-                    $"Store it in configuration as ConnectionStrings:{pgOption?.ReadConnectionString}.");
-            }
-
-            options.UseNpgsql(pgOption?.ReadConnectionString);
+            var pgOptions = GetPgOptions(serviceProvider);
+            ConfigureDbContext(options, pgOptions.ReadConnectionString, nameof(PgOptions.ReadConnectionString));
         });
 
-        //A read dbcontext should have 1 generic read repository for all aggregate roots in a bounded context.
-        //A write dbcontext should have 1 generic write repository for all aggregate roots in a bounded context.
         services.AddScoped(typeof(IReadRepository<,>), typeof(PgReadRepository<,>));
         services.AddScoped(typeof(IRepository<,>), typeof(PgRepository<,>));
 
-        //A write dbcontext should have 1 outbox storage for integration events.
         services.AddScoped<IOutboxStorage, OutboxStorage>();
 
-        //A write dbcontext should have 1 unit of work for all aggregate roots in a bounded context.
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        //A bounded context pick a database and that should have 1 query executor for all async queries (multiple dbcontexts).
         services.AddScoped<IQueryExecutor, QueryExecutor>();
 
         return services;
+    }
+
+    private static PgOptions GetPgOptions(IServiceProvider serviceProvider)
+    {
+        ArgumentNullException.ThrowIfNull(serviceProvider);
+
+        var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+        var options = configuration.GetSection(PgOptions.SectionName).Get<PgOptions>();
+
+        return options ?? throw new InvalidOperationException(
+            $"Configuration section '{PgOptions.SectionName}' was not found.");
+    }
+
+    private static void ConfigureDbContext(
+        DbContextOptionsBuilder optionsBuilder,
+        string connectionString,
+        string connectionName)
+    {
+        if (string.IsNullOrWhiteSpace(connectionString))
+        {
+            throw new InvalidOperationException(
+                $"Connection string '{connectionName}' was not found in '{PgOptions.SectionName}'.");
+        }
+
+        optionsBuilder.UseNpgsql(connectionString);
     }
 }
 

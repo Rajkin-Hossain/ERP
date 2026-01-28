@@ -7,9 +7,11 @@ namespace ERP.Products.Persistance.PgSQL.Storages.Outbox;
 
 public sealed class OutboxStorage(ProductDbContext dbcontext) : IOutboxStorage
 {
+    private readonly ProductDbContext _dbContext = dbcontext;
+
     public async Task<IEnumerable<OutboxEnvelope>> GetUnprocessedMessagesAsync(CancellationToken ct = default)
     {
-        return await dbcontext.ProductOutboxMessages
+        return await _dbContext.ProductOutboxMessages
             .AsNoTracking()
             .Where(m => m.Status == OutboxStatus.Pending)
             .OrderBy(m => m.OccurredOnUtc)
@@ -29,30 +31,29 @@ public sealed class OutboxStorage(ProductDbContext dbcontext) : IOutboxStorage
 
     public async Task MarkSent(OutboxEnvelope message, CancellationToken ct = default)
     {
-        ArgumentNullException.ThrowIfNull(message);
-
-        var entity = await dbcontext.ProductOutboxMessages
-            .FirstOrDefaultAsync(x => x.Id == message.Id, ct);
-
-        ArgumentNullException.ThrowIfNull(entity);
-
+        var entity = await GetEntityAsync(message, ct);
         entity.MarkSent(DateTime.UtcNow);
     }
 
     public async Task MarkFailed(OutboxEnvelope message, CancellationToken ct = default)
     {
-        ArgumentNullException.ThrowIfNull(message);
-
-        var entity = await dbcontext.ProductOutboxMessages
-            .FirstOrDefaultAsync(x => x.Id == message.Id, ct);
-
-        ArgumentNullException.ThrowIfNull(entity);
-
+        var entity = await GetEntityAsync(message, ct);
         entity.MarkFailed(DateTime.UtcNow);
     }
 
     public Task SaveChangesAsync(CancellationToken ct = default)
-        => dbcontext.SaveChangesAsync(ct);
+        => _dbContext.SaveChangesAsync(ct);
+
+    private async Task<OutboxMessage> GetEntityAsync(OutboxEnvelope message, CancellationToken ct)
+    {
+        ArgumentNullException.ThrowIfNull(message);
+
+        var entity = await _dbContext.ProductOutboxMessages
+            .FirstOrDefaultAsync(x => x.Id == message.Id, ct);
+
+        return entity ?? throw new InvalidOperationException(
+            $"Outbox message '{message.Id}' was not found.");
+    }
 }
 
 

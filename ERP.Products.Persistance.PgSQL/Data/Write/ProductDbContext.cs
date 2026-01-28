@@ -1,5 +1,5 @@
 ﻿using ERP.Products.Domain.Entities;
-using ERP.Products.Persistance.PgSQL.Configurations;
+using ERP.Products.Persistance.PgSQL.Configurations.Write;
 using ERP.Shared.Infrastructures.Outbox;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,8 +15,6 @@ public sealed class ProductDbContext(DbContextOptions<ProductDbContext> options)
     {
         base.OnModelCreating(builder);
 
-        builder.ApplyConfiguration(new ProductConfiguration());
-        builder.ApplyConfiguration(new CategoryConfiguration());
-        builder.ApplyConfiguration(new ProductOutboxMessageConfiguration());
+        builder.ApplyConfigurationsFromAssembly(typeof(ProductDbContext).Assembly);
     }
 }

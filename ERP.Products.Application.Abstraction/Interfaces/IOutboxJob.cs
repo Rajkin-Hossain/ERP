@@ -2,6 +2,6 @@
 
 namespace ERP.Products.Application.Abstraction.Interfaces;
 
-public interface IProductOutboxDispatcher : IDispatcher
+public interface IOutboxJob : IJob
 {
 }

@@ -1,5 +1,5 @@
-﻿using ERP.Products.CommandHandlers.Commands;
-using ERP.Products.CommandHandlers.Pipelines;
+﻿using ERP.Products.CommandHandlers.Pipelines;
+using ERP.Shared.Command.Contracts.Modules.Products;
 using ERP.Shared.Domain.Exceptions;
 using FastEndpoints;
 using FastEndpoints.Swagger;

@@ -3,9 +3,9 @@ using Hangfire;
 
 namespace ERP.Products.Dispatcher.Hangfire.JobSchedulers;
 
-public class DispatcherJobScheduler : IDispatcherJobScheduler
+public class JobScheduler : IJobScheduler
 {
-    public void EnqueueJob<T>() where T : IDispatcher
+    public void EnqueueJob<T>() where T : IJob
     {
         BackgroundJob.Enqueue<T>(job => job.ExecuteAsync());
     }

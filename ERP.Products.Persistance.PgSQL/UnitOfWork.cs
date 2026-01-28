@@ -12,24 +12,80 @@ public sealed class UnitOfWork(ProductDbContext dbContext) : IUnitOfWork
         Func<CancellationToken, Task<TResult>> operation,
         CancellationToken ct = default) where AggRootId : notnull
     {
-        var result = await operation(ct);
+        return await ExecuteAsync(
+            operation,
+            UnitOfWorkExecutionOptions.Default,
+            AddTrackedDomainEventsForId<AggRootId>,
+            ClearTrackedDomainEventsForId<AggRootId>,
+            ct);
+    }
 
-        await AddTrackedDomainEventsForId<AggRootId>(ct);
-        await SaveChangesAsync(ct);
-        ClearTrackedDomainEventsForId<AggRootId>();
-
-        return result;
+    public async Task<TResult> ExecuteForAggregateAsync<AggRootId, TResult>(
+        Func<CancellationToken, Task<TResult>> operation,
+        UnitOfWorkExecutionOptions options,
+        CancellationToken ct = default) where AggRootId : notnull
+    {
+        return await ExecuteAsync(
+            operation,
+            options,
+            AddTrackedDomainEventsForId<AggRootId>,
+            ClearTrackedDomainEventsForId<AggRootId>,
+            ct);
     }
 
     public async Task<TResult> ExecuteAsync<TResult>(
         Func<CancellationToken, Task<TResult>> operation,
         CancellationToken ct = default)
     {
+        return await ExecuteAsync(
+            operation,
+            UnitOfWorkExecutionOptions.Default,
+            AddTrackedDomainEventsForAllAggregates,
+            ClearTrackedDomainEventsForAllAggregates,
+            ct);
+    }
+
+    public async Task<TResult> ExecuteAsync<TResult>(
+        Func<CancellationToken, Task<TResult>> operation,
+        UnitOfWorkExecutionOptions options,
+        CancellationToken ct = default)
+    {
+        return await ExecuteAsync(
+            operation,
+            options,
+            AddTrackedDomainEventsForAllAggregates,
+            ClearTrackedDomainEventsForAllAggregates,
+            ct);
+    }
+
+    private async Task<TResult> ExecuteAsync<TResult>(
+        Func<CancellationToken, Task<TResult>> operation,
+        UnitOfWorkExecutionOptions options,
+        Func<CancellationToken, Task> addOutbox,
+        Action clearOutbox,
+        CancellationToken ct)
+    {
+        ArgumentNullException.ThrowIfNull(operation);
+        ArgumentNullException.ThrowIfNull(options);
+        ArgumentNullException.ThrowIfNull(addOutbox);
+        ArgumentNullException.ThrowIfNull(clearOutbox);
+
         var result = await operation(ct);
 
-        await AddTrackedDomainEventsForAllAggregates(ct);
-        await SaveChangesAsync(ct);
-        ClearTrackedDomainEventsForAllAggregates();
+        if (options.UseChangeTracker)
+        {
+            if (options.UseOutbox)
+                await addOutbox(ct);
+
+            await SaveChangesAsync(ct);
+
+            if (options.UseOutbox)
+                clearOutbox();
+        }
+        else
+        {
+            await SaveChangesAsync(ct);
+        }
 
         return result;
     }

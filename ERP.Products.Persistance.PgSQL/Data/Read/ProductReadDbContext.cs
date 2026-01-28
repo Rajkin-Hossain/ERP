@@ -1,5 +1,5 @@
 using ERP.Products.Domain.Entities;
-using ERP.Shared.Infrastructures.Outbox;
+using ERP.Products.Persistance.PgSQL.Configurations.Write;
 using Microsoft.EntityFrameworkCore;
 
 namespace ERP.Products.Persistance.PgSQL.Data.Read;
@@ -8,7 +8,6 @@ public sealed class ProductReadDbContext(DbContextOptions<ProductReadDbContext> 
 {
     public DbSet<Product> Products => Set<Product>();
     public DbSet<Category> Categories => Set<Category>();
-    public DbSet<OutboxMessage> ProductOutboxMessages => Set<OutboxMessage>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -16,7 +15,6 @@ public sealed class ProductReadDbContext(DbContextOptions<ProductReadDbContext> 
 
         builder.ApplyConfiguration(new ProductConfiguration());
         builder.ApplyConfiguration(new CategoryConfiguration());
-        builder.ApplyConfiguration(new ProductOutboxMessageConfiguration());
     }
 }
 

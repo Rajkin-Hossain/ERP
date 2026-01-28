@@ -6,15 +6,15 @@ namespace ERP.Products.Persistance.PgSQL.Extensions;
 
 public static class ServiceProviderExtensions
 {
-    public static async Task MigrateDbContext(this IServiceProvider services)
+    public static Task MigrateDbContext(this IServiceProvider services, CancellationToken ct = default)
     {
+        ArgumentNullException.ThrowIfNull(services);
+
         using IServiceScope scope = services.CreateScope();
 
-        ProductDbContext dbContext = scope.ServiceProvider.GetRequiredService<ProductDbContext>();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ProductDbContext>();
 
-        //await dbContext.Database.EnsureCreatedAsync();
-
-        await dbContext.Database.MigrateAsync();
+        return dbContext.Database.MigrateAsync(ct);
     }
 }
 
