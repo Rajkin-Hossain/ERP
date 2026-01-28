@@ -1,4 +1,3 @@
-using ERP.Products.Domain.DomainEvents;
 using ERP.Shared.Event.Contracts.Interfaces;
 using ERP.Shared.Event.Contracts.Modules.Products;
 using System.Text.Json;

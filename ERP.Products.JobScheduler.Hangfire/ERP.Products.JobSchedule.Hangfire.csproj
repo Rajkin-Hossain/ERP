@@ -14,7 +14,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ERP.Products.Application.Abstraction\ERP.Products.Application.Abstraction.csproj" />
-      <ProjectReference Include="..\ERP.Products.Domain\ERP.Products.Domain.csproj" />
       <ProjectReference Include="..\ERP.Shared.Infrastructures\ERP.Shared.Infrastructures.csproj" />
     </ItemGroup>
 
