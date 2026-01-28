@@ -1,6 +1,7 @@
 using ERP.Products.Persistance.PgSQL.Data.Write;
 using ERP.Shared.Application.Abstractions.Interfaces;
 using ERP.Shared.Domain.Entities;
+using ERP.Shared.Domain.Interfaces;
 using ERP.Shared.Infrastructures.Outbox;
 using System.Text.Json;
 
@@ -14,7 +15,7 @@ public sealed class UnitOfWork(ProductDbContext dbContext) : IUnitOfWork
     {
         return await ExecuteAsync(
             operation,
-            UnitOfWorkExecutionOptions.Default,
+            UnitOfWorkBehavior.Default,
             AddTrackedDomainEventsForId<AggRootId>,
             ClearTrackedDomainEventsForId<AggRootId>,
             ct);
@@ -22,12 +23,12 @@ public sealed class UnitOfWork(ProductDbContext dbContext) : IUnitOfWork
 
     public async Task<TResult> ExecuteForAggregateAsync<AggRootId, TResult>(
         Func<CancellationToken, Task<TResult>> operation,
-        UnitOfWorkExecutionOptions options,
+        UnitOfWorkBehavior behavior,
         CancellationToken ct = default) where AggRootId : notnull
     {
         return await ExecuteAsync(
             operation,
-            options,
+            behavior,
             AddTrackedDomainEventsForId<AggRootId>,
             ClearTrackedDomainEventsForId<AggRootId>,
             ct);
@@ -39,7 +40,7 @@ public sealed class UnitOfWork(ProductDbContext dbContext) : IUnitOfWork
     {
         return await ExecuteAsync(
             operation,
-            UnitOfWorkExecutionOptions.Default,
+            UnitOfWorkBehavior.Default,
             AddTrackedDomainEventsForAllAggregates,
             ClearTrackedDomainEventsForAllAggregates,
             ct);
@@ -47,12 +48,12 @@ public sealed class UnitOfWork(ProductDbContext dbContext) : IUnitOfWork
 
     public async Task<TResult> ExecuteAsync<TResult>(
         Func<CancellationToken, Task<TResult>> operation,
-        UnitOfWorkExecutionOptions options,
+        UnitOfWorkBehavior behavior,
         CancellationToken ct = default)
     {
         return await ExecuteAsync(
             operation,
-            options,
+            behavior,
             AddTrackedDomainEventsForAllAggregates,
             ClearTrackedDomainEventsForAllAggregates,
             ct);
@@ -60,26 +61,28 @@ public sealed class UnitOfWork(ProductDbContext dbContext) : IUnitOfWork
 
     private async Task<TResult> ExecuteAsync<TResult>(
         Func<CancellationToken, Task<TResult>> operation,
-        UnitOfWorkExecutionOptions options,
+        UnitOfWorkBehavior behavior,
         Func<CancellationToken, Task> addOutbox,
         Action clearOutbox,
         CancellationToken ct)
     {
         ArgumentNullException.ThrowIfNull(operation);
-        ArgumentNullException.ThrowIfNull(options);
         ArgumentNullException.ThrowIfNull(addOutbox);
         ArgumentNullException.ThrowIfNull(clearOutbox);
 
+        var useChangeTracker = behavior.HasFlag(UnitOfWorkBehavior.ChangeTracker);
+        var useOutbox = useChangeTracker && behavior.HasFlag(UnitOfWorkBehavior.Outbox);
+
         var result = await operation(ct);
 
-        if (options.UseChangeTracker)
+        if (useChangeTracker)
         {
-            if (options.UseOutbox)
+            if (useOutbox)
                 await addOutbox(ct);
 
             await SaveChangesAsync(ct);
 
-            if (options.UseOutbox)
+            if (useOutbox)
                 clearOutbox();
         }
         else
@@ -124,12 +127,12 @@ public sealed class UnitOfWork(ProductDbContext dbContext) : IUnitOfWork
             entity.ClearDomainEvents();
     }
 
-    private IEnumerable<AggregateRootBase> GetTrackedAggregateRoots()
+    private IEnumerable<IAggregateRoot> GetTrackedAggregateRoots()
     {
         return dbContext.ChangeTracker
             .Entries()
             .Select(e => e.Entity)
-            .OfType<AggregateRootBase>()
+            .OfType<IAggregateRoot>()
             .Where(e => e.DomainEvents.Count > 0);
     }
 
