@@ -7,18 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Mappers\**" />
+    <EmbeddedResource Remove="Mappers\**" />
+    <None Remove="Mappers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="WolverineFx" Version="5.12.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ERP.Products.Application.Abstraction\ERP.Products.Application.Abstraction.csproj" />
     <ProjectReference Include="..\ERP.Products.Domain\ERP.Products.Domain.csproj" />
     <ProjectReference Include="..\ERP.Shared.Application.Abstractions\ERP.Shared.Application.Abstractions.csproj" />
     <ProjectReference Include="..\ERP.Shared.Command.Contracts\ERP.Shared.Command.Contracts.csproj" />
     <ProjectReference Include="..\ERP.Shared.Kernel\ERP.Shared.Kernel.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Mappers\" />
   </ItemGroup>
 
 </Project>

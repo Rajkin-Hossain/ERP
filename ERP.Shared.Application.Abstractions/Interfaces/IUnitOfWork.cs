@@ -5,6 +5,10 @@ public interface IUnitOfWork
     Task<TResult> ExecuteAsync<TResult>(
         Func<CancellationToken, Task<TResult>> operation,
         CancellationToken ct = default);
+
+    Task<TResult> ExecuteForAggregateAsync<AggRootId, TResult>(
+        Func<CancellationToken, Task<TResult>> operation,
+        CancellationToken ct = default) where AggRootId : notnull;
 }
 
 

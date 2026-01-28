@@ -1,4 +1,4 @@
-using ERP.Products.CommandHandlers.Interfaces;
+using ERP.Products.Application.Abstraction.Interfaces;
 using ERP.Products.Messaging.InMemory.Dispatcher;
 using Microsoft.Extensions.DependencyInjection;
 

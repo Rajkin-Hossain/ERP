@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace ERP.Shared.Application.Abstractions.Interfaces;
 
-public interface IRepository<T, TId> where T : Entity<TId> where TId : notnull
+public interface IRepository<T, TId> where T : AggregateRoot<TId> where TId : notnull
 {
     // Query
     IQueryable<T> GetConditional(Expression<Func<T, bool>>? predicate = null);

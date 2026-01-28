@@ -19,7 +19,7 @@ public sealed class CreateProductCommandHandler(IRepository<Product, ProductId> 
             request.ImageUrl,
             request.Price);
 
-        var productId = await _unitOfWork.ExecuteAsync(async ct =>
+        var productId = await _unitOfWork.ExecuteForAggregateAsync<ProductId, ProductId>(async ct =>
         {
             await _repo.InsertAsync(product, ct);
 

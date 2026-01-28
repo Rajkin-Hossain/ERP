@@ -45,38 +45,6 @@ public sealed class Product : AggregateRoot<ProductId>
 
         return product;
     }
-
-    // "Update Product"
-    public void UpdateDetails(
-        ProductName productName,
-        ImageUrl imageUrl,
-        Price price)
-    {
-        ProductName = productName;
-        ImageUrl = imageUrl;
-        Price = price;
-
-        AddDomainEvent(new ProductUpdatedDomainEvent(
-            Id,
-            ProductName,
-            CategoryId,
-            ImageUrl,
-            Price));
-    }
-
-    // "UpdatePrice"
-    public void UpdatePrice(Price newPrice)
-    {
-        // Example rule: cannot set same price (optional)
-        if (newPrice.Value == Price.Value)
-            return;
-
-        Price = newPrice;
-
-        AddDomainEvent(new ProductPriceUpdatedDomainEvent(
-            Id,
-            Price));
-    }
 }
 
 

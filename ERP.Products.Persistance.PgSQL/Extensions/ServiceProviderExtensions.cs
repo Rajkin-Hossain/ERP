@@ -1,4 +1,4 @@
-﻿using ERP.Products.Persistance.PgSQL.Data.DbContexts.ProductDbContexts.Write;
+﻿using ERP.Products.Persistance.PgSQL.Data.Write;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 

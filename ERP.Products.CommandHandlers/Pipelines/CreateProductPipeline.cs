@@ -1,4 +1,4 @@
-﻿using ERP.Products.CommandHandlers.Interfaces;
+﻿using ERP.Products.Application.Abstraction.Interfaces;
 using ERP.Shared.Application.Abstractions.Interfaces;
 using ERP.Shared.Command.Contracts.Modules.Products;
 

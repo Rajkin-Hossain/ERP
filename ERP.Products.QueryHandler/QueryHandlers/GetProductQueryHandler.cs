@@ -7,10 +7,10 @@ using ERP.Shared.Query.Contracts.Modules.Products.AppResult;
 
 namespace ERP.Products.QueryHandler.QueryHandlers;
 
-public sealed record GetProductQueryHandler(IReadRepository<Product, ProductId> repo, IAsyncQueryExecutor asyncQueryExecutor)
+public sealed record GetProductQueryHandler(IReadRepository<Product, ProductId> repo, IQueryExecutor asyncQueryExecutor)
 {
     private readonly IReadRepository<Product, ProductId> _repo = repo;
-    private readonly IAsyncQueryExecutor _asyncQueryExecutor = asyncQueryExecutor;
+    private readonly IQueryExecutor _asyncQueryExecutor = asyncQueryExecutor;
 
     public async Task<AppResult<IEnumerable<ProductResult>>> Handle(GetProductQueryHandler query, CancellationToken ct)
     {

@@ -16,7 +16,7 @@
     <Project Path="ERP.Shared.Command.Contracts/ERP.Shared.Command.Contracts.csproj" Id="9217dde8-1191-4606-a4f9-4ea799b19581" />
     <Project Path="ERP.Shared.Domain/ERP.Shared.Domain.csproj" />
     <Project Path="ERP.Shared.Event.Contracts/ERP.Shared.Event.Contracts.csproj" Id="061cbb7e-fdbc-4e43-bdd2-bec69ae000d2" />
-    <Project Path="ERP.Shared.Infrastructure.Outbox/ERP.Shared.Infrastructures.csproj" Id="a723d8b8-f18e-426e-bd97-7a7cbada7f8a" />
+    <Project Path="ERP.Shared.Infrastructures/ERP.Shared.Infrastructures.csproj" />
     <Project Path="ERP.Shared.Kernel/ERP.Shared.Kernel.csproj" Id="3bbd97fd-f9e0-4676-97c1-d666f5cbb3ed" />
     <Project Path="ERP.Shared.Presentation/ERP.Shared.Presentation.csproj" />
     <Project Path="ERP.Shared.Query.Contracts/ERP.Shared.Query.Contracts.csproj" Id="f2d36b3a-72d7-4dae-be7c-4d469343dbbf" />

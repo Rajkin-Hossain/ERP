@@ -1,12 +1,11 @@
-using ERP.Products.Persistance.PgSQL.Data.DbContexts.ProductDbContext.Read;
-using ERP.Products.Persistance.PgSQL.Data.DbContexts.ProductDbContext.Write;
+using ERP.Products.Persistance.PgSQL.BaseRepository.Read;
+using ERP.Products.Persistance.PgSQL.BaseRepository.Write;
+using ERP.Products.Persistance.PgSQL.Data.Read;
+using ERP.Products.Persistance.PgSQL.Data.Write;
 using ERP.Products.Persistance.PgSQL.Options;
-using ERP.Products.Persistance.PgSQL.QueryExecutor;
-using ERP.Products.Persistance.PgSQL.Repositories.DbContexts.ProductDbContext.Read;
-using ERP.Products.Persistance.PgSQL.Repositories.DbContexts.ProductDbContext.Write;
-using ERP.Products.Persistance.PgSQL.Storages;
-using ERP.Products.Persistance.PgSQL.UnitOfWorks.DbContexts.ProductDbContext.Write;
+using ERP.Products.Persistance.PgSQL.Storages.Outbox;
 using ERP.Shared.Application.Abstractions.Interfaces;
+using ERP.Shared.Application.Abstractions.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +23,7 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddProductDbContextServices(this IServiceCollection services, IConfiguration configuration)
     {
-        //A bounded context may has multiple read, write DbContexts. Generally 2 DbContexts are enough.
+        //A bounded context may have 2 dbcontexts (read & write CQRS pattern)
         //A dbcontext may has multiple aggregate roots.
 
         //Write DbContext. 
@@ -63,17 +62,17 @@ public static class ServiceCollectionExtensions
 
         //A read dbcontext should have 1 generic read repository for all aggregate roots in a bounded context.
         //A write dbcontext should have 1 generic write repository for all aggregate roots in a bounded context.
-        services.AddScoped(typeof(IReadRepository<,>), typeof(ProductReadRepository<,>));
-        services.AddScoped(typeof(IRepository<,>), typeof(ProductRepository<,>));
+        services.AddScoped(typeof(IReadRepository<,>), typeof(PgReadRepository<,>));
+        services.AddScoped(typeof(IRepository<,>), typeof(PgRepository<,>));
 
-        //A write dbcontext should have 1 outbox repository for integration events.
-        services.AddScoped<OutboxStorage>();
+        //A write dbcontext should have 1 outbox storage for integration events.
+        services.AddScoped<IOutboxStorage, OutboxStorage>();
 
         //A write dbcontext should have 1 unit of work for all aggregate roots in a bounded context.
-        services.AddScoped<IUnitOfWork, ProductContextUnitOfWork>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        //A bounded context pick a database and that should have 1 async query executor for all async queries (multiple dbcontexts).
-        services.AddScoped<IAsyncQueryExecutor, PgAsyncQueryExecutor>();
+        //A bounded context pick a database and that should have 1 query executor for all async queries (multiple dbcontexts).
+        services.AddScoped<IQueryExecutor, QueryExecutor>();
 
         return services;
     }

@@ -16,13 +16,17 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ERP.Products.Application.Abstraction\ERP.Products.Application.Abstraction.csproj" />
       <ProjectReference Include="..\ERP.Products.Domain\ERP.Products.Domain.csproj" />
+      <ProjectReference Include="..\ERP.Shared.Application.Abstractions\ERP.Shared.Application.Abstractions.csproj" />
       <ProjectReference Include="..\ERP.Shared.Domain\ERP.Shared.Domain.csproj" />
+      <ProjectReference Include="..\ERP.Shared.Infrastructures\ERP.Shared.Infrastructures.csproj" />
+      <ProjectReference Include="..\ERP.Shared.Kernel\ERP.Shared.Kernel.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Migrations\DbContexts\ProductDbContext\Read\" />
-      <Folder Include="UnitOfWorks\DbContexts\ProductDbContext\Read\" />
+      <Folder Include="Configurations\Read\" />
+      <Folder Include="Migrations\Read\" />
     </ItemGroup>
 
 </Project>
