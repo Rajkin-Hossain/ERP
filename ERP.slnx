@@ -41,6 +41,7 @@
     <Project Path="ERP.Products.Persistance.PgSQL/ERP.Products.Persistance.PgSQL.csproj" />
   </Folder>
   <Folder Name="/Modules/Products/Queries/">
+    <Project Path="ERP.Products.EventHandler/ERP.Products.EventHandler.csproj" Id="a56045f4-cd80-4582-850f-05ce2c4c80c8" />
     <Project Path="ERP.Products.QueryApi/ERP.Products.QueryApi.csproj" Id="3523c4f9-a8e0-42cd-94c6-e9f6cde751d3" />
     <Project Path="ERP.Products.QueryHandler/ERP.Products.QueryHandler.csproj" Id="fc318df8-4043-47ae-93bb-7642dc43bbc1" />
   </Folder>

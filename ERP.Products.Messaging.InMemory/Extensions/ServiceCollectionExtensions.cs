@@ -1,4 +1,5 @@
 using ERP.Products.Messaging.InMemory.Jobs;
+using ERP.Shared.Application.Abstractions.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ERP.Products.Messaging.InMemory.Extensions;

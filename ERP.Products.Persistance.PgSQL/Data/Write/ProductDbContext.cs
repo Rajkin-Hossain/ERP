@@ -1,5 +1,4 @@
 ﻿using ERP.Products.Domain.Entities;
-using ERP.Products.Persistance.PgSQL.Configurations.Write;
 using ERP.Shared.Infrastructures.Outbox;
 using Microsoft.EntityFrameworkCore;
 

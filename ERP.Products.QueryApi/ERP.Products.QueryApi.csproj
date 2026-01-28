@@ -13,7 +13,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ERP.Shared.Kernel\ERP.Shared.Kernel.csproj" />
       <ProjectReference Include="..\ERP.Shared.Presentation\ERP.Shared.Presentation.csproj" />
       <ProjectReference Include="..\ERP.Shared.Query.Contracts\ERP.Shared.Query.Contracts.csproj" />
     </ItemGroup>

@@ -1,5 +1,5 @@
-using ERP.Products.Application.Abstraction.Interfaces;
 using ERP.Products.Messaging.InMemory.Mappers;
+using ERP.Shared.Application.Abstractions.Interfaces;
 using ERP.Shared.Application.Abstractions.Outbox;
 using Wolverine;
 
