@@ -6,7 +6,7 @@ using ERP.Shared.Kernel.Result;
 
 namespace ERP.Products.EventHandler.EventHandlers;
 
-public sealed class CreateProductEventHandler(IReadRepository<Product, ProductId> repo)
+public sealed class ProductCreatedEventHandler(IReadRepository<Product, ProductId> repo)
 {
     private readonly IReadRepository<Product, ProductId> _repo = repo;
 

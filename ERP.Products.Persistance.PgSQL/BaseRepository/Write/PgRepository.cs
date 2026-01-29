@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace ERP.Products.Persistance.PgSQL.BaseRepository.Write;
 
-public abstract class PgRepository<T, TId>(ProductDbContext dbContext) : IRepository<T, TId>
+public class PgRepository<T, TId>(ProductDbContext dbContext) : IRepository<T, TId>
     where T : AggregateRoot<TId>
     where TId : notnull
 {

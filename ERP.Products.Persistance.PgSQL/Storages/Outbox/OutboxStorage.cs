@@ -11,7 +11,7 @@ public sealed class OutboxStorage(ProductDbContext dbcontext) : IOutboxStorage
 
     public async Task<IEnumerable<OutboxEnvelope>> GetUnprocessedMessagesAsync(CancellationToken ct = default)
     {
-        return await _dbContext.ProductOutboxMessages
+        return await _dbContext.OutboxMessages
             .AsNoTracking()
             .Where(m => m.Status == OutboxStatus.Pending)
             .OrderBy(m => m.OccurredOnUtc)
@@ -48,7 +48,7 @@ public sealed class OutboxStorage(ProductDbContext dbcontext) : IOutboxStorage
     {
         ArgumentNullException.ThrowIfNull(message);
 
-        var entity = await _dbContext.ProductOutboxMessages
+        var entity = await _dbContext.OutboxMessages
             .FirstOrDefaultAsync(x => x.Id == message.Id, ct);
 
         return entity ?? throw new InvalidOperationException(

@@ -9,7 +9,7 @@ using Wolverine;
 
 namespace ERP.Products.QueryApi.EndPoints;
 
-public class GetProductsEndpoint(IMessageBus bus) : Endpoint<GetProductRequest, IResult>
+public class GetProductsEndpoint(IMessageBus bus) : EndpointWithoutRequest<IResult>
 {
     private readonly IMessageBus _bus = bus;
 
@@ -27,13 +27,10 @@ public class GetProductsEndpoint(IMessageBus bus) : Endpoint<GetProductRequest, 
         );
     }
 
-    public override async Task<IResult> ExecuteAsync(GetProductRequest req,
-        CancellationToken ct)
+    public override async Task<IResult> ExecuteAsync(CancellationToken ct)
     {
         var result = await _bus.InvokeAsync<AppResult<IEnumerable<ProductResult>>>(new GetProductQuery());
 
         return result.ToApiResponse();
     }
 }
-
-public sealed record GetProductRequest;

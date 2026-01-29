@@ -44,7 +44,7 @@ public class ArchitectureRulesTests
         typeof(ERP.Products.QueryHandler.QueryHandlers.GetProductQueryHandler).Assembly;
 
     private static readonly Assembly ProductsEventHandlers =
-        typeof(ERP.Products.EventHandler.EventHandlers.CreateProductEventHandler).Assembly;
+        typeof(ERP.Products.EventHandler.EventHandlers.ProductCreatedEventHandler).Assembly;
 
     private static readonly Assembly ProductsPgSql =
         typeof(ERP.Products.Persistance.PgSQL.Data.Write.ProductDbContext).Assembly;

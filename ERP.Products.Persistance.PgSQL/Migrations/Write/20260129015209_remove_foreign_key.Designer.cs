@@ -3,17 +3,20 @@ using System;
 using ERP.Products.Persistance.PgSQL.Data.Write;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace ERP.Products.Persistance.PgSQL.Migrations.PgDbContext
+namespace ERP.Products.Persistance.PgSQL.Migrations.Write
 {
     [DbContext(typeof(ProductDbContext))]
-    partial class ProductDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260129015209_remove_foreign_key")]
+    partial class remove_foreign_key
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,7 +86,7 @@ namespace ERP.Products.Persistance.PgSQL.Migrations.PgDbContext
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("PublishedOnUtc")
+                    b.Property<DateTime>("PublishedOnUtc")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("RetryCount")

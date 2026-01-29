@@ -8,7 +8,7 @@ public sealed class ProductDbContext(DbContextOptions<ProductDbContext> options)
 {
     public DbSet<Product> Products => Set<Product>();
     public DbSet<Category> Categories => Set<Category>();
-    public DbSet<OutboxMessage> ProductOutboxMessages => Set<OutboxMessage>();
+    public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

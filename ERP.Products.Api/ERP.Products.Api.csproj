@@ -21,6 +21,7 @@
       
     <ProjectReference Include="..\ERP.Products.CommandApi\ERP.Products.CommandApi.csproj" />
     <ProjectReference Include="..\ERP.Products.CommandHandlers\ERP.Products.CommandHandlers.csproj" />
+    <ProjectReference Include="..\ERP.Products.EventHandler\ERP.Products.EventHandler.csproj" />
       
     <ProjectReference Include="..\ERP.Products.JobSchedule.Hangfire\ERP.Products.JobSchedule.Hangfire.csproj" />
     <ProjectReference Include="..\ERP.Products.Messaging.InMemory\ERP.Products.Messaging.InMemory.csproj" />

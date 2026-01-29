@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace ERP.Products.Persistance.PgSQL.BaseRepository.Read;
 
-public abstract class PgReadRepository<T, TId>(ProductReadDbContext dbContext) : IReadRepository<T, TId>
+public class PgReadRepository<T, TId>(ProductReadDbContext dbContext) : IReadRepository<T, TId>
     where T : Entity<TId>
     where TId : notnull
 {

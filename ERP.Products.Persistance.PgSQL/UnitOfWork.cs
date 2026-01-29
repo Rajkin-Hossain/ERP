@@ -115,7 +115,7 @@ public sealed class UnitOfWork(
         }
 
         if (outboxBatch.Count > 0)
-            await dbContext.ProductOutboxMessages.AddRangeAsync(outboxBatch, ct);
+            await dbContext.OutboxMessages.AddRangeAsync(outboxBatch, ct);
     }
 
     private void ClearTrackedDomainEventsForAllAggregates()
@@ -146,7 +146,7 @@ public sealed class UnitOfWork(
         }
 
         if (outboxBatch.Count > 0)
-            await dbContext.ProductOutboxMessages.AddRangeAsync(outboxBatch, ct);
+            await dbContext.OutboxMessages.AddRangeAsync(outboxBatch, ct);
     }
 
     private void ClearTrackedDomainEventsForId<AggRootId>() where AggRootId : notnull

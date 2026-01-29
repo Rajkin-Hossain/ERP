@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ERP.Products.Persistance.PgSQL.Configurations.Write;
 
-public sealed class ProductOutboxMessageConfiguration : IEntityTypeConfiguration<OutboxMessage>
+public sealed class OutboxMessageConfiguration : IEntityTypeConfiguration<OutboxMessage>
 {
     public const string TableName = "product_outbox";
 
@@ -30,7 +30,7 @@ public sealed class ProductOutboxMessageConfiguration : IEntityTypeConfiguration
 
         // Published time (nullable until published)
         builder.Property(x => x.PublishedOnUtc)
-            .IsRequired();
+            .IsRequired(false);
 
         // Payload (JSON)
         builder.Property(x => x.Payload)

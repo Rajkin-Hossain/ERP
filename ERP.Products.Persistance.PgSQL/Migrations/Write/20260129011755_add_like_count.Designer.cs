@@ -3,17 +3,20 @@ using System;
 using ERP.Products.Persistance.PgSQL.Data.Write;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace ERP.Products.Persistance.PgSQL.Migrations.PgDbContext
+namespace ERP.Products.Persistance.PgSQL.Migrations.Write
 {
     [DbContext(typeof(ProductDbContext))]
-    partial class ProductDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260129011755_add_like_count")]
+    partial class add_like_count
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,6 +61,8 @@ namespace ERP.Products.Persistance.PgSQL.Migrations.PgDbContext
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("products", "product_schema");
                 });
 
@@ -83,7 +88,7 @@ namespace ERP.Products.Persistance.PgSQL.Migrations.PgDbContext
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("PublishedOnUtc")
+                    b.Property<DateTime>("PublishedOnUtc")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("RetryCount")
@@ -96,6 +101,15 @@ namespace ERP.Products.Persistance.PgSQL.Migrations.PgDbContext
                     b.HasKey("Id");
 
                     b.ToTable("product_outbox", "outbox_schema");
+                });
+
+            modelBuilder.Entity("ERP.Products.Domain.Entities.Product", b =>
+                {
+                    b.HasOne("ERP.Products.Domain.Entities.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -40,10 +40,6 @@ public sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
                 v => ImageUrl.Create(v))
             .IsRequired(false);
 
-        builder.HasOne<Category>()
-            .WithMany()
-            .HasForeignKey(x => x.CategoryId);
-
         builder.Property(p => p.Price)
             .HasConversion(
                 v => v.Value,
