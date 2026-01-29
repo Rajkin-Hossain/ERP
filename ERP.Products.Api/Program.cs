@@ -1,4 +1,6 @@
+using ERP.InMemorySagaOrchestrator.Extensions;
 using ERP.Products.Api.Extensions;
+using ERP.Products.JobSchedule.Hangfire.Extensions;
 using ERP.Products.Persistance.PgSQL.Extensions;
 using FastEndpoints;
 using FastEndpoints.Swagger;
@@ -10,6 +12,14 @@ builder.Host.AddHostServices();
 
 // Add Product Module services
 builder.Services.AddProductServices(builder.Configuration);
+
+// Add Product Module infrastructures
+builder.Services.AddHangfireInfrastructure();
+builder.Services.AddProductServices(builder.Configuration);
+builder.Services.AddProductServices(builder.Configuration);
+
+// Add Saga Orchestrator services
+builder.Services.AddSagaOrchestratorServices();
 
 var app = builder.Build();
 

@@ -1,10 +1,10 @@
-using ERP.Products.Dispatcher.Hangfire.JobSchedulers;
+using ERP.Products.JobSchedule.Hangfire.JobSchedulers;
 using ERP.Shared.Application.Abstractions.Interfaces;
 using Hangfire;
 using Hangfire.InMemory;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ERP.Products.Dispatcher.Hangfire.Extensions;
+namespace ERP.Products.JobSchedule.Hangfire.Extensions;
 
 public static class ServiceCollectionExtensions
 {

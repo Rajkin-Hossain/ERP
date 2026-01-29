@@ -8,10 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ERP.Shared.Application.Abstractions\ERP.Shared.Application.Abstractions.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
+    <ProjectReference Include="..\ERP.Shared.Event.Contracts\ERP.Shared.Event.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

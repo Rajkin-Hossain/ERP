@@ -16,11 +16,16 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ERP.InMemorySagaOrchestrator\ERP.InMemorySagaOrchestrator.csproj" />
+      
+    <ProjectReference Include="..\ERP.Products.Application\ERP.Products.Application.csproj" />
+      
     <ProjectReference Include="..\ERP.Products.CommandApi\ERP.Products.CommandApi.csproj" />
     <ProjectReference Include="..\ERP.Products.CommandHandlers\ERP.Products.CommandHandlers.csproj" />
-    <ProjectReference Include="..\ERP.Products.Dispatcher.Hangfire\ERP.Products.Dispatcher.Hangfire.csproj" />
-    <ProjectReference Include="..\ERP.Products.Dispatcher.InMemoryMessaging\ERP.Products.Messaging.InMemory.csproj" />
+      
+    <ProjectReference Include="..\ERP.Products.JobSchedule.Hangfire\ERP.Products.JobSchedule.Hangfire.csproj" />
+    <ProjectReference Include="..\ERP.Products.Messaging.InMemory\ERP.Products.Messaging.InMemory.csproj" />
     <ProjectReference Include="..\ERP.Products.Persistance.PgSQL\ERP.Products.Persistance.PgSQL.csproj" />
+      
     <ProjectReference Include="..\ERP.Products.QueryApi\ERP.Products.QueryApi.csproj" />
     <ProjectReference Include="..\ERP.Products.QueryHandler\ERP.Products.QueryHandler.csproj" />
   </ItemGroup>

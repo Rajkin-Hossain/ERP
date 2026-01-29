@@ -4,7 +4,7 @@ namespace ERP.InMemorySagaOrchestrator.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddOrchestratorServices
+    public static IServiceCollection AddSagaOrchestratorServices
         (this IServiceCollection services)
     {
         services.AddSingleton<Saga>();

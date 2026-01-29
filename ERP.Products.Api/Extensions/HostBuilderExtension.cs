@@ -24,7 +24,7 @@ public static class HostBuilderExtension
             foreach (var asm in assemblies)
                 opts.Discovery.IncludeAssembly(asm);
 
-            // Apply pipeline to ALL commands
+            // Apply pipeline to commands
             opts.Policies.ForMessagesOfType<CreateProductCommand>()
                 .AddMiddleware<CreateProductPipeline>();
         });

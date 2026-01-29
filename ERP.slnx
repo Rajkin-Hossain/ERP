@@ -26,6 +26,7 @@
   </Folder>
   <Folder Name="/Modules/" />
   <Folder Name="/Modules/Products/">
+    <Project Path="ERP.Products.Application/ERP.Products.Application.csproj" />
     <Project Path="ERP.Products.Domain/ERP.Products.Domain.csproj" />
   </Folder>
   <Folder Name="/Modules/Products/Abstractions/">
@@ -36,7 +37,7 @@
     <Project Path="ERP.Products.CommandHandlers/ERP.Products.CommandHandlers.csproj" Id="d22fb050-4e89-4169-b900-b8dfdc3eb4d8" />
   </Folder>
   <Folder Name="/Modules/Products/Infrastructures/">
-    <Project Path="ERP.Products.JobScheduler.Hangfire/ERP.Products.JobSchedule.Hangfire.csproj" />
+    <Project Path="ERP.Products.JobSchedule.Hangfire/ERP.Products.JobSchedule.Hangfire.csproj" />
     <Project Path="ERP.Products.Messaging.InMemory/ERP.Products.Messaging.InMemory.csproj" />
     <Project Path="ERP.Products.Persistance.PgSQL/ERP.Products.Persistance.PgSQL.csproj" />
   </Folder>

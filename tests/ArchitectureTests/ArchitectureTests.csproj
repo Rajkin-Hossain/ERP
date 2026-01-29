@@ -17,10 +17,26 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\ERP.InMemorySagaOrchestrator\ERP.InMemorySagaOrchestrator.csproj" />
     <ProjectReference Include="..\..\ERP.Products.Api\ERP.Products.Api.csproj" />
-    <ProjectReference Include="..\..\ERP.Products.Dispatcher.Hangfire\ERP.Products.JobSchedule.Hangfire.csproj" />
+    <ProjectReference Include="..\..\ERP.Products.Application.Abstraction\ERP.Products.Application.Abstraction.csproj" />
+    <ProjectReference Include="..\..\ERP.Products.Application\ERP.Products.Application.csproj" />
+    <ProjectReference Include="..\..\ERP.Products.CommandApi\ERP.Products.CommandApi.csproj" />
+    <ProjectReference Include="..\..\ERP.Products.CommandHandlers\ERP.Products.CommandHandlers.csproj" />
     <ProjectReference Include="..\..\ERP.Products.Domain\ERP.Products.Domain.csproj" />
+    <ProjectReference Include="..\..\ERP.Products.EventHandler\ERP.Products.EventHandler.csproj" />
+    <ProjectReference Include="..\..\ERP.Products.JobSchedule.Hangfire\ERP.Products.JobSchedule.Hangfire.csproj" />
+    <ProjectReference Include="..\..\ERP.Products.Messaging.InMemory\ERP.Products.Messaging.InMemory.csproj" />
+    <ProjectReference Include="..\..\ERP.Products.Persistance.PgSQL\ERP.Products.Persistance.PgSQL.csproj" />
+    <ProjectReference Include="..\..\ERP.Products.QueryApi\ERP.Products.QueryApi.csproj" />
+    <ProjectReference Include="..\..\ERP.Products.QueryHandler\ERP.Products.QueryHandler.csproj" />
+    <ProjectReference Include="..\..\ERP.Shared.Application.Abstractions\ERP.Shared.Application.Abstractions.csproj" />
+    <ProjectReference Include="..\..\ERP.Shared.Command.Contracts\ERP.Shared.Command.Contracts.csproj" />
     <ProjectReference Include="..\..\ERP.Shared.Domain\ERP.Shared.Domain.csproj" />
+    <ProjectReference Include="..\..\ERP.Shared.Event.Contracts\ERP.Shared.Event.Contracts.csproj" />
+    <ProjectReference Include="..\..\ERP.Shared.Infrastructures\ERP.Shared.Infrastructures.csproj" />
+    <ProjectReference Include="..\..\ERP.Shared.Kernel\ERP.Shared.Kernel.csproj" />
     <ProjectReference Include="..\..\ERP.Shared.Presentation\ERP.Shared.Presentation.csproj" />
+    <ProjectReference Include="..\..\ERP.Shared.Query.Contracts\ERP.Shared.Query.Contracts.csproj" />
   </ItemGroup>
 </Project>

@@ -1,3 +1,4 @@
+using ERP.Products.Application.Abstraction.Interfaces;
 using ERP.Products.Persistance.PgSQL.Data.Write;
 using ERP.Shared.Application.Abstractions.Interfaces;
 using ERP.Shared.Domain.Entities;
@@ -7,8 +8,13 @@ using System.Text.Json;
 
 namespace ERP.Products.Persistance.PgSQL;
 
-public sealed class UnitOfWork(ProductDbContext dbContext) : IUnitOfWork
+public sealed class UnitOfWork(
+    ProductDbContext dbContext,
+    IIntegrationEventMapper eventMapper) : IUnitOfWork
 {
+    private readonly IIntegrationEventMapper _eventMapper =
+        eventMapper ?? throw new ArgumentNullException(nameof(eventMapper));
+
     public async Task<TResult> ExecuteForAggregateAsync<AggRootId, TResult>(
         Func<CancellationToken, Task<TResult>> operation,
         CancellationToken ct = default) where AggRootId : notnull
@@ -101,20 +107,11 @@ public sealed class UnitOfWork(ProductDbContext dbContext) : IUnitOfWork
         var entities = GetTrackedAggregateRoots().ToList();
         if (entities.Count == 0) return;
 
-        var outboxBatch = new List<OutboxMessage>(
-            capacity: entities.Sum(e => e.DomainEvents.Count));
+        var outboxBatch = new List<OutboxMessage>();
 
         foreach (var entity in entities)
         {
-            foreach (var domainEvent in entity.DomainEvents)
-            {
-                var type = domainEvent.GetType();
-                var eventType = type.FullName ?? type.Name ?? string.Empty;
-                var payload = JsonSerializer.Serialize(domainEvent, type);
-
-                outboxBatch.Add(
-                    OutboxMessage.Create(entity.GetAggregateId(), eventType, payload));
-            }
+            AddOutboxMessages(outboxBatch, entity.GetAggregateId(), entity.DomainEvents);
         }
 
         if (outboxBatch.Count > 0)
@@ -141,20 +138,11 @@ public sealed class UnitOfWork(ProductDbContext dbContext) : IUnitOfWork
         var entities = GetTrackedBaseEntities<AggRootId>().ToList();
         if (entities.Count == 0) return;
 
-        var outboxBatch = new List<OutboxMessage>(
-            capacity: entities.Sum(e => e.DomainEvents.Count));
+        var outboxBatch = new List<OutboxMessage>();
 
         foreach (var entity in entities)
         {
-            foreach (var domainEvent in entity.DomainEvents)
-            {
-                var type = domainEvent.GetType();
-                var eventType = type.FullName ?? type.Name ?? string.Empty;
-                var payload = JsonSerializer.Serialize(domainEvent, type);
-
-                outboxBatch.Add(
-                    OutboxMessage.Create(entity.Id!.ToString()!, eventType, payload));
-            }
+            AddOutboxMessages(outboxBatch, entity.Id!.ToString()!, entity.DomainEvents);
         }
 
         if (outboxBatch.Count > 0)
@@ -174,5 +162,27 @@ public sealed class UnitOfWork(ProductDbContext dbContext) : IUnitOfWork
             .Select(e => e.Entity)
             .OfType<AggregateRoot<AggRootId>>()
             .Where(e => e.DomainEvents.Count > 0);
+    }
+
+    private void AddOutboxMessages(
+        ICollection<OutboxMessage> outboxBatch,
+        string aggregateId,
+        IReadOnlyCollection<IDomainEvent> domainEvents)
+    {
+        ArgumentNullException.ThrowIfNull(outboxBatch);
+        ArgumentException.ThrowIfNullOrWhiteSpace(aggregateId);
+        ArgumentNullException.ThrowIfNull(domainEvents);
+
+        var integrationEvents = _eventMapper.Map(domainEvents);
+        if (integrationEvents.Count == 0) return;
+
+        foreach (var integrationEvent in integrationEvents)
+        {
+            var type = integrationEvent.GetType();
+            var eventType = type.FullName ?? type.Name ?? string.Empty;
+            var payload = JsonSerializer.Serialize(integrationEvent, type);
+
+            outboxBatch.Add(OutboxMessage.Create(aggregateId, eventType, payload));
+        }
     }
 }
