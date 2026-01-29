@@ -7,7 +7,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddSagaOrchestratorServices
         (this IServiceCollection services)
     {
-        services.AddSingleton<Saga>();
+        services.AddScoped<Saga>();
 
         return services;
     }

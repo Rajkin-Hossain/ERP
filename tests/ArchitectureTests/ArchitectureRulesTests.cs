@@ -6,229 +6,198 @@ namespace ArchitectureTests;
 
 public class ArchitectureRulesTests
 {
-    // Shared Kernel Assemblies
-    private static readonly Assembly SharedDomain = LoadAssembly("ERP.Shared.Domain");
-    private static readonly Assembly SharedApplication = LoadAssembly("ERP.Shared.Application");
-    private static readonly Assembly SharedPresentation = LoadAssembly("ERP.Shared.Presentation");
+    // ======= Load assemblies via a known type from each project =======
+    private static readonly Assembly SharedDomain =
+        typeof(ERP.Shared.Domain.Entities.Entity<>).Assembly;
 
-    // Message Orchestrator Assemblies
-    private static readonly Assembly OrchestratorImplementation = LoadAssembly("ERP.MessageOrchestrator");
-    private static readonly Assembly OrchestratorContracts = LoadAssembly("ERP.Contracts.MessageOrchestrator");
+    private static readonly Assembly SharedKernel =
+        typeof(ERP.Shared.Kernel.Result.AppResult<>).Assembly;
 
-    // Products Module Assemblies
-    private static readonly Assembly ProductsDomain = LoadAssembly("ERP.Products.Domain");
-    private static readonly Assembly ProductsApplication = LoadAssembly("ERP.Products.Application");
-    private static readonly Assembly ProductsPersistence = LoadAssembly("ERP.Products.Persistance.MongoDb");
-    private static readonly Assembly ProductsMessaging = LoadAssembly("ERP.Products.Messaging.RabbitMQ");
-    private static readonly Assembly ProductsDispatcher = LoadAssembly("ERP.Products.Dispatcher.Hangfire");
-    private static readonly Assembly ProductsDispatcherBackgroundWorker = LoadAssembly("ERP.Products.Dispatcher.BackgroundWorker");
-    private static readonly Assembly ProductsPresentation = LoadAssembly("ERP.Products.Presentation");
-    private static readonly Assembly ProductsApi = LoadAssembly("ERP.Products.Api");
+    private static readonly Assembly SharedPresentation =
+        typeof(ERP.Shared.Presentation.Models.ApiResponse<>).Assembly;
 
-    // All Product Module Assemblies
-    private static readonly Assembly[] ProductModuleAssemblies =
-    [
-        ProductsDomain,
-        ProductsApplication,
-        ProductsPersistence,
-        ProductsMessaging,
-        ProductsDispatcher,
-        ProductsDispatcherBackgroundWorker,
-        ProductsPresentation,
-        ProductsApi
-    ];
+    private static readonly Assembly SharedAppAbstractions =
+        typeof(ERP.Shared.Application.Abstractions.Outbox.IOutboxStorage).Assembly;
 
-    private static readonly Assembly[] InfrastructureAssemblies =
-    [
-        ProductsPersistence,
-        ProductsMessaging,
-        ProductsDispatcher,
-        ProductsDispatcherBackgroundWorker
-    ];
+    private static readonly Assembly SharedInfrastructure =
+        typeof(ERP.Shared.Infrastructures.Outbox.OutboxMessage).Assembly;
 
-    #region Shared Kernel Rules
+    private static readonly Assembly ProductsDomain =
+        typeof(ERP.Products.Domain.Entities.Product).Assembly;
 
-    [Fact]
-    public void Shared_Domain_Should_Have_No_Dependencies()
-    {
-        AssertNoDependency(
-            SharedDomain,
-            "ERP.Shared.Application",
-            "ERP.Shared.Presentation",
-            "ERP.Products",
-            "ERP.MessageOrchestrator",
-            "ERP.Contracts.MessageOrchestrator");
-    }
+    private static readonly Assembly ProductsAppAbstractions =
+        typeof(ERP.Products.Application.Abstraction.Interfaces.IIntegrationEventMapper).Assembly;
 
-    [Fact]
-    public void Shared_Application_Should_Only_Depend_On_Shared_Domain()
-    {
-        AssertNoDependency(
-            SharedApplication,
-            "ERP.Shared.Presentation",
-            "ERP.Products",
-            "ERP.MessageOrchestrator",
-            "ERP.Contracts.MessageOrchestrator");
-    }
+    private static readonly Assembly ProductsApplication =
+        typeof(ERP.Products.Application.Integration.ProductIntegrationEventMapper).Assembly;
+
+    private static readonly Assembly ProductsCommandApi =
+        typeof(ERP.Products.CommandApi.EndPoints.CreateProductEndpoint).Assembly;
+
+    private static readonly Assembly ProductsQueryApi =
+        typeof(ERP.Products.QueryApi.EndPoints.GetProductsEndpoint).Assembly;
+
+    private static readonly Assembly ProductsCommandHandlers =
+        typeof(ERP.Products.CommandHandlers.CommandHandlers.CreateProductCommandHandler).Assembly;
+
+    private static readonly Assembly ProductsQueryHandlers =
+        typeof(ERP.Products.QueryHandler.QueryHandlers.GetProductQueryHandler).Assembly;
+
+    private static readonly Assembly ProductsEventHandlers =
+        typeof(ERP.Products.EventHandler.EventHandlers.CreateProductEventHandler).Assembly;
+
+    private static readonly Assembly ProductsPgSql =
+        typeof(ERP.Products.Persistance.PgSQL.Data.Write.ProductDbContext).Assembly;
+
+    private static readonly Assembly ProductsMessaging =
+        typeof(ERP.Products.Messaging.InMemory.Jobs.OutboxJob).Assembly;
+
+    private static readonly Assembly ProductsHangfire =
+        typeof(ERP.Products.JobSchedule.Hangfire.JobSchedulers.JobScheduler).Assembly;
+
+    // ======= Namespace constants (adjust if yours differ) =======
+    private const string ProductsNamespace = "ERP.Products";
+    private const string SharedNamespace = "ERP.Shared";
+
+    // ---------------------------
+    // SHARED RULES
+    // ---------------------------
 
     [Fact]
-    public void Shared_Presentation_Should_Only_Depend_On_Shared_Application_And_Domain()
+    public void Shared_projects_must_not_depend_on_any_bounded_context()
     {
-        AssertNoDependency(
-            SharedPresentation,
-            "ERP.Products",
-            "ERP.MessageOrchestrator",
-            "ERP.Contracts.MessageOrchestrator");
-    }
-
-    #endregion
-
-    #region Message Orchestrator Rules
-
-    [Fact]
-    public void Orchestrator_Contracts_Should_Have_No_Dependencies()
-    {
-        AssertNoDependency(
-            OrchestratorContracts,
-            "ERP.Shared",
-            "ERP.Products",
-            "ERP.MessageOrchestrator");
+        // Shared.* should not depend on ERP.Products.*
+        AssertNoDependencyOn(SharedDomain, ProductsNamespace);
+        AssertNoDependencyOn(SharedKernel, ProductsNamespace);
+        AssertNoDependencyOn(SharedPresentation, ProductsNamespace);
+        AssertNoDependencyOn(SharedAppAbstractions, ProductsNamespace);
+        AssertNoDependencyOn(SharedInfrastructure, ProductsNamespace);
     }
 
     [Fact]
-    public void Orchestrator_Implementation_Should_Only_Depend_On_Contracts_And_Shared()
+    public void SharedApplicationAbstractions_must_only_depend_on_SharedDomain_and_SharedKernel()
     {
-        AssertNoDependency(
-            OrchestratorImplementation,
-            "ERP.Products");
-    }
-
-    #endregion
-
-    #region Module Layer Rules (Products)
-
-    [Fact]
-    public void Products_Domain_Should_Only_Depend_On_Shared_Domain()
-    {
-        AssertNoDependency(
-            ProductsDomain,
-            "ERP.Products.Application",
-            "ERP.Products.Persistance",
-            "ERP.Products.Messaging",
-            "ERP.Products.Dispatcher",
-            "ERP.Products.Presentation",
-            "ERP.Products.Api",
-            "ERP.Shared.Application",
-            "ERP.Shared.Presentation");
-    }
-
-    [Fact]
-    public void Products_Application_Should_Only_Depend_On_Domain_And_Shared()
-    {
-        AssertNoDependency(
-            ProductsApplication,
-            "ERP.Products.Persistance",
-            "ERP.Products.Messaging",
-            "ERP.Products.Dispatcher",
-            "ERP.Products.Presentation",
-            "ERP.Products.Api",
-            "ERP.Shared.Presentation");
-    }
-
-    [Fact]
-    public void Products_Infrastructure_Should_Only_Depend_On_Application_And_Shared()
-    {
-        foreach (var assembly in InfrastructureAssemblies)
-        {
-            AssertNoDependency(
-                assembly,
-                "ERP.Products.Presentation",
-                "ERP.Products.Api",
-                "ERP.Shared.Presentation");
-        }
-    }
-
-    [Fact]
-    public void Products_Infrastructure_Projects_Should_Not_Depend_On_Each_Other()
-    {
-        AssertNoDependency(ProductsPersistence, "ERP.Products.Messaging", "ERP.Products.Dispatcher.Hangfire", "ERP.Products.Dispatcher.BackgroundWorker");
-        AssertNoDependency(ProductsMessaging, "ERP.Products.Persistance", "ERP.Products.Dispatcher.Hangfire", "ERP.Products.Dispatcher.BackgroundWorker");
-        AssertNoDependency(ProductsDispatcher, "ERP.Products.Persistance", "ERP.Products.Messaging", "ERP.Products.Dispatcher.BackgroundWorker");
-        AssertNoDependency(ProductsDispatcherBackgroundWorker, "ERP.Products.Persistance", "ERP.Products.Messaging", "ERP.Products.Dispatcher.Hangfire");
-    }
-
-    [Fact]
-    public void Products_Presentation_Should_Only_Depend_On_Application_And_Shared()
-    {
-        AssertNoDependency(
-            ProductsPresentation,
-            "ERP.Products.Persistance",
-            "ERP.Products.Messaging",
-            "ERP.Products.Dispatcher",
-            "ERP.Products.Api");
-    }
-
-    [Fact]
-    public void Products_Api_Should_Only_Depend_On_Allowed_Layers()
-    {
-        // Api -> Presentation, Infrastructure, Application
-        // Should NOT depend on Domain directly (as per previous rules, though often debated, the user said Api -> Presentation, Infrastructure, Application)
-        AssertNoDependency(
-            ProductsApi,
-            "ERP.Products.Domain");
-    }
-
-    #endregion
-
-    #region Cross-Module Isolation
-
-    [Fact]
-    public void Products_Module_Should_Not_Depend_On_Other_Modules_Implementation()
-    {
-        foreach (var assembly in ProductModuleAssemblies)
-        {
-            AssertNoDependency(
-                assembly,
-                "ERP.MessageOrchestrator", // Implementation
-                "ERP.AppHost");
-        }
-
-        // Only Messaging is allowed to depend on Orchestrator Contracts (specific rule from previous conversation)
-        foreach (var assembly in ProductModuleAssemblies)
-        {
-            if (assembly != ProductsMessaging)
-            {
-                AssertNoDependency(assembly, "ERP.Contracts.MessageOrchestrator");
-            }
-        }
-    }
-
-    #endregion
-
-    private static Assembly LoadAssembly(string assemblyName)
-    {
-        return Assembly.Load(assemblyName);
-    }
-
-    private static void AssertNoDependency(Assembly assembly, params string[] forbiddenDependencies)
-    {
-        var result = Types
-            .InAssembly(assembly)
+        var result = Types.InAssembly(SharedAppAbstractions)
             .ShouldNot()
-            .HaveDependencyOnAny(forbiddenDependencies)
+            .HaveDependencyOnAny(
+                $"{SharedNamespace}.Infrastructures",
+                $"{SharedNamespace}.Presentation",
+                $"{SharedNamespace}.Event.Contracts",
+                $"{SharedNamespace}.Command.Contracts",
+                $"{SharedNamespace}.Query.Contracts",
+                ProductsNamespace
+            )
             .GetResult();
 
-        if (result.IsSuccessful)
+        Assert.True(result.IsSuccessful, FormatFailure(result));
+    }
+
+    [Fact]
+    public void SharedPresentation_must_not_depend_on_application_abstractions_or_infrastructure()
+    {
+        var result = Types.InAssembly(SharedPresentation)
+            .ShouldNot()
+            .HaveDependencyOnAny(
+                $"{SharedNamespace}.Application.Abstractions",
+                $"{SharedNamespace}.Infrastructures",
+                ProductsNamespace
+            )
+            .GetResult();
+
+        Assert.True(result.IsSuccessful, FormatFailure(result));
+    }
+
+    // ---------------------------
+    // PRODUCTS BOUNDED CONTEXT RULES
+    // ---------------------------
+
+    [Fact]
+    public void ProductsDomain_must_not_depend_on_products_infrastructure_or_contracts_or_shared_infrastructure()
+    {
+        var result = Types.InAssembly(ProductsDomain)
+            .ShouldNot()
+            .HaveDependencyOnAny(
+                $"{SharedNamespace}.Infrastructures",
+                $"{SharedNamespace}.Presentation",
+                $"{SharedNamespace}.Event.Contracts",
+                $"{SharedNamespace}.Command.Contracts",
+                $"{SharedNamespace}.Query.Contracts",
+                $"{ProductsNamespace}.Persistance",
+                $"{ProductsNamespace}.Messaging",
+                $"{ProductsNamespace}.JobSchedule",
+                $"{ProductsNamespace}.CommandApi",
+                $"{ProductsNamespace}.QueryApi",
+                $"{ProductsNamespace}.CommandHandlers",
+                $"{ProductsNamespace}.QueryHandler",
+                $"{ProductsNamespace}.EventHandler"
+            )
+            .GetResult();
+
+        Assert.True(result.IsSuccessful, FormatFailure(result));
+    }
+
+    [Fact]
+    public void ProductsApis_must_not_depend_on_products_domain_or_products_infrastructure()
+    {
+        // CommandApi
+        AssertNoDependencyOn(ProductsCommandApi, $"{ProductsNamespace}.Domain");
+        AssertNoDependencyOn(ProductsCommandApi, $"{ProductsNamespace}.Persistance");
+        AssertNoDependencyOn(ProductsCommandApi, $"{ProductsNamespace}.Messaging");
+        AssertNoDependencyOn(ProductsCommandApi, $"{ProductsNamespace}.JobSchedule");
+
+        // QueryApi
+        AssertNoDependencyOn(ProductsQueryApi, $"{ProductsNamespace}.Domain");
+        AssertNoDependencyOn(ProductsQueryApi, $"{ProductsNamespace}.Persistance");
+        AssertNoDependencyOn(ProductsQueryApi, $"{ProductsNamespace}.Messaging");
+        AssertNoDependencyOn(ProductsQueryApi, $"{ProductsNamespace}.JobSchedule");
+    }
+
+    [Fact]
+    public void ProductsInfrastructure_projects_must_not_depend_on_other_bounded_contexts()
+    {
+        // In a multi-BC future, these infra assemblies should never depend on ERP.Orders.*, ERP.Payments.*, etc.
+        // For now, enforce "no dependency on ERP.<OtherBC>" by keeping a list.
+        // Example:
+        var otherBoundedContexts = new[]
         {
-            return;
+            "ERP.Orders",
+            "ERP.Payments",
+            "ERP.Shipments",
+            "ERP.Inventory"
+        };
+
+        foreach (var other in otherBoundedContexts)
+        {
+            AssertNoDependencyOn(ProductsPgSql, other);
+            AssertNoDependencyOn(ProductsMessaging, other);
+            AssertNoDependencyOn(ProductsHangfire, other);
         }
+    }
 
-        var failingTypes = result.FailingTypes != null
-            ? string.Join(", ", result.FailingTypes.Select(t => t.FullName))
-            : "None";
+    [Fact]
+    public void Messaging_layer_should_not_reference_products_domain_if_using_integration_events_in_outbox()
+    {
+        // You want domain->integration mapping to live in Products.Application, not in Messaging infra.
+        AssertNoDependencyOn(ProductsMessaging, $"{ProductsNamespace}.Domain");
+    }
 
-        Assert.True(
-            result.IsSuccessful,
-            $"{assembly.GetName().Name} has forbidden dependencies: {failingTypes}");
+    // ---------------------------
+    // HELPERS
+    // ---------------------------
+
+    private static void AssertNoDependencyOn(Assembly assembly, string forbiddenNamespace)
+    {
+        var result = Types.InAssembly(assembly)
+            .ShouldNot()
+            .HaveDependencyOn(forbiddenNamespace)
+            .GetResult();
+
+        Assert.True(result.IsSuccessful, FormatFailure(result));
+    }
+
+    private static string FormatFailure(TestResult result)
+    {
+        var failing = string.Join(Environment.NewLine, result.FailingTypeNames ?? Array.Empty<string>());
+        return $"Architecture rule failed. Failing types:{Environment.NewLine}{failing}";
     }
 }

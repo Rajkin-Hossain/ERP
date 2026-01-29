@@ -35,7 +35,7 @@ public static class ServiceCollectionExtensions
         services.AddDbContextPool<ProductReadDbContext>((serviceProvider, options) =>
         {
             var pgOptions = GetPgOptions(serviceProvider);
-            ConfigureDbContext(options, pgOptions.ReadConnectionString, nameof(PgOptions.ReadConnectionString));
+            ConfigureDbContext(options, pgOptions.WriteConnectionString, nameof(PgOptions.WriteConnectionString));
         });
 
         services.AddScoped(typeof(IReadRepository<,>), typeof(PgReadRepository<,>));

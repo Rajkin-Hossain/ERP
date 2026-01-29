@@ -1,4 +1,5 @@
-﻿using ERP.Shared.Application.Abstractions.Interfaces;
+﻿using ERP.Products.Persistance.PgSQL.Data.Write;
+using ERP.Shared.Application.Abstractions.Interfaces;
 using ERP.Shared.Domain.Entities;
 using ERP.Shared.Kernel.Paging;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace ERP.Products.Persistance.PgSQL.BaseRepository.Write;
 
-public abstract class PgRepository<T, TId>(DbContext dbContext) : IRepository<T, TId>
+public abstract class PgRepository<T, TId>(ProductDbContext dbContext) : IRepository<T, TId>
     where T : AggregateRoot<TId>
     where TId : notnull
 {

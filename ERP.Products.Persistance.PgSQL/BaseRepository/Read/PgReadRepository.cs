@@ -1,3 +1,4 @@
+using ERP.Products.Persistance.PgSQL.Data.Read;
 using ERP.Shared.Application.Abstractions.Interfaces;
 using ERP.Shared.Domain.Entities;
 using ERP.Shared.Kernel.Paging;
@@ -6,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace ERP.Products.Persistance.PgSQL.BaseRepository.Read;
 
-public abstract class PgReadRepository<T, TId>(DbContext dbContext) : IReadRepository<T, TId>
+public abstract class PgReadRepository<T, TId>(ProductReadDbContext dbContext) : IReadRepository<T, TId>
     where T : Entity<TId>
     where TId : notnull
 {
