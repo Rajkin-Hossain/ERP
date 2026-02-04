@@ -11,6 +11,6 @@ public sealed class ProductCreatedEventHandler(IReadRepository<Product, ProductI
 
     public async Task Handle(ProductCreatedEvent @event, CancellationToken ct)
     {
-        //TODO: Sync to Read Database
+        //TODO: Sync to Read Database from write database
     }
 }

@@ -26,7 +26,7 @@ public enum UnitOfWorkBehavior
     None = 0, //For Example: ExecuteUpdateAsync/ExecuteDeleteAsync operations
     ChangeTracker = 1, //In General purpose where we need save changes only
     ChangeTrackerWithOutbox = 2, //When we need to save changes along with outbox messages
-    Default = ChangeTracker
+    Default = ChangeTrackerWithOutbox
 }
 
 

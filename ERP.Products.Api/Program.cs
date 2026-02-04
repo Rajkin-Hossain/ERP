@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.AddHostServices();
 
 // Add Product Module application services
-builder.Services.AddProductApplicationServices(builder.Configuration);
+builder.Services.AddProductApplicationServices();
 
 // Add Product Module infrastructures
 builder.Services.AddHangfireInfrastructure();
