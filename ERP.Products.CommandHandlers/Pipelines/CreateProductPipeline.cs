@@ -1,4 +1,4 @@
-﻿using ERP.Shared.Application.Abstractions.Interfaces;
+﻿using ERP.Shared.Application.Interfaces;
 using ERP.Shared.Command.Contracts.Modules.Products;
 
 namespace ERP.Products.CommandHandlers.Pipelines;

@@ -1,5 +1,5 @@
+using ERP.Shared.Application.AppRecords;
 using ERP.Shared.Command.Contracts.Modules.Products;
-using ERP.Shared.Kernel.Result;
 using ERP.Shared.Presentation.Extensions;
 using FastEndpoints;
 using Microsoft.AspNetCore.Builder;

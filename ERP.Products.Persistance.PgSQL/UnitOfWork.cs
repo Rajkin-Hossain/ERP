@@ -1,20 +1,16 @@
-using ERP.Products.Application.Abstraction.Interfaces;
 using ERP.Products.Persistance.PgSQL.Data.Write;
-using ERP.Shared.Application.Abstractions.Interfaces;
+using ERP.Products.Persistance.PgSQL.Mappers;
+using ERP.Products.Persistance.PgSQL.Outbox.Models;
+using ERP.Shared.Application.Interfaces;
 using ERP.Shared.Domain.Entities;
 using ERP.Shared.Domain.Interfaces;
-using ERP.Shared.Infrastructures.Outbox;
 using System.Text.Json;
 
 namespace ERP.Products.Persistance.PgSQL;
 
 public sealed class UnitOfWork(
-    ProductDbContext dbContext,
-    IIntegrationEventMapper eventMapper) : IUnitOfWork
+    ProductDbContext dbContext) : IUnitOfWork
 {
-    private readonly IIntegrationEventMapper _eventMapper =
-        eventMapper ?? throw new ArgumentNullException(nameof(eventMapper));
-
     public async Task<TResult> ExecuteForAggregateAsync<AggRootId, TResult>(
         Func<CancellationToken, Task<TResult>> operation,
         CancellationToken ct = default) where AggRootId : notnull
@@ -76,8 +72,13 @@ public sealed class UnitOfWork(
         ArgumentNullException.ThrowIfNull(addOutbox);
         ArgumentNullException.ThrowIfNull(clearOutbox);
 
-        var useChangeTracker = behavior.HasFlag(UnitOfWorkBehavior.ChangeTracker);
-        var useOutbox = useChangeTracker && behavior.HasFlag(UnitOfWorkBehavior.Outbox);
+        var (useChangeTracker, useOutbox) = behavior switch
+        {
+            UnitOfWorkBehavior.None => (false, false),
+            UnitOfWorkBehavior.ChangeTracker => (true, false),
+            UnitOfWorkBehavior.ChangeTrackerWithOutbox => (true, true),
+            _ => throw new ArgumentOutOfRangeException(nameof(behavior), behavior, "Unsupported unit of work behavior.")
+        };
 
         var result = await operation(ct);
 
@@ -90,10 +91,6 @@ public sealed class UnitOfWork(
 
             if (useOutbox)
                 clearOutbox();
-        }
-        else
-        {
-            await SaveChangesAsync(ct);
         }
 
         return result;
@@ -173,7 +170,7 @@ public sealed class UnitOfWork(
         ArgumentException.ThrowIfNullOrWhiteSpace(aggregateId);
         ArgumentNullException.ThrowIfNull(domainEvents);
 
-        var integrationEvents = _eventMapper.Map(domainEvents);
+        var integrationEvents = IntegrationEventMapper.Map(domainEvents);
         if (integrationEvents.Count == 0) return;
 
         foreach (var integrationEvent in integrationEvents)

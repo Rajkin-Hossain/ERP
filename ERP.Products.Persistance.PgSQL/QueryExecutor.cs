@@ -1,4 +1,4 @@
-using ERP.Shared.Application.Abstractions.Interfaces;
+using ERP.Shared.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace ERP.Products.Persistance.PgSQL;

@@ -1,8 +1,8 @@
 ﻿using ERP.Products.Domain.Entities;
 using ERP.Products.Domain.ValueObjects;
-using ERP.Shared.Application.Abstractions.Interfaces;
+using ERP.Shared.Application.AppRecords;
+using ERP.Shared.Application.Interfaces;
 using ERP.Shared.Command.Contracts.Modules.Products;
-using ERP.Shared.Kernel.Result;
 
 namespace ERP.Products.CommandHandlers.CommandHandlers;
 

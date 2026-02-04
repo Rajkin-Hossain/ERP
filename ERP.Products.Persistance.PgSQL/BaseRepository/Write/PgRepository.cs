@@ -1,7 +1,7 @@
 ﻿using ERP.Products.Persistance.PgSQL.Data.Write;
-using ERP.Shared.Application.Abstractions.Interfaces;
+using ERP.Shared.Application.AppRecords;
+using ERP.Shared.Application.Interfaces;
 using ERP.Shared.Domain.Entities;
-using ERP.Shared.Kernel.Paging;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 

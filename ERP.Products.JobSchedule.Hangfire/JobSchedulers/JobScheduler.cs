@@ -1,4 +1,4 @@
-using ERP.Shared.Application.Abstractions.Interfaces;
+using ERP.Shared.Application.Interfaces;
 using Hangfire;
 
 namespace ERP.Products.JobSchedule.Hangfire.JobSchedulers;

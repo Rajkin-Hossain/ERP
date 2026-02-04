@@ -1,5 +1,5 @@
 using ERP.Products.JobSchedule.Hangfire.JobSchedulers;
-using ERP.Shared.Application.Abstractions.Interfaces;
+using ERP.Shared.Application.Interfaces;
 using Hangfire;
 using Hangfire.InMemory;
 using Microsoft.Extensions.DependencyInjection;

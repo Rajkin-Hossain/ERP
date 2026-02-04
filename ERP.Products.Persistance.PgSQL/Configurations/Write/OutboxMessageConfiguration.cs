@@ -1,4 +1,4 @@
-using ERP.Shared.Infrastructures.Outbox;
+using ERP.Products.Persistance.PgSQL.Outbox.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

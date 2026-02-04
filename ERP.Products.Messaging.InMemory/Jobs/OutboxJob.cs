@@ -1,6 +1,6 @@
 using ERP.Products.Messaging.InMemory.Mappers;
-using ERP.Shared.Application.Abstractions.Interfaces;
-using ERP.Shared.Application.Abstractions.Outbox;
+using ERP.Shared.Application.Interfaces;
+using ERP.Shared.Application.Outbox.Interfaces;
 using Wolverine;
 
 namespace ERP.Products.Messaging.InMemory.Jobs;

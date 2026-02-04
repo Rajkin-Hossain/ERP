@@ -11,8 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 //Common for all modules/bounded contexts
 builder.Host.AddHostServices();
 
-// Add Product Module services
-builder.Services.AddProductServices(builder.Configuration);
+// Add Product Module application services
+builder.Services.AddProductApplicationServices(builder.Configuration);
 
 // Add Product Module infrastructures
 builder.Services.AddHangfireInfrastructure();

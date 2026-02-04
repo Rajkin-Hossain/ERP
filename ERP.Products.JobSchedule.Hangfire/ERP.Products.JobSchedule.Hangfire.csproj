@@ -13,8 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ERP.Products.Application.Abstraction\ERP.Products.Application.Abstraction.csproj" />
-      <ProjectReference Include="..\ERP.Shared.Infrastructures\ERP.Shared.Infrastructures.csproj" />
+      <ProjectReference Include="..\ERP.Shared.Application\ERP.Shared.Application.csproj" />
     </ItemGroup>
 
 </Project>

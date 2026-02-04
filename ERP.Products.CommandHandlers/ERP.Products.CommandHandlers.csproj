@@ -16,9 +16,8 @@
     <PackageReference Include="WolverineFx" Version="5.12.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ERP.Products.Application.Abstraction\ERP.Products.Application.Abstraction.csproj" />
-    <ProjectReference Include="..\ERP.Products.Domain\ERP.Products.Domain.csproj" />  
+  <ItemGroup>  
+    <ProjectReference Include="..\ERP.Products.CommandApplication\ERP.Products.CommandApplication.csproj" />  
     <ProjectReference Include="..\ERP.Shared.Command.Contracts\ERP.Shared.Command.Contracts.csproj" />
   </ItemGroup>
 </Project>
