@@ -14,7 +14,7 @@ public sealed record ProductId
         Value = value;
     }
 
-    public ProductId(string value)
+    private ProductId(string value)
     {
         if (!Guid.TryParse(value, out var guid))
             throw new DomainException("Invalid Product Id format.");
